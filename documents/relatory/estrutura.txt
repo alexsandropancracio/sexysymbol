@@ -1,0 +1,64 @@
+FRONTEND
+
+Header:
+
+-nav
+Barra de Menu (Lado Direito)
+Painel
+Perfil
+Acompanhantes
+Central de Atendimento
+Sair
+
+Barra de Pesquisa (Centro)
+
+logo da empresa (Lado Esquerdo)
+
+Main:
+
+-Destaques
+Carrossel de Imagens
+
+-Novidades
+Carrossel de Imagens
+
+-Shorts
+
+-Anúncios
+Filtro de Botões
+Grade de Anúncios
+Informativo da Grade:
+Nome Completo
+Valor com Filtro de Preços
+Avaliações
+Idade
+Vídeos
+Com Local/Sem Local
+Localização
+Biografia
+Contato
+
+Footer:
+Informativos
+Redes Sociais
+Copyright
+
+
+Dentro de src/:
+
+src/
+├── styles/
+│   ├── GlobalStyle.ts
+│   └── theme.ts
+
+
+Esses dois arquivos vão:
+
+definir cores
+
+tipografia
+
+reset global
+
+clima do site
+
