@@ -4,21 +4,33 @@ import styled from "styled-components";
 
 export const Section = styled.section`
   padding: 20px;
+
+  @media (max-width: 426px) {
+    padding: 12px;
+  }
 `;
 
 export const Title = styled.h2`
   font-family: "Avelire", serif;
-  font-size: 30px;
+  font-size: 35px;
   margin-bottom: 20px;
   text-align: center;
-`;
 
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+
+  @media (max-width: 426px) {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+`;
 
 /* ===== CARD / CARROSSEL ===== */
 
 export const Card = styled.div`
   position: relative;
-  width: 97vw;
+  width: 96vw;
   height: 99vh;
   min-height: 520px;
   max-height: 820px;
@@ -33,19 +45,19 @@ export const Card = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 94vw;
+    width: 89vw;
     height: 40vh;
     min-height: 320px;
   }
 
-  @media (max-width: 480px) {
-    width: 50%;
-    height: 50vh;
-    min-height: 360px;
+  /* 🔥 MOBILE REAL */
+  @media (max-width: 426px) {
+    width: 100%;
+    height: 60vh;
+    min-height: 300px;
+    max-height: none;
   }
 `;
-
-
 
 /* ===== IMAGE ===== */
 
@@ -65,12 +77,10 @@ export const Image = styled.img<{ $active: boolean }>`
     object-position: center 15%;
   }
 
-  @media (max-width: 480px) {
-    object-position: center 20%;
+  @media (max-width: 426px) {
+    object-position: center;
   }
 `;
-
-
 
 /* ===== INFO OVERLAY ===== */
 
@@ -102,23 +112,31 @@ export const Info = styled.div<{ $active: boolean }>`
     padding: 28px;
   }
 
-  @media (max-width: 480px) {
-    padding: 20px;
+  @media (max-width: 426px) {
+    padding: 16px;
   }
 `;
-
-
-
 
 export const Name = styled.h3`
   font-family: "Arial";
   font-size: 40px;
-`;
 
+  @media (max-width: 980px) {
+    font-size: 30px;
+  }
+
+  @media (max-width: 426px) {
+    font-size: 22px;
+  }
+`;
 
 export const Meta = styled.p`
   font-size: 16px;
   opacity: 0.9;
+
+  @media (max-width: 426px) {
+    font-size: 13px;
+  }
 `;
 
 export const Price = styled.p`
@@ -127,6 +145,11 @@ export const Price = styled.p`
   font-weight: bold;
   width: 100%;
   color: ${({ theme }) => theme.colors.primary};
+
+  @media (max-width: 426px) {
+    font-size: 16px;
+    margin-top: 10px;
+  }
 `;
 
 export const Button = styled.button`
@@ -147,6 +170,12 @@ export const Button = styled.button`
   &:hover {
     transform: translateY(-2px);
     opacity: 0.9;
+  }
+
+  @media (max-width: 426px) {
+    margin-top: 14px;
+    padding: 10px 18px;
+    font-size: 13px;
   }
 `;
 
@@ -180,12 +209,26 @@ const ArrowBase = styled.button`
     background: rgba(0, 0, 0, 0.8);
     transform: translateY(-50%) scale(1.05);
   }
+
+  @media (max-width: 426px) {
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+  }
 `;
 
 export const ArrowLeft = styled(ArrowBase)`
   left: 24px;
+
+  @media (max-width: 426px) {
+    left: 10px;
+  }
 `;
 
 export const ArrowRight = styled(ArrowBase)`
   right: 24px;
+
+  @media (max-width: 426px) {
+    right: 10px;
+  }
 `;

@@ -1,14 +1,178 @@
 import styled from "styled-components";
 
 /* ===== SECTION ===== */
-
 export const Section = styled.section`
   width: 100%;
-  padding: 80px 5vw;
+  padding: 20px 5vw;
+`;
+
+/* ===== TITLE ===== */
+export const Title = styled.h2`
+  font-size: 1.7rem; /* maior */
+  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: #C9A24D;
+  text-align: center;
+`;
+
+/* ===== HEADER DA SEÇÃO ===== */
+export const SectionHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* título à esquerda, filtros à direita */
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+`;
+
+/* ===== FILTRO BOTÃO ===== */
+export const FilterToggle = styled.div`
+  color: #C9A24D;
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.25rem;
+  margin-left: auto; /* fica ao lado do título */
+  user-select: none;
+`;
+
+/* ===== CONTAINER DO DROPDOWN ===== */
+export const FilterDropdown = styled.div<{ open: boolean }>`
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #111;
+  border: 1px solid #C9A24D;
+  border-radius: 8px;
+  padding: 20px;
+  width: 390px;
+  max-height: ${({ open }) => (open ? "600px" : "0")};
+  overflow-y: auto;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: ${({ open }) => (open ? 1 : 0)};
+  z-index: 10;
+
+  
+  @media (max-width: 426px) {
+    width: 30px;
+  }
+
+    @media (max-width: 375px) {
+    width: 340px;
+  }
+`;
+
+/* ===== CATEGORIAS ===== */
+export const FilterCategory = styled.div`
+  margin-bottom: 20px;
+
+  & > h4 {
+    font-size: 0.95rem;
+    color: #C9A24D;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+`;
+
+/* ===== INPUTS ===== */
+export const FilterInput = styled.input`
+  padding: 6px 8px;
+  border: 1px solid #C9A24D;
+  border-radius: 4px;
+  background: #111;
+  color: #fff;
+  outline: none;
+  font-size: 0.85rem;
+
+  &:focus {
+    border-color: #fff;
+  }
+`;
+
+/* ===== SELECT ===== */
+export const FilterSelect = styled.select`
+  padding: 6px 8px;
+  border: 1px solid #C9A24D;
+  border-radius: 4px;
+  background: #111;
+  color: #fff;
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+
+  &:focus {
+    border-color: #fff;
+  }
+`;
+
+/* ===== CHECKBOX GRID ===== */
+export const CheckboxGroup = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const CheckboxLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.85rem;
+  color: #fff;
+  cursor: pointer;
+
+  input {
+    accent-color: #C9A24D; /* checkbox dourado */
+    cursor: pointer;
+  }
+`;
+
+/* ===== RANGE SLIDER ===== */
+export const RangeContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #333;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: #C9A24D;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: #C9A24D;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+
+  span {
+    font-size: 0.8rem;
+    color: #fff;
+    min-width: 35px;
+    text-align: center;
+  }
 `;
 
 /* ===== GRID ===== */
-
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -24,31 +188,37 @@ export const Grid = styled.div`
 `;
 
 /* ===== CARD ===== */
-
 export const Card = styled.div`
   background: #111;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+`;
+
+/* ===== IMAGE WRAPPER ===== */
+export const ImageWrapper = styled.div`
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  position: relative;
 `;
 
 /* ===== IMAGE ===== */
-
-export const ImageWrapper = styled.div`
-  width: 100%;
-  height: 420px;
-  overflow: hidden;
-`;
-
 export const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+
+
 `;
 
 /* ===== CONTENT ===== */
-
 export const Content = styled.div`
   padding: 16px;
   display: flex;
@@ -56,9 +226,49 @@ export const Content = styled.div`
   gap: 8px;
 `;
 
+/* ===== NAME, INFO, LOCATION ===== */
 export const Name = styled.h3`
-  font-size: 1.1rem;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 1.6rem;
+  color: #e6e6e6;
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+  position: relative;
+  width: fit-content;
+
+  img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.9;
+
+  filter: invert(63%) sepia(23%) saturate(567%) hue-rotate(7deg)
+    brightness(95%) contrast(90%);
+
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+  &:hover {
+    color: #fff;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    width: 0;
+    height: 1px;
+    background: #c9a24d;
+    transition: width 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
 `;
 
 export const Info = styled.span`
@@ -66,24 +276,114 @@ export const Info = styled.span`
   color: #aaa;
 `;
 
-export const Price = styled.span`
+export const Location = styled.span`
+  font-size: 0.9rem;
+  color: #C9A24D;
   font-weight: 600;
-  margin-top: 4px;
+`;
+
+/* ===== PRICE SELECT ===== */
+export const PriceSelect = styled.select`
+  width: 50%;
+  padding: 10px 12px;
+  border: none; /* remove todas as bordas */
+  border-bottom: 1px solid #C9A24D; /* apenas a linha inferior */
+  background: #111 url("data:image/svg+xml,%3Csvg viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6H0z' fill='%23C9A24D'/%3E%3C/svg%3E") no-repeat right 12px center;
+  background-size: 10px 6px;
+  color: #C9A24D;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  appearance: none; /* remove o estilo nativo */
+  outline: none;
+  transition: all 0.2s ease;
+
+  &:hover,
+  &:focus {
+    background-color: #000000; /* mantém o hover/focus */
+    border-bottom-color: #fff; /* opcional: destaca a linha em hover/focus */
+  }
+`;
+
+
+/* ===== RATING ===== */
+export const Rating = styled.div`
+  font-size: 0.9rem;
+  color: #C9A24D;
+  font-weight: 600;
+`;
+
+/* ===== BIO ===== */
+export const Bio = styled.p`
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-top: 6px;
+  line-height: 1.4;
 `;
 
 /* ===== BUTTON ===== */
-
 export const Button = styled.button`
   margin-top: 12px;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  justify-content: center;
   border: none;
-  background: ${({ theme }) => theme.colors.primary};
+  background: #C9A24D;
   color: #000;
   font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  transition: all 0.3s ease;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.5);
+
+  img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+
   &:hover {
-    opacity: 0.9;
+    box-shadow: 0 6px 12px rgba(201,162,77,0.5);
+    transform: translateY(-3px);
+  }
+`;
+
+/* ===== PAGINATION ===== */
+export const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #C9A24D;
+    background: transparent;
+    color: #C9A24D;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background: #C9A24D;
+      color: #000;
+      transform: translateY(-2px);
+    }
+
+    &.active {
+      background: #C9A24D;
+      color: #000;
+      box-shadow: 0 0px 15px rgba(201, 162, 77, 0.6);
+      transform: translateY(-2px);
+    }
   }
 `;

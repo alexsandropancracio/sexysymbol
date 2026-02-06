@@ -4,22 +4,38 @@ import { Link } from "react-router-dom";
 /* ===== HEADER ===== */
 
 export const HeaderContainer = styled.header`
-  height: 80px;
+  position: sticky;        /* 🔥 acompanha o scroll */
+  top: 0;                  /* 🔥 fixa no topo */
+  z-index: 1000;           /* 🔥 fica acima do conteúdo */
+
+  min-height: 80px;
   padding: 0 64px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
 
   background-color: ${({ theme }) => theme.colors.surface};
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
+  @media (max-width: 1024px) {
+    padding: 0 32px;
+    gap: 16px;
+  }
+
   @media (max-width: 768px) {
-    padding: 0 20px;
-    gap: 16px; /* espaço entre logo, input e menu */
+    padding: 10px 16px;
+    gap: 12px;
+  }
+
+  /* 🔥 MOBILE REAL */
+  @media (max-width: 426px) {
+    padding: 8px 12px;
+    gap: 10px;
+    flex-wrap: nowrap;
   }
 `;
-
 
 /* ===== LOGO ===== */
 
@@ -32,9 +48,10 @@ export const Logo = styled(Link)`
   cursor: pointer;
   display: inline-block;
   overflow: hidden;
+  white-space: nowrap;
 
   .base {
-    color: #c9a24d; /* dourado sólido */
+    color: #c9a24d;
     position: relative;
     z-index: 1;
   }
@@ -44,7 +61,6 @@ export const Logo = styled(Link)`
     inset: 0;
     z-index: 2;
 
-    /* fio de luz fino */
     background: linear-gradient(
       110deg,
       transparent 0%,
@@ -66,7 +82,6 @@ export const Logo = styled(Link)`
     opacity: 0;
   }
 
-  /* 🔹 Hover no pai, dispara animação uma vez */
   &:hover .shine {
     opacity: 1;
     animation: shine-pass 1s ease-out forwards;
@@ -82,15 +97,22 @@ export const Logo = styled(Link)`
       opacity: 0;
     }
   }
-`;
 
+  @media (max-width: 1024px) {
+    font-size: 22px;
+  }
+
+  @media (max-width: 426px) {
+    font-size: 16px;
+  }
+`;
 
 /* ===== SEARCH ===== */
 
 export const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 
   width: 650px;
   padding: 10px 16px;
@@ -106,40 +128,48 @@ export const SearchWrapper = styled.div`
     box-shadow: 0 0 0 1px rgba(201, 189, 77, 0.35);
   }
 
-  /* 🔽 abaixo de 972px */
-  @media (max-width: 1002px) {
+  @media (max-width: 1200px) {
     width: 520px;
   }
 
-    @media (max-width: 872px) {
-        width: 420px;
-    }
+  @media (max-width: 1024px) {
+    width: 420px;
+  }
 
-  /* 🔽 mobile */
   @media (max-width: 768px) {
-    width: 320px;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  @media (max-width: 426px) {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 10px;
+    height: 36px;
   }
 `;
-
-
 
 export const SearchIcon = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
 
   img {
     width: 18px;
     height: 18px;
-
     filter: brightness(0) saturate(100%)
       invert(67%) sepia(36%) saturate(489%)
       hue-rotate(6deg) brightness(95%) contrast(92%);
   }
-`;
 
+  @media (max-width: 426px) {
+    img {
+      width: 14px;
+      height: 14px;
+    }
+  }
+`;
 
 export const SearchInput = styled.input`
   flex: 1;
@@ -148,6 +178,7 @@ export const SearchInput = styled.input`
 
   font-size: 14px;
   color: ${({ theme }) => theme.colors.text};
+  min-width: 0;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.muted};
@@ -156,91 +187,44 @@ export const SearchInput = styled.input`
   &:focus {
     outline: none;
   }
-`;
 
+  @media (max-width: 426px) {
+    font-size: 12px;
+  }
+`;
 
 /* ===== MENU ===== */
 
-export const MenuButton = styled.button`
-  font-size: 28px;
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  color: ${({ theme }) => theme.colors.text};
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-`;
-
-/* ===== DRAWER ===== */
-
-export const Overlay = styled.div`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 10;
-`;
-
-export const Drawer = styled.aside`
-  position: fixed;
-  top: 0;
-  right: 0;
-
-  width: 300px;
-  height: 100vh;
-
-  padding: 32px;
-  background-color: ${({ theme }) => theme.colors.surface};
-
+export const MenuLinks = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
 `;
 
-export const CloseButton = styled.button`
-  align-self: flex-end;
-  font-size: 28px;
+/* ===== BOTÃO ANUNCIE ===== */
 
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  color: ${({ theme }) => theme.colors.muted};
+export const AnuncieButton = styled(Link)`
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: #000;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.primary};
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.5rem 0.9rem;
+    font-size: 13px;
+  }
+
+  @media (max-width: 426px) {
+    padding: 0.45rem 0.7rem;
+    font-size: 11px;
   }
 `;
-
-export const DrawerItem = styled.a`
-  font-size: 16px;
-  cursor: pointer;
-  color: ${({ theme }) => theme.colors.text};
-  position: relative;  /* necessário para o pseudo-elemento */
-  padding: 4px 0;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-
-  /* linha dourada animada por baixo do texto */
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 2px;
-    width: 0%;
-    background: ${({ theme }) => theme.colors.primary}; /* dourado */
-    transition: width 0.4s ease;
-  }
-
-  &:hover::after {
-    width: 100%;
-  }
-`;
-

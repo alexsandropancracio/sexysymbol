@@ -62,3 +62,93 @@ reset global
 
 clima do site
 
+
+Conteúdo somente para adultos
+Para continuar navegando, você deve ter mais de 18 anos.
+Se você é menor de idade, deve sair do site.
+
+Uso de cookies
+Utilizamos cookies próprios e de terceiros para realizar estatísticas de uso com a finalidade de identificar falhas, melhorar os conteúdos e a configuração da web, assim como para recordar algumas opções que você escolheu para facilitar a sua navegação. Você pode aceitar esta configuração ou alterá-la se preferir.
+
+
+Termos e Condições Política de privacidade Política de cookies
+
+
+Filtros:
+
+PRINCIPAIS
+
+-Preço R$
+[ input pra escrever o valor ] Min [ Filtro de linha com uma bolinha no começo e outra no final, que ao correr essas bolinhas, muda o valor do min ou do max ] Max
+ [ input pra escrever o valor ]
+
+-Formas de Pagamento
+Cartão de Crédito, Cartão de Débito, Pix, Dinheiro
+
+Idade
+Min [ Filtro Select ]  Max [ Filtro Select ]
+
+Atendimento:
+
+Homens, Mulheres, Casais, PCD
+
+LUGAR
+
+Com local
+Sem local
+Festas
+Jantar Romântico
+Viagens
+
+APARÊNCIA
+
+-Etnia
+Brancas, Latinas, Mulatas, Negras, Orientais
+
+-Cabelos
+Morenas, Loiras, Ruivas, Curto, Longo
+
+-Estaturas
+Altas, Mignon
+
+-Corpo
+Gordinhas, Magras, Atléticas
+
+-Seios
+Peitos Grandes, Peitos Pequenos, Peitos Normais
+
+SERVIÇOS GERAIS
+
+Beijos na Boca, Ejaculação no Corpo, Ejaculação Facial, Fantasias, Massoterapia, Oral com Camisinha, Oral sem Camisinha, Sexo Anal, DP
+
+✅ 2️⃣ Ideia de site/página
+
+Layout visual e funcionalidade sugeridos para Sexysymbol:
+
+Header: Logo + Menu (Início | Como Anunciar | Contato)
+
+Hero Section: Fundo elegante, frase principal: “Anuncie com Seriedade e Alcance no Sexysymbol” + CTA “Anunciar Agora”
+
+Seção 1 – Para quem é: Cards ou ícones resumindo os diferenciais (Seriedade, Alcance, Imagem, Crescimento, Segurança)
+
+Seção 2 – O que você recebe: Destaques em caixas ou lista com ícones
+
+Seção 3 – Diretrizes & Regras: Colapsáveis ou toggle para facilitar leitura
+
+Seção 4 – Verificação: Ícones explicando o selo de verificação
+
+Seção 5 – Como anunciar: CTA com WhatsApp, destaque visual
+
+Footer: Contatos, avisos legais, política de privacidade
+
+src/components/Clients/
+├─ Anuncie.tsx          # Página principal de anúncio (parallax + seções)
+├─ Hero.tsx             # Componente do hero com título "Anuncie" e parallax
+├─ Sections/
+│   ├─ WhoIsItFor.tsx   # Seção "Para quem é o Sexysymbol"
+│   ├─ Benefits.tsx     # Seção "O que você recebe ao anunciar"
+│   ├─ Rules.tsx        # Seção "Diretrizes e Regras"
+│   ├─ Verification.tsx # Seção "Verificação"
+│   └─ Contact.tsx      # Seção "Como anunciar"
+├─ styles.ts            # Styled-components ou classes Tailwind customizadas
+└─ index.ts             # Para exportar tudo de Clients mais facilmente
