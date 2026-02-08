@@ -1,11 +1,16 @@
 import { Highlights } from "@/components/Highlights";
 import { Ads } from "@/components/Ads/Ads";
 
-export function Home() {
+interface HomeProps {
+  nameFilter?: string;
+  adsRef: React.RefObject<HTMLElement | null>;
+}
+
+export function Home({ nameFilter, adsRef }: HomeProps) {
   return (
     <>
       <Highlights />
-      <Ads />
+      <Ads nameFilter={nameFilter} adsRef={adsRef} />
     </>
   );
 }

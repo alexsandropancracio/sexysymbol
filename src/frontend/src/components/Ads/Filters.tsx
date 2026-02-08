@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react"; // adicionei useRef e useEffect
 import type { Dispatch, SetStateAction } from "react";
 
 import {
@@ -38,32 +38,24 @@ interface FiltersProps {
 export function Filters({ filters, setFilters }: FiltersProps) {
   const [open, setOpen] = useState(false);
   const [locationQuery, setLocationQuery] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false); // controle de autocomplete
 
-  /* =======================
-     FUNÇÕES
-  ======================= */
-  const toggleOption = (
-    category: keyof FiltersState,
-    option: string
-  ) => {
+  const wrapperRef = useRef<HTMLDivElement>(null); // referência para fechar ao clicar fora
+
+  /* ======================= FUNÇÕES ======================= */
+  const toggleOption = (category: keyof FiltersState, option: string) => {
     setFilters((prev) => {
       const current = prev[category] as string[];
-
       const updated = current.includes(option)
         ? current.filter((v) => v !== option)
         : [...current, option];
-
-      return {
-        ...prev,
-        [category]: updated,
-      };
+      return { ...prev, [category]: updated };
     });
   };
 
   const toggleLocation = (city: string) => {
     setFilters((prev) => {
       const exists = prev.locations.includes(city);
-
       return {
         ...prev,
         locations: exists
@@ -71,6 +63,34 @@ export function Filters({ filters, setFilters }: FiltersProps) {
           : [...prev.locations, city],
       };
     });
+  };
+
+  // Fechar autocomplete ao clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const filteredLocations = locationsList.filter(
+    (loc) =>
+      loc.toLowerCase().includes(locationQuery.toLowerCase()) &&
+      !filters.locations.includes(loc)
+  );
+
+  const handleSelect = (city: string) => {
+    toggleLocation(city);
+    setLocationQuery(""); // limpa input
+    setShowSuggestions(false); // fecha autocomplete
+  };
+
+  const handleClear = () => {
+    setLocationQuery("");
+    setShowSuggestions(false);
   };
 
   /* =======================
@@ -93,101 +113,114 @@ export function Filters({ filters, setFilters }: FiltersProps) {
       <FilterDropdown open={open}>
 
       {/* ===== LOCALIZAÇÃO ===== */}
-      <FilterCategory>
-        <h4>Localização:</h4>
+              <FilterCategory ref={wrapperRef}>
+          <h4>Localização:</h4>
 
-        {/* INPUT */}
-        <input
-          type="text"
-          placeholder="Digite a cidade..."
-          value={locationQuery}
-          onChange={(e) => setLocationQuery(e.target.value)}
-          style={{
-            marginTop: "8px",
-            width: "100%",
-            padding: "10px 12px",
-            borderRadius: "8px",
-            border: "1px solid rgba(255,255,255,0.2)",
-            background: "rgba(0,0,0,0.4)",
-            color: "#fff",
-            outline: "none",
-            fontWeight: 500,
-          }}
-        />
-
-        {/* AUTOCOMPLETE (SÓ QUANDO DIGITA) */}
-        {locationQuery.trim() !== "" && (
-          <div
-            style={{
-              marginTop: "4px",
-              borderRadius: "8px",
-              background: "rgba(0,0,0,0.85)",
-              border: "1px solid rgba(255,255,255,0.15)",
-              overflow: "hidden",
+          {/* INPUT */}
+          <input
+            type="text"
+            placeholder="Digite a cidade..."
+            value={locationQuery}
+            onChange={(e) => {
+              setLocationQuery(e.target.value);
+              setShowSuggestions(true); // mostra autocomplete ao digitar
             }}
-          >
-            {locationsList
-              .filter(
-                (loc) =>
-                  loc.toLowerCase().includes(locationQuery.toLowerCase()) &&
-                  !filters.locations.includes(loc)
-              )
-              .map((loc) => (
+            style={{
+              marginTop: "8px",
+              width: "100%",
+              padding: "10px 12px",
+              borderRadius: "8px",
+              border: "1px solid rgba(255,255,255,0.2)",
+              background: "rgba(0,0,0,0.4)",
+              color: "#fff",
+              outline: "none",
+              fontWeight: 500,
+            }}
+          />
+
+          {/* BOTÃO X PARA LIMPAR */}
+          {locationQuery && (
+            <span
+              onClick={handleClear}
+              style={{
+                position: "absolute",
+                right: "12px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                color: "#fff",
+                fontWeight: "bold",
+                fontSize: "16px",
+              }}
+            >
+              ×
+            </span>
+          )}
+
+          {/* AUTOCOMPLETE */}
+          {showSuggestions && filteredLocations.length > 0 && (
+            <div
+              style={{
+                marginTop: "4px",
+                borderRadius: "8px",
+                background: "rgba(0,0,0,0.85)",
+                border: "1px solid rgba(255,255,255,0.15)",
+                overflow: "hidden",
+                position: "absolute",
+                width: "100%",
+                zIndex: 1000,
+                maxHeight: "200px",
+                overflowY: "auto",
+              }}
+            >
+              {filteredLocations.map((loc) => (
                 <div
                   key={loc}
-                  onClick={() => {
-                    toggleLocation(loc);
-                    setLocationQuery(""); // 🔥 fecha autocomplete
-                  }}
+                  onClick={() => handleSelect(loc)}
                   style={{
                     padding: "10px 12px",
                     cursor: "pointer",
                     color: "#fff",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.background =
-                      "rgba(201,162,77,0.25)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.background = "transparent")
-                  }
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(201,162,77,0.25)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                 >
                   {loc}
                 </div>
               ))}
-          </div>
-        )}
+            </div>
+          )}
 
-        {/* CIDADES SELECIONADAS (SEMPRE VISÍVEIS) */}
-        {filters.locations.length > 0 && (
-          <div
-            style={{
-              marginTop: "10px",
-              display: "flex",
-              gap: "8px",
-              flexWrap: "wrap",
-            }}
-          >
-            {filters.locations.map((loc) => (
-              <button
-                key={loc}
-                onClick={() => toggleLocation(loc)}
-                style={{
-                  padding: "8px 12px",
-                  borderRadius: "8px",
-                  border: "1px solid #C9A24D",
-                  background: "rgba(201,162,77,0.4)",
-                  color: "#000",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                }}
-              >
-                {loc}
-              </button>
-            ))}
-          </div>
-        )}
-      </FilterCategory>
+          {/* CIDADES SELECIONADAS */}
+          {filters.locations.length > 0 && (
+            <div
+              style={{
+                marginTop: "10px",
+                display: "flex",
+                gap: "8px",
+                flexWrap: "wrap",
+              }}
+            >
+              {filters.locations.map((loc) => (
+                <button
+                  key={loc}
+                  onClick={() => toggleLocation(loc)}
+                  style={{
+                    padding: "8px 12px",
+                    borderRadius: "8px",
+                    border: "1px solid #C9A24D",
+                    background: "rgba(201,162,77,0.4)",
+                    color: "#000",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                  }}
+                >
+                  {loc}
+                </button>
+              ))}
+            </div>
+          )}
+        </FilterCategory>
 
 
         {/* ===== FORMAS DE PAGAMENTO ===== */}

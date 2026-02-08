@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Section, Grid, SectionHeader, Title, Pagination } from "./styles";
 import { useEffect } from "react";
 
@@ -96,7 +96,7 @@ const ADS_PER_PAGE = 6;
 // ====================
 // DATA
 // ====================
-const ads: Ad[] = [
+export const ads: Ad[] = [
   {
     name: "Allana Lemos",
     age: 22,
@@ -257,9 +257,14 @@ const ads: Ad[] = [
 // ====================
 // COMPONENT
 // ====================
-export function Ads() {
+export function Ads({
+  nameFilter,
+  adsRef,
+}: {
+  nameFilter?: string;
+  adsRef: React.RefObject<HTMLElement | null>
+}) {
   const [page, setPage] = useState(0);
-  const adsRef = useRef<HTMLElement | null>(null);
 
   const [filters, setFilters] = useState<FiltersState>({
     formasPagamento: [],
@@ -271,12 +276,22 @@ export function Ads() {
     idadeMax: undefined,
   });
 
+  // 🔄 sempre volta pra página 1 quando filtros ou nome mudarem
   useEffect(() => {
-  setPage(0);
-  }, [filters]);
+    setPage(0);
+  }, [filters, nameFilter]);
 
+  // ====================
+  // FILTER
+  // ====================
+  const filteredAds = ads.filter(ad => {
+    if (
+      nameFilter &&
+      !ad.name.toLowerCase().includes(nameFilter.toLowerCase())
+    ) {
+      return false;
+    }
 
-  const filteredAds = ads.filter((ad) => {
     if (
       filters.locations.length &&
       !filters.locations.includes(ad.locations)
@@ -284,53 +299,60 @@ export function Ads() {
       return false;
     }
 
-
-    if (filters.etnia.length && !filters.etnia.includes(ad.etnia)) return false;
+    if (filters.etnia.length && !filters.etnia.includes(ad.etnia)) {
+      return false;
+    }
 
     if (
       filters.atendimento.length &&
-      !ad.atendimento.some((a) => filters.atendimento.includes(a))
-    )
+      !ad.atendimento.some(a => filters.atendimento.includes(a))
+    ) {
       return false;
+    }
 
     if (
       filters.lugar.length &&
-      !ad.lugar.some((l) => filters.lugar.includes(l))
-    )
+      !ad.lugar.some(l => filters.lugar.includes(l))
+    ) {
       return false;
+    }
 
     if (
       filters.formasPagamento.length &&
-      !ad.formasPagamento.some((p) =>
+      !ad.formasPagamento.some(p =>
         filters.formasPagamento.includes(p)
       )
-    )
+    ) {
       return false;
+    }
 
     if (filters.idadeMin && ad.age < filters.idadeMin) return false;
     if (filters.idadeMax && ad.age > filters.idadeMax) return false;
-    console.log({
-    name: ad.name,
-    atendimento: ad.atendimento,
-    locations: ad.locations,
-    filtroAtendimento: filters.atendimento,
-    filtroLocations: filters.locations,
-  });
 
     return true;
   });
 
+  // ====================
+  // PAGINATION
+  // ====================
   const totalPages = Math.ceil(filteredAds.length / ADS_PER_PAGE);
   const startIndex = page * ADS_PER_PAGE;
-  const visibleAds = filteredAds.slice(startIndex, startIndex + ADS_PER_PAGE);
+  const visibleAds = filteredAds.slice(
+    startIndex,
+    startIndex + ADS_PER_PAGE
+  );
 
   const handlePageChange = (index: number) => {
     setPage(index);
+
     setTimeout(() => {
       adsRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 100);
   };
 
+  // ====================
+  // RENDER
+  // ====================
   return (
     <Section id="ads" ref={adsRef}>
       <SectionHeader>
