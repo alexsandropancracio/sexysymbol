@@ -57,8 +57,12 @@ export const FilterDropdown = styled.div<{ open: boolean }>`
     width: 390px;
   }
 
-    @media (max-width: 375px) {
+      @media (max-width: 375px) {
     width: 340px;
+  }
+
+    @media (max-width: 295px) {
+    width: 290px;
   }
 `;
 
