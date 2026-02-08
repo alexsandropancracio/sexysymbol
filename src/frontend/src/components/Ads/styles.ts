@@ -54,7 +54,7 @@ export const FilterDropdown = styled.div<{ open: boolean }>`
 
   
   @media (max-width: 426px) {
-    width: 30px;
+    width: 390px;
   }
 
     @media (max-width: 375px) {
@@ -108,27 +108,6 @@ export const FilterSelect = styled.select`
 
   &:focus {
     border-color: #fff;
-  }
-`;
-
-/* ===== CHECKBOX GRID ===== */
-export const CheckboxGroup = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-`;
-
-export const CheckboxLabel = styled.label`
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 0.85rem;
-  color: #fff;
-  cursor: pointer;
-
-  input {
-    accent-color: #C9A24D; /* checkbox dourado */
-    cursor: pointer;
   }
 `;
 
@@ -214,8 +193,6 @@ export const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-
-
 `;
 
 /* ===== CONTENT ===== */
@@ -277,37 +254,6 @@ export const Info = styled.span`
 `;
 
 export const Location = styled.span`
-  font-size: 0.9rem;
-  color: #C9A24D;
-  font-weight: 600;
-`;
-
-/* ===== PRICE SELECT ===== */
-export const PriceSelect = styled.select`
-  width: 50%;
-  padding: 10px 12px;
-  border: none; /* remove todas as bordas */
-  border-bottom: 1px solid #C9A24D; /* apenas a linha inferior */
-  background: #111 url("data:image/svg+xml,%3Csvg viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6H0z' fill='%23C9A24D'/%3E%3C/svg%3E") no-repeat right 12px center;
-  background-size: 10px 6px;
-  color: #C9A24D;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  appearance: none; /* remove o estilo nativo */
-  outline: none;
-  transition: all 0.2s ease;
-
-  &:hover,
-  &:focus {
-    background-color: #000000; /* mantém o hover/focus */
-    border-bottom-color: #fff; /* opcional: destaca a linha em hover/focus */
-  }
-`;
-
-
-/* ===== RATING ===== */
-export const Rating = styled.div`
   font-size: 0.9rem;
   color: #C9A24D;
   font-weight: 600;

@@ -1,73 +1,201 @@
 import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
+
 import {
   FilterToggle,
   FilterDropdown,
   FilterCategory,
   FilterSelect,
-  RangeContainer,
 } from "./styles";
 
-export function Filters() {
+/* =======================
+   TIPOS
+======================= */
+export interface FiltersState {
+  formasPagamento: string[];
+  atendimento: string[];
+  lugar: string[];
+  etnia: string[];
+  locations: string[]; // ✅ array real
+  idadeMin?: number;
+  idadeMax?: number;
+}
+
+const locationsList = [
+  "Salvador",
+  "Feira de Santana",
+  "Lauro de Freitas",
+];
+
+interface FiltersProps {
+  filters: FiltersState;
+  setFilters: Dispatch<SetStateAction<FiltersState>>;
+}
+
+/* =======================
+   COMPONENTE
+======================= */
+export function Filters({ filters, setFilters }: FiltersProps) {
   const [open, setOpen] = useState(false);
+  const [locationQuery, setLocationQuery] = useState("");
 
-  // Estado para armazenar os filtros selecionados por categoria
-  const [selectedOptions, setSelectedOptions] = useState({
-    formasPagamento: [] as string[],
-    atendimento: [] as string[],
-    lugar: [] as string[],
-    etnia: [] as string[],
-  });
+  /* =======================
+     FUNÇÕES
+  ======================= */
+  const toggleOption = (
+    category: keyof FiltersState,
+    option: string
+  ) => {
+    setFilters((prev) => {
+      const current = prev[category] as string[];
 
-  // Função para alternar seleção de filtros por categoria
-  const toggleOption = (category: keyof typeof selectedOptions, option: string) => {
-    setSelectedOptions((prev) => {
-      const updated = prev[category].includes(option)
-        ? prev[category].filter((o) => o !== option)
-        : [...prev[category], option];
-      return { ...prev, [category]: updated };
+      const updated = current.includes(option)
+        ? current.filter((v) => v !== option)
+        : [...current, option];
+
+      return {
+        ...prev,
+        [category]: updated,
+      };
     });
   };
 
-  // Arrays de opções
+  const toggleLocation = (city: string) => {
+    setFilters((prev) => {
+      const exists = prev.locations.includes(city);
+
+      return {
+        ...prev,
+        locations: exists
+          ? prev.locations.filter((l) => l !== city)
+          : [...prev.locations, city],
+      };
+    });
+  };
+
+  /* =======================
+     DADOS
+  ======================= */
   const atendimentos = ["Homens", "Mulheres", "Casais", "PCD"];
   const lugares = ["Com local", "Sem local", "Festas", "Jantar Romântico", "Viagens"];
   const etnias = ["Brancas", "Latinas", "Mulatas", "Negras", "Orientais"];
   const formasPagamento = ["Cartão de Crédito", "Cartão de Débito", "Pix", "Dinheiro"];
 
+  /* =======================
+     JSX
+  ======================= */
   return (
     <div style={{ position: "relative" }}>
-      <FilterToggle onClick={() => setOpen(!open)}>Filtros+</FilterToggle>
+      <FilterToggle onClick={() => setOpen((prev) => !prev)}>
+        Filtros+
+      </FilterToggle>
 
       <FilterDropdown open={open}>
-        {/* ===== PREÇO ===== */}
-        <FilterCategory>
-          <h4>Preço R$:</h4>
-          <RangeContainer>
-            {/* Futuro slider */}
-          </RangeContainer>
-          <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
-            <FilterSelect defaultValue="">
-              <option value="" disabled>Min</option>
-              {Array.from({ length: 33 }, (_, i) => 300 + i * 300).map((price) => (
-                <option key={price} value={price}>R$ {price.toLocaleString("pt-BR")}</option>
-              ))}
-            </FilterSelect>
 
-            <FilterSelect defaultValue="">
-              <option value="" disabled>Max</option>
-              {Array.from({ length: 33 }, (_, i) => 300 + i * 300).map((price) => (
-                <option key={price} value={price}>R$ {price.toLocaleString("pt-BR")}</option>
+      {/* ===== LOCALIZAÇÃO ===== */}
+      <FilterCategory>
+        <h4>Localização:</h4>
+
+        {/* INPUT */}
+        <input
+          type="text"
+          placeholder="Digite a cidade..."
+          value={locationQuery}
+          onChange={(e) => setLocationQuery(e.target.value)}
+          style={{
+            marginTop: "8px",
+            width: "100%",
+            padding: "10px 12px",
+            borderRadius: "8px",
+            border: "1px solid rgba(255,255,255,0.2)",
+            background: "rgba(0,0,0,0.4)",
+            color: "#fff",
+            outline: "none",
+            fontWeight: 500,
+          }}
+        />
+
+        {/* AUTOCOMPLETE (SÓ QUANDO DIGITA) */}
+        {locationQuery.trim() !== "" && (
+          <div
+            style={{
+              marginTop: "4px",
+              borderRadius: "8px",
+              background: "rgba(0,0,0,0.85)",
+              border: "1px solid rgba(255,255,255,0.15)",
+              overflow: "hidden",
+            }}
+          >
+            {locationsList
+              .filter(
+                (loc) =>
+                  loc.toLowerCase().includes(locationQuery.toLowerCase()) &&
+                  !filters.locations.includes(loc)
+              )
+              .map((loc) => (
+                <div
+                  key={loc}
+                  onClick={() => {
+                    toggleLocation(loc);
+                    setLocationQuery(""); // 🔥 fecha autocomplete
+                  }}
+                  style={{
+                    padding: "10px 12px",
+                    cursor: "pointer",
+                    color: "#fff",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background =
+                      "rgba(201,162,77,0.25)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = "transparent")
+                  }
+                >
+                  {loc}
+                </div>
               ))}
-            </FilterSelect>
           </div>
-        </FilterCategory>
+        )}
+
+        {/* CIDADES SELECIONADAS (SEMPRE VISÍVEIS) */}
+        {filters.locations.length > 0 && (
+          <div
+            style={{
+              marginTop: "10px",
+              display: "flex",
+              gap: "8px",
+              flexWrap: "wrap",
+            }}
+          >
+            {filters.locations.map((loc) => (
+              <button
+                key={loc}
+                onClick={() => toggleLocation(loc)}
+                style={{
+                  padding: "8px 12px",
+                  borderRadius: "8px",
+                  border: "1px solid #C9A24D",
+                  background: "rgba(201,162,77,0.4)",
+                  color: "#000",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
+                {loc}
+              </button>
+            ))}
+          </div>
+        )}
+      </FilterCategory>
+
 
         {/* ===== FORMAS DE PAGAMENTO ===== */}
         <FilterCategory>
           <h4>Formas de Pagamento:</h4>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
             {formasPagamento.map((f) => {
-              const isSelected = selectedOptions.formasPagamento.includes(f);
+              const isSelected = filters.formasPagamento.includes(f);
               return (
                 <button
                   key={f}
@@ -76,11 +204,12 @@ export function Filters() {
                     padding: "10px 12px",
                     borderRadius: "8px",
                     border: isSelected ? "1px solid #C9A24D" : "none",
-                    background: isSelected ? "rgba(201,162,77,0.4)" : "rgba(0,0,0,0.4)",
+                    background: isSelected
+                      ? "rgba(201,162,77,0.4)"
+                      : "rgba(0,0,0,0.4)",
                     color: isSelected ? "#000" : "#fff",
                     fontWeight: 600,
                     cursor: "pointer",
-                    transition: "all 0.3s ease",
                   }}
                 >
                   {f}
@@ -90,32 +219,12 @@ export function Filters() {
           </div>
         </FilterCategory>
 
-        {/* ===== IDADE ===== */}
-        <FilterCategory>
-          <h4>Idade:</h4>
-          <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
-            <FilterSelect defaultValue="">
-              <option value="" disabled>Min</option>
-              {Array.from({ length: 60 }, (_, i) => i + 18).map((age) => (
-                <option key={age} value={age}>{age}</option>
-              ))}
-            </FilterSelect>
-
-            <FilterSelect defaultValue="">
-              <option value="" disabled>Max</option>
-              {Array.from({ length: 60 }, (_, i) => i + 18).map((age) => (
-                <option key={age} value={age}>{age}</option>
-              ))}
-            </FilterSelect>
-          </div>
-        </FilterCategory>
-
         {/* ===== ATENDIMENTO ===== */}
         <FilterCategory>
           <h4>Atendimento:</h4>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
             {atendimentos.map((a) => {
-              const isSelected = selectedOptions.atendimento.includes(a);
+              const isSelected = filters.atendimento.includes(a);
               return (
                 <button
                   key={a}
@@ -124,11 +233,12 @@ export function Filters() {
                     padding: "10px 12px",
                     borderRadius: "8px",
                     border: isSelected ? "1px solid #C9A24D" : "none",
-                    background: isSelected ? "rgba(201,162,77,0.4)" : "rgba(0,0,0,0.4)",
+                    background: isSelected
+                      ? "rgba(201,162,77,0.4)"
+                      : "rgba(0,0,0,0.4)",
                     color: isSelected ? "#000" : "#fff",
                     fontWeight: 600,
                     cursor: "pointer",
-                    transition: "all 0.3s ease",
                   }}
                 >
                   {a}
@@ -140,10 +250,10 @@ export function Filters() {
 
         {/* ===== LUGAR ===== */}
         <FilterCategory>
-          <h4>Lugar:</h4>
+          <h4>Local do Encontro:</h4>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
             {lugares.map((l) => {
-              const isSelected = selectedOptions.lugar.includes(l);
+              const isSelected = filters.lugar.includes(l);
               return (
                 <button
                   key={l}
@@ -152,11 +262,12 @@ export function Filters() {
                     padding: "10px 12px",
                     borderRadius: "8px",
                     border: isSelected ? "1px solid #C9A24D" : "none",
-                    background: isSelected ? "rgba(201,162,77,0.4)" : "rgba(0,0,0,0.4)",
+                    background: isSelected
+                      ? "rgba(201,162,77,0.4)"
+                      : "rgba(0,0,0,0.4)",
                     color: isSelected ? "#000" : "#fff",
                     fontWeight: 600,
                     cursor: "pointer",
-                    transition: "all 0.3s ease",
                   }}
                 >
                   {l}
@@ -171,7 +282,7 @@ export function Filters() {
           <h4>Etnia:</h4>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
             {etnias.map((e) => {
-              const isSelected = selectedOptions.etnia.includes(e);
+              const isSelected = filters.etnia.includes(e);
               return (
                 <button
                   key={e}
@@ -180,11 +291,12 @@ export function Filters() {
                     padding: "10px 12px",
                     borderRadius: "8px",
                     border: isSelected ? "1px solid #C9A24D" : "none",
-                    background: isSelected ? "rgba(201,162,77,0.4)" : "rgba(0,0,0,0.4)",
+                    background: isSelected
+                      ? "rgba(201,162,77,0.4)"
+                      : "rgba(0,0,0,0.4)",
                     color: isSelected ? "#000" : "#fff",
                     fontWeight: 600,
                     cursor: "pointer",
-                    transition: "all 0.3s ease",
                   }}
                 >
                   {e}
@@ -194,50 +306,68 @@ export function Filters() {
           </div>
         </FilterCategory>
 
-        {/* ===== BOTÕES APLICAR E EXCLUIR ===== */}
-        <FilterCategory style={{ marginTop: "16px", display: "flex", justifyContent: "center", gap: "12px" }}>
-          {/* Aplicar */}
+        {/* ===== IDADE ===== */}
+        <FilterCategory>
+          <h4>Idade:</h4>
+          <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
+            <FilterSelect
+              value={filters.idadeMin ?? ""}
+              onChange={(e) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  idadeMin: Number(e.target.value),
+                }))
+              }
+            >
+              <option value="" disabled>Min</option>
+              {Array.from({ length: 60 }, (_, i) => i + 18).map((age) => (
+                <option key={age} value={age}>{age}</option>
+              ))}
+            </FilterSelect>
+
+            <FilterSelect
+              value={filters.idadeMax ?? ""}
+              onChange={(e) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  idadeMax: Number(e.target.value),
+                }))
+              }
+            >
+              <option value="" disabled>Max</option>
+              {Array.from({ length: 60 }, (_, i) => i + 18).map((age) => (
+                <option key={age} value={age}>{age}</option>
+              ))}
+            </FilterSelect>
+          </div>
+        </FilterCategory>
+
+        {/* ===== AÇÕES ===== */}
+        <FilterCategory style={{ marginTop: "16px", display: "flex", justifyContent: "center" }}>
           <button
+            onClick={() => {
+              setFilters({
+                formasPagamento: [],
+                atendimento: [],
+                lugar: [],
+                etnia: [],
+                locations: [],
+                idadeMin: undefined,
+                idadeMax: undefined,
+              });
+              setLocationQuery("");
+            }}
             style={{
-              padding: "10px 24px",
+              padding: "10px 40px",
               borderRadius: "12px",
               border: "none",
               background: "#C9A24D",
               color: "#000",
               fontWeight: 600,
-              fontSize: "1rem",
               cursor: "pointer",
-              transition: "all 0.3s ease",
-              boxShadow: "inset 0 -2px 4px rgba(0,0,0,0.5)",
             }}
-            onClick={() => console.log("Aplicar clicado!", selectedOptions)}>
-            Aplicar
-          </button>
-
-          {/* Excluir */}
-          <button
-            style={{
-              padding: "10px 24px",
-              borderRadius: "12px",
-              border: "none",
-              background: "#000000",
-              color: "#fff",
-              fontWeight: 600,
-              fontSize: "1rem",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              boxShadow: "inset 0 -2px 4px rgb(39, 39, 39)",
-            }}
-            onClick={() => {
-              // Reseta todos os filtros
-              setSelectedOptions({
-                formasPagamento: [],
-                atendimento: [],
-                lugar: [],
-                etnia: [],
-              });
-            }}>
-            Excluir
+          >
+            Excluir Tudo
           </button>
         </FilterCategory>
       </FilterDropdown>

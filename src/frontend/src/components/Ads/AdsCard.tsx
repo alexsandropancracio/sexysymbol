@@ -6,37 +6,35 @@ import {
   Content,
   Name,
   Info,
-  Button,
   Location,
   Bio,
-  PriceSelect,
+  Button
 } from "./styles";
+
 import newPageIcon from "@/assets/midia/new-page.png";
 import telefoneIcon from "@/assets/midia/telefone.png";
 import { Link } from "react-router-dom";
 
-interface PriceItem {
-  label: string;
-  value: string;
-}
-
+/* ====================
+   TYPES
+==================== */
 interface AdsCardProps {
   name: string;
   age: number;
   images: string[];
   location?: string;
   bio: string;
-  prices: PriceItem[];
-  rating: number; // 0 a 5
 }
 
+/* ====================
+   COMPONENT
+==================== */
 export function AdsCard({
   name,
   age,
   images,
   location,
   bio,
-  prices,
 }: AdsCardProps) {
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -53,7 +51,7 @@ export function AdsCard({
       <ImageWrapper>
         <Image src={images[currentImage]} alt={name} />
 
-        {/* Botões de navegação */}
+        {/* Navegação das imagens */}
         <button
           onClick={prevImage}
           style={{
@@ -73,6 +71,7 @@ export function AdsCard({
         >
           ‹
         </button>
+
         <button
           onClick={nextImage}
           style={{
@@ -107,23 +106,13 @@ export function AdsCard({
 
         <Info>Idade: {age} anos</Info>
         {location && <Location>Local: {location}</Location>}
+
         <Bio>{bio}</Bio>
 
-
-        
-      <PriceSelect>
-        {prices.map((p, index) => (
-          <option key={index} value={p.value}>
-            {p.label} {p.value}
-          </option>
-        ))}
-      </PriceSelect>
-        
         <Button>
           <img src={telefoneIcon} alt="Telefone" />
           Contato
         </Button>
-
       </Content>
     </Card>
   );

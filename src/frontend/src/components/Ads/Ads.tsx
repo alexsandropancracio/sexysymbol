@@ -1,7 +1,28 @@
 import { useState, useRef } from "react";
 import { Section, Grid, SectionHeader, Title, Pagination } from "./styles";
-import { AdsCard } from "./AdsCard";
+import { useEffect } from "react";
+
+
 import { Filters } from "./Filters";
+import type { FiltersState } from "./Filters";
+import { AdsCard } from "./AdsCard";
+
+/* ====================
+   TYPES
+==================== */
+export interface Ad {
+  name: string;
+  age: number;
+  locations: string;
+  bio: string;
+  rating: number;
+  images: string[];
+
+  etnia: string;
+  atendimento: string[];
+  lugar: string[];
+  formasPagamento: string[];
+}
 
 // ====================
 // IMAGENS
@@ -71,153 +92,165 @@ import isadora4 from "@/assets/midia/isadora-sampaio/img4.jpg";
 // ====================
 const ADS_PER_PAGE = 6;
 
+
 // ====================
 // DATA
 // ====================
-const ads = [
-  {
-    name: "Thalita Soares",
-    age: 23,
-    location: "Salvador",
-    bio: "Acompanhante elegante, divertida e atenciosa.",
-    rating: 4.5,
-    prices: [
-      { label: "R$ 650", value: "(1 Hora)" },
-      { label: "R$ 1.200", value: "(2 Hora)" },
-    ],
-    images: [thalita1, thalita2, thalita3, thalita4],
-  },
-    {
-    name: "Lorena Quintino",
-    age: 24,
-    location: "Salvador",
-    bio: "Charmosa e elegante.",
-    rating: 4.6,
-    prices: [
-      { label: "R$ 650", value: "(1 Hora)" },
-      { label: "R$ 1.250", value: "(2 Hora)" },
-    ],
-    images: [lorena1, lorena2, lorena3, lorena4],
-  },
-    {
-    name: "Mirela Santos",
-    age: 23,
-    location: "Feira de Santana",
-    bio: "Encantadora e atenciosa.",
-    rating: 4.4,
-    prices: [
-      { label: "R$ 600", value: "(1 Hora)" },
-      { label: "R$ 1.150", value: "(2 Hora)" },
-    ],
-    images: [mirela1, mirela2, mirela3, mirela4],
-  },
-  {
-    name: "Rebeca Brito",
-    age: 25,
-    location: "Lauro de Freitas",
-    bio: "Sofisticada, encantadora e discreta.",
-    rating: 4.8,
-    prices: [
-      { label: "R$ 700", value: "(1 Hora)" },
-      { label: "R$ 1.300", value: "(2 Hora)" },
-    ],
-    images: [rebeca1, rebeca2, rebeca3, rebeca4],
-  },
+const ads: Ad[] = [
   {
     name: "Allana Lemos",
     age: 22,
-    location: "Feira de Santana",
+    locations: "Feira de Santana",
     bio: "Jovem, charmosa e simpática.",
     rating: 4.3,
-    prices: [
-      { label: "R$ 600", value: "(1 Hora)" },
-      { label: "R$ 1.100", value: "(2 Hora)" },
-    ],
-    images: [allana1, allana2, allana3, allana4],
+    images: [allana4, allana1, allana2, allana3],
+    etnia: "Brancas",
+    atendimento: ["Homens", "Casais"],
+    lugar: ["Com local"],
+    formasPagamento: ["Pix", "Dinheiro"],
   },
+
   {
-    name: "Melissa Santana",
-    age: 25,
-    location: "Lauro de Freitas",
-    bio: "Carismática e sofisticada.",
-    rating: 4.7,
-    prices: [
-      { label: "R$ 700", value: "(1 Hora)" },
-      { label: "R$ 1.300", value: "(2 Hora)" },
-    ],
-    images: [melissa1, melissa2, melissa3, melissa4],
+    name: "Lorena Quintino",
+    age: 24,
+    locations: "Salvador",
+    bio: "Charmosa e elegante.",
+    rating: 4.6,
+    images: [lorena1, lorena2, lorena3, lorena4],
+    etnia: "Brancas",
+    atendimento: ["Homens"],
+    lugar: ["Com local", "Jantar Romântico"],
+    formasPagamento: ["Cartão de Crédito", "Pix"],
   },
+
+  {
+    name: "Mirela Santos",
+    age: 23,
+    locations: "Feira de Santana",
+    bio: "Encantadora e atenciosa.",
+    rating: 4.4,
+    images: [mirela1, mirela2, mirela3, mirela4],
+    etnia: "Brancas",
+    atendimento: ["Homens", "Mulheres"],
+    lugar: ["Sem local"],
+    formasPagamento: ["Pix", "Dinheiro"],
+  },
+
+  {
+    name: "Rebeca Brito",
+    age: 25,
+    locations: "Lauro de Freitas",
+    bio: "Sofisticada, encantadora e discreta.",
+    rating: 4.8,
+    images: [rebeca4, rebeca1, rebeca2, rebeca3],
+    etnia: "Negras",
+    atendimento: ["Homens", "Casais"],
+    lugar: ["Com local", "Viagens"],
+    formasPagamento: ["Cartão de Crédito", "Cartão de Débito", "Pix"],
+  },
+
   {
     name: "Monaliza Diniz",
     age: 26,
-    location: "Salvador",
+    locations: "Salvador",
     bio: "Elegante e divertida.",
     rating: 4.5,
-    prices: [
-      { label: "R$ 650", value: "(1 Hora)" },
-      { label: "R$ 1.250", value: "(2 Hora)" },
-    ],
     images: [monaliza1, monaliza2, monaliza3, monaliza4],
+    etnia: "Latinas",
+    atendimento: ["Homens"],
+    lugar: ["Com local", "Festas"],
+    formasPagamento: ["Pix", "Dinheiro"],
   },
+
+  {
+    name: "Melissa Santana",
+    age: 25,
+    locations: "Lauro de Freitas",
+    bio: "Carismática e sofisticada.",
+    rating: 4.7,
+    images: [melissa1, melissa2, melissa3, melissa4],
+    etnia: "Brancas",
+    atendimento: ["Homens", "Mulheres"],
+    lugar: ["Com local"],
+    formasPagamento: ["Cartão de Crédito", "Pix"],
+  },
+
   {
     name: "Pietra Reesende",
     age: 24,
-    location: "Lauro de Freitas",
+    locations: "Lauro de Freitas",
     bio: "Sofisticada e charmosa.",
     rating: 4.6,
-    prices: [
-      { label: "R$ 650", value: "(1 Hora)" },
-      { label: "R$ 1.250", value: "(2 Hora)" },
-    ],
     images: [pietra1, pietra2, pietra3, pietra4],
+    etnia: "Negras",
+    atendimento: ["Homens"],
+    lugar: ["Sem local"],
+    formasPagamento: ["Dinheiro"],
   },
-  {
-    name: "Tiffany Bragança",
-    age: 23,
-    location: "Feira de Santana",
-    bio: "Jovem e cativante.",
-    rating: 4.5,
-    prices: [
-      { label: "R$ 600", value: "(1 Hora)" },
-      { label: "R$ 1.200", value: "(2 Hora)" },
-    ],
-    images: [tiffany1, tiffany2, tiffany3, tiffany4],
-  },
+
   {
     name: "Mariana Biazzi",
-    age: 24,
-    location: "Salvador",
-    bio: "Delicada, envolvente e muito carinhosa.",
-    rating: 4.6,
-    prices: [
-      { label: "R$ 650", value: "(1 Hora)" },
-      { label: "R$ 1.250", value: "(2 Hora)" },
-    ],
-    images: [mariana1, mariana2, mariana3, mariana4],
-  },
-  {
-    name: "Camila Martini",
     age: 26,
-    location: "Lauro de Freitas",
+    locations: "Lauro de Freitas",
     bio: "Experiência única, discreta e sofisticada.",
     rating: 4.7,
-    prices: [
-      { label: "R$ 700", value: "(1 Hora)" },
-      { label: "R$ 1.300", value: "(2 Hora)" },
-    ],
     images: [camila1, camila2, camila3, camila4],
+    etnia: "Branca",
+    atendimento: ["Homens", "Casais"],
+    lugar: ["Com local", "Viagens"],
+    formasPagamento: ["Cartão de Crédito", "Pix"],
   },
+
   {
     name: "Isadora Sampaio",
     age: 22,
-    location: "Feira de Santana",
+    locations: "Feira de Santana",
     bio: "Jovem, charmosa e cheia de energia.",
     rating: 4.4,
-    prices: [
-      { label: "R$ 600", value: "(1 Hora)" },
-      { label: "R$ 1.150", value: "(2 Hora)" },
-    ],
     images: [isadora1, isadora2, isadora3, isadora4],
+    etnia: "Negras",
+    atendimento: ["Homens", "Mulheres"],
+    lugar: ["Sem local"],
+    formasPagamento: ["Pix"],
+  },
+
+  {
+    name: "Tiffany Bragança",
+    age: 23,
+    locations: "Feira de Santana",
+    bio: "Jovem e cativante.",
+    rating: 4.5,
+    images: [tiffany3, tiffany1, tiffany2, tiffany4],
+    etnia: "Latinas",
+    atendimento: ["Homens"],
+    lugar: ["Com local", "Festas"],
+    formasPagamento: ["Pix", "Dinheiro"],
+  },
+
+  {
+    name: "Thalita Soares",
+    age: 23,
+    locations: "Salvador",
+    bio: "Acompanhante elegante, divertida e atenciosa.",
+    rating: 4.5,
+    images: [thalita1, thalita2, thalita3, thalita4],
+    etnia: "Latinas",
+    atendimento: ["Homens", "Casais"],
+    lugar: ["Com local"],
+    formasPagamento: ["Cartão de Crédito", "Pix"],
+  },
+
+  {
+    name: "Camila Martini",
+    age: 24,
+    locations: "Salvador",
+    bio: "Delicada, envolvente e muito carinhosa.",
+    rating: 4.6,
+    images: [mariana1, mariana2, mariana3, mariana4],
+    etnia: "Latinas",
+    atendimento: ["Homens", "Mulheres"],
+    lugar: ["Jantar Romântico"],
+    formasPagamento: ["Pix", "Cartão de Débito"],
   },
 ];
 
@@ -228,35 +261,86 @@ export function Ads() {
   const [page, setPage] = useState(0);
   const adsRef = useRef<HTMLElement | null>(null);
 
-  const totalPages = Math.ceil(ads.length / ADS_PER_PAGE);
+  const [filters, setFilters] = useState<FiltersState>({
+    formasPagamento: [],
+    atendimento: [],
+    lugar: [],
+    etnia: [],
+    locations: [],
+    idadeMin: undefined,
+    idadeMax: undefined,
+  });
 
+  useEffect(() => {
+  setPage(0);
+  }, [filters]);
+
+
+  const filteredAds = ads.filter((ad) => {
+    if (
+      filters.locations.length &&
+      !filters.locations.includes(ad.locations)
+    ) {
+      return false;
+    }
+
+
+    if (filters.etnia.length && !filters.etnia.includes(ad.etnia)) return false;
+
+    if (
+      filters.atendimento.length &&
+      !ad.atendimento.some((a) => filters.atendimento.includes(a))
+    )
+      return false;
+
+    if (
+      filters.lugar.length &&
+      !ad.lugar.some((l) => filters.lugar.includes(l))
+    )
+      return false;
+
+    if (
+      filters.formasPagamento.length &&
+      !ad.formasPagamento.some((p) =>
+        filters.formasPagamento.includes(p)
+      )
+    )
+      return false;
+
+    if (filters.idadeMin && ad.age < filters.idadeMin) return false;
+    if (filters.idadeMax && ad.age > filters.idadeMax) return false;
+    console.log({
+    name: ad.name,
+    atendimento: ad.atendimento,
+    locations: ad.locations,
+    filtroAtendimento: filters.atendimento,
+    filtroLocations: filters.locations,
+  });
+
+    return true;
+  });
+
+  const totalPages = Math.ceil(filteredAds.length / ADS_PER_PAGE);
   const startIndex = page * ADS_PER_PAGE;
-  const visibleAds = ads.slice(startIndex, startIndex + ADS_PER_PAGE);
+  const visibleAds = filteredAds.slice(startIndex, startIndex + ADS_PER_PAGE);
 
   const handlePageChange = (index: number) => {
-  setPage(index);
-
-  setTimeout(() => {
-    adsRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }, 100);
-};
+    setPage(index);
+    setTimeout(() => {
+      adsRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
 
   return (
     <Section id="ads" ref={adsRef}>
       <SectionHeader>
         <Title>Anúncios</Title>
-        <Filters />
+        <Filters filters={filters} setFilters={setFilters} />
       </SectionHeader>
 
       <Grid>
         {visibleAds.map((ad, index) => (
-          <AdsCard
-            key={`${ad.name}-${index}`}
-            {...ad}
-          />
+          <AdsCard key={`${ad.name}-${index}`} {...ad} />
         ))}
       </Grid>
 

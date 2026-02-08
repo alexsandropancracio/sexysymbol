@@ -47,7 +47,7 @@ export const highlights = [
   },
   {
     id: 5,
-    name: "Lorena",
+    name: "Lorena Ferreira",
     age: 23,
     location: "Salvador",
     rating: 4.6,
@@ -56,7 +56,7 @@ export const highlights = [
   },
   {
     id: 6,
-    name: "Maya",
+    name: "Maya Buchelli",
     age: 27,
     location: "Salvador",
     rating: 5.0,
@@ -83,7 +83,7 @@ export const highlights = [
   },
   {
     id: 9,
-    name: "Tiffany",
+    name: "Larissa Castro",
     age: 25,
     location: "Lauro de Freitas",
     rating: 4.7,
