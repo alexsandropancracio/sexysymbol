@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { Ad } from "./AdsData";
 import {
   Card,
   ImageWrapper,
@@ -19,95 +20,47 @@ import { Link } from "react-router-dom";
    TYPES
 ==================== */
 interface AdsCardProps {
-  name: string;
-  age: number;
-  images: string[];
-  location?: string;
-  bio: string;
+  ad: Ad;
 }
 
 /* ====================
    COMPONENT
 ==================== */
-export function AdsCard({
-  name,
-  age,
-  images,
-  location,
-  bio,
-}: AdsCardProps) {
+export function AdsCard({ ad }: AdsCardProps) {
   const [currentImage, setCurrentImage] = useState(0);
 
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length);
+    setCurrentImage((prev) => (prev + 1) % ad.images.length);
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentImage((prev) => (prev - 1 + ad.images.length) % ad.images.length);
   };
 
   return (
     <Card>
       <ImageWrapper>
-        <Image src={images[currentImage]} alt={name} />
+        <Image src={ad.images[currentImage]} alt={ad.name} />
 
-        {/* Navegação das imagens */}
-        <button
-          onClick={prevImage}
-          style={{
-            position: "absolute",
-            left: "10px",
-            top: "50%",
-            transform: "translateY(-50%)",
-            background: "rgba(0,0,0,0.4)",
-            border: "none",
-            borderRadius: "50%",
-            color: "#fff",
-            width: "50px",
-            height: "50px",
-            cursor: "pointer",
-            fontSize: "1.5rem",
-          }}
-        >
-          ‹
-        </button>
-
-        <button
-          onClick={nextImage}
-          style={{
-            position: "absolute",
-            right: "10px",
-            top: "50%",
-            transform: "translateY(-50%)",
-            background: "rgba(0,0,0,0.4)",
-            border: "none",
-            borderRadius: "50%",
-            color: "#fff",
-            width: "50px",
-            height: "50px",
-            cursor: "pointer",
-            fontSize: "1.5rem",
-          }}
-        >
-          ›
-        </button>
+        <button onClick={prevImage}>‹</button>
+        <button onClick={nextImage}>›</button>
       </ImageWrapper>
 
       <Content>
         <Link
-          to={`/perfil/${name.toLowerCase().replace(/\s+/g, "-")}`}
+          to={`/perfil/${ad.name.toLowerCase().replace(/\s+/g, "-")}`}
           style={{ textDecoration: "none" }}
         >
           <Name>
-            {name}
+            {ad.name}
             <img src={newPageIcon} alt="Abrir perfil" />
           </Name>
         </Link>
 
-        <Info>Idade: {age} anos</Info>
-        {location && <Location>Local: {location}</Location>}
+        <Info>Idade: {ad.age} anos</Info>
+        {ad.locations && <Location>Local: {ad.locations}</Location>}
 
-        <Bio>{bio}</Bio>
+        <Bio>{ad.bio}</Bio>
 
         <Button>
           <img src={telefoneIcon} alt="Telefone" />

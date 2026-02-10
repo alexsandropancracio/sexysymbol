@@ -53,7 +53,7 @@ export const TargetAudience = () => {
       <Content>
         <Header>
           <SectionTitle
-            title="Para quem é o sexysymbol"
+            title="Para quem é a sexysymbol"
             subtitle="Perfil ideal da plataforma"
           />
         </Header>

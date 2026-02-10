@@ -52,13 +52,13 @@ export const Card = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 90vw;
+    width: 96vw;
     height: 60vh;
     min-height: 320px;
   }
 
-  @media (max-width: 426px) {
-    width: 100%;
+  @media (max-width: 480px) {
+    width: 99%;
     height: 55vh;
     min-height: 280px;
     max-height: none;

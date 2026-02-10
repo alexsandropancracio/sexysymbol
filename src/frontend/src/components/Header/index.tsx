@@ -10,7 +10,7 @@ import {
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import lupaIcon from "../../assets/midia/lupa.png";
-import { ads } from "../Ads/Ads";
+import { ads } from "../Ads/AdsData";
 
 interface HeaderProps {
   selected: string;
