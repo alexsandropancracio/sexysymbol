@@ -29,7 +29,7 @@ export const Verification = () => {
         <Description>
           O selo de verificação confere credibilidade ao seu perfil. Ele atesta
           que a administração validou sua identidade através de documentos e
-          confirmação visual (foto/vídeo de rosto).
+          confirmação visual (foto/vídeo do rosto).
         </Description>
 
         <Note>

@@ -25,7 +25,7 @@ export const About = () => {
         <AboutContent>
           {/* HEADER */}
           <AboutHeader>
-            <Title>Sobre o sexysymbol</Title>
+            <Title>Sobre a sexysymbol</Title>
 
             <Subtitle>
               Um ambiente digital criado para profissionais que valorizam
@@ -44,7 +44,7 @@ export const About = () => {
               <StyledSectionTitle>Quem somos</StyledSectionTitle>
 
               <Text>
-                O <Highlight>sexysymbol</Highlight> não é apenas um site de
+                A <Highlight>sexysymbol</Highlight> não é apenas um site de
                 anúncios. É um marketplace curado, desenvolvido para conectar
                 profissionais independentes a um público que valoriza discrição,
                 respeito e qualidade.
