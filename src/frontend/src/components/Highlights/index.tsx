@@ -14,7 +14,8 @@ import {
 } from "./styles";
 
 export function Highlights() {
-  const [index, setIndex] = useState(0);
+  // 🔄 Índice inicial aleatório
+  const [index, setIndex] = useState(() => Math.floor(Math.random() * highlights.length));
 
   function next() {
     setIndex((prev) => (prev + 1) % highlights.length);
@@ -50,17 +51,16 @@ export function Highlights() {
         ))}
 
         {highlights.map((highlight, i) => (
-        <Info key={highlight.id} $active={i === index}>
+          <Info key={highlight.id} $active={i === index}>
             <Name>{highlight.name}</Name>
             <Meta>
-            {highlight.age} anos • {highlight.location}
+              {highlight.age} anos • {highlight.location}
             </Meta>
 
             <Button>Ver perfil</Button>
-        </Info>
+          </Info>
         ))}
       </Card>
     </Section>
   );
 }
-
