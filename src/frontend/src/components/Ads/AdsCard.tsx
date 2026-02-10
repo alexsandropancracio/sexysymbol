@@ -9,6 +9,7 @@ import {
   Info,
   Location,
   Bio,
+  ArrowButton,
   Button
 } from "./styles";
 
@@ -42,10 +43,16 @@ export function AdsCard({ ad }: AdsCardProps) {
       <ImageWrapper>
         <Image src={ad.images[currentImage]} alt={ad.name} />
 
-        <button onClick={prevImage}>‹</button>
-        <button onClick={nextImage}>›</button>
-      </ImageWrapper>
+        {/* Botão esquerdo */}
+        <ArrowButton left onClick={prevImage}>
+          ‹
+        </ArrowButton>
 
+        {/* Botão direito */}
+        <ArrowButton onClick={nextImage}>
+          ›
+        </ArrowButton>
+</ImageWrapper>
       <Content>
         <Link
           to={`/perfil/${ad.name.toLowerCase().replace(/\s+/g, "-")}`}

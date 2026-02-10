@@ -387,3 +387,35 @@ export const ButtonLoadMore = styled.button`
     font-size: 0.95rem;
   }
 `;
+
+export const ArrowButton = styled.button<{ left?: boolean }>`
+  position: absolute;
+  top: 50%;
+  ${({ left }) => (left ? "left: 16px;" : "right: 16px;")}
+  transform: translateY(-50%);
+  z-index: 5;
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  color: #fff;
+  opacity: 0;
+  transition: 0.35s;
+
+  ${ImageWrapper}:hover & {  /* 🔑 aqui ajustamos para o card */
+    opacity: 1;
+  }
+
+  &:hover {
+    transform: translateY(-50%) scale(1.15);
+  }
+`;

@@ -236,16 +236,16 @@ export const ArrowButton = styled.button<{ left?: boolean }>`
   transform: translateY(-50%);
   z-index: 5;
 
-  width: 44px;
-  height: 44px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 10px;
 
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
 
   color: #fff;
@@ -255,10 +255,8 @@ export const ArrowButton = styled.button<{ left?: boolean }>`
   ${CarouselWrapper}:hover & {
     opacity: 1;
   }
-
+  
   &:hover {
-    background: #c9a24d;
-    color: #000;
     transform: translateY(-50%) scale(1.15);
   }
 `;

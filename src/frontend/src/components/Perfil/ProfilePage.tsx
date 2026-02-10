@@ -83,11 +83,11 @@ export function ProfilePage() {
         <S.LeftColumn>
           <S.CarouselWrapper>
             <S.ArrowButton left onClick={prev}>
-              <ChevronLeft size={22} />
+              <ChevronLeft size={16} />
             </S.ArrowButton>
 
             <S.ArrowButton onClick={next}>
-              <ChevronRight size={22} />
+              <ChevronRight size={16} />
             </S.ArrowButton>
 
             {profileData.verified && (
