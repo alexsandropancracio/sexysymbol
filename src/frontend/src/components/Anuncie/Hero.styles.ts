@@ -17,6 +17,7 @@ export const Section = styled.section`
 
   @media (max-width: 480px) {
     padding: 4rem 0;
+    height: 90vh;
   }
 `;
 
