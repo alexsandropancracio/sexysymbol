@@ -9,12 +9,21 @@ export const Section = styled.section`
   justify-content: center;
   background: ${({ theme }) => theme.colors.background};
   overflow: hidden;
+
+  @media (max-width: 1024px) {
+    height: auto;
+    padding: 6rem 0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 4rem 0;
+  }
 `;
 
 export const BackgroundRadial = styled.div`
   position: absolute;
   inset: 0;
-  background: #000000
+  background: #000000;
   opacity: 0.85;
 `;
 
@@ -32,6 +41,14 @@ export const Content = styled.div`
   max-width: 1100px;
   padding: 0 1.5rem;
   text-align: center;
+
+  @media (max-width: 1024px) {
+    padding: 0 1.25rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 1rem;
+  }
 `;
 
 export const Title = styled.h1`
@@ -40,6 +57,15 @@ export const Title = styled.h1`
   line-height: 1.1;
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+  }
+
+  @media (max-width: 480px) {
+    font-size: clamp(2rem, 9vw, 3.5rem);
+    margin-bottom: 1.5rem;
+  }
 `;
 
 export const Brand = styled.span`
@@ -66,6 +92,15 @@ export const Subtitle = styled.p`
   @media (min-width: 768px) {
     font-size: 1.25rem;
   }
+
+  @media (max-width: 768px) {
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 export const CtaButton = styled(motion.button)`
@@ -87,6 +122,16 @@ export const CtaButton = styled(motion.button)`
     background: ${({ theme }) => theme.colors.primary};
     color: #000;
   }
+
+  @media (max-width: 768px) {
+    padding: 0.9rem 2rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+  }
 `;
 
 export const ScrollIndicator = styled(motion.div)`
@@ -100,5 +145,9 @@ export const ScrollIndicator = styled(motion.div)`
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
+  }
+
+  @media (max-width: 480px) {
+    bottom: 1.5rem;
   }
 `;

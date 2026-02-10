@@ -6,8 +6,16 @@ export const FooterWrapper = styled.footer`
   padding: 6rem 0 3rem;
   border-top: 1px solid #1a1a1a;
 
+  @media (max-width: 1024px) {
+    padding: 5rem 0 2.75rem;
+  }
+
   @media (max-width: 768px) {
     padding: 4rem 0 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 3rem 0 2rem;
   }
 `;
 
@@ -22,6 +30,10 @@ export const Content = styled.div`
   margin: 0 auto;
   padding: 0 2rem;
 
+  @media (max-width: 768px) {
+    padding: 0 1.5rem;
+  }
+
   @media (max-width: 480px) {
     padding: 0 1.25rem;
   }
@@ -33,6 +45,14 @@ export const Title = styled.h2`
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1.25rem;
   line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+  }
+
+  @media (max-width: 480px) {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+  }
 `;
 
 export const Description = styled.p`
@@ -43,11 +63,15 @@ export const Description = styled.p`
   font-size: 1.05rem;
   line-height: 1.7;
   color: ${({ theme }) => theme.colors.muted};
-
   margin-bottom: 3rem;
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     font-size: 1rem;
+    margin-bottom: 2.75rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
     margin-bottom: 2.5rem;
   }
 `;
@@ -93,10 +117,15 @@ export const CtaButton = styled(motion.a)`
     pointer-events: none;
   }
 
+  @media (max-width: 768px) {
+    padding: 0.95rem 2rem;
+    font-size: 1rem;
+  }
+
   @media (max-width: 480px) {
     width: 100%;
     padding: 0.9rem 1.5rem;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 `;
 
@@ -107,6 +136,11 @@ export const Bottom = styled.div`
   padding: 2rem 2rem 0;
 
   border-top: 1px solid #1a1a1a;
+
+  @media (max-width: 768px) {
+    padding: 1.75rem 1.5rem 0;
+    margin-top: 3.5rem;
+  }
 
   @media (max-width: 480px) {
     padding: 1.5rem 1.25rem 0;

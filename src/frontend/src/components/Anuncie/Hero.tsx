@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { useEffect } from "react";
 
 import {
   Section,
@@ -14,6 +15,11 @@ import {
 } from "./Hero.styles";
 
 export const Hero = () => {
+  // Reseta o scroll para o topo ao montar a página
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const scrollToAbout = () => {
     const aboutSection = document.getElementById("about");
     aboutSection?.scrollIntoView({ behavior: "smooth" });

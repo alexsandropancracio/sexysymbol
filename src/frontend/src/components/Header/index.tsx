@@ -73,16 +73,19 @@ export function Header({
       document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Função para navegar e resetar scroll para o topo
+  const navigateToHome = () => {
+    navigate("/");        // vai para página principal
+    window.scrollTo(0, 0); // reseta scroll para o topo
+    handleClear();        // limpa busca
+  };
+
   return (
     <HeaderContainer>
       {/* LOGO */}
       <Logo
         to="/"
-        onClick={() => {
-          handleClear();
-          navigate("/");
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
+        onClick={navigateToHome}
       >
         <span className="base">sexysymbol</span>
         <span className="shine">sexysymbol</span>

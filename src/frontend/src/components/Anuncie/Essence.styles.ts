@@ -6,6 +6,18 @@ export const Section = styled.section`
   padding: 8rem 0;
   background: ${({ theme }) => theme.colors.background};
   overflow: hidden;
+
+  @media (max-width: 1024px) {
+    padding: 6rem 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 5rem 0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 4rem 0;
+  }
 `;
 
 export const Texture = styled.div`
@@ -20,6 +32,15 @@ export const Content = styled.div`
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
+  padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    padding: 0 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 1.25rem;
+  }
 `;
 
 export const Quote = styled(motion.h3)`
@@ -28,6 +49,15 @@ export const Quote = styled(motion.h3)`
   font-style: italic;
   line-height: 1.6;
   color: ${({ theme }) => theme.colors.text};
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  }
+
+  @media (max-width: 480px) {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
 `;
 
 export const Values = styled.div`
@@ -44,8 +74,18 @@ export const Values = styled.div`
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.primary};
 
-  @media (min-width: 768px) {
-    font-size: 0.85rem;
+  @media (max-width: 1024px) {
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+    gap: 1rem;
   }
 `;
 
