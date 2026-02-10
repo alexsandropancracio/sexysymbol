@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { Section, Grid, SectionHeader, Title, Pagination } from "./styles";
-import { useEffect } from "react";
-
+import { useState, useEffect } from "react";
+import { Section, Grid, SectionHeader, Title, ButtonLoadMore } from "./styles";
 
 import { Filters } from "./Filters";
 import type { FiltersState } from "./Filters";
@@ -23,6 +21,7 @@ export interface Ad {
   lugar: string[];
   formasPagamento: string[];
 }
+
 
 // ====================
 // IMAGENS
@@ -254,18 +253,7 @@ export const ads: Ad[] = [
   },
 ];
 
-// ====================
-// COMPONENT
-// ====================
-export function Ads({
-  nameFilter,
-  adsRef,
-}: {
-  nameFilter?: string;
-  adsRef: React.RefObject<HTMLElement | null>
-}) {
-  const [page, setPage] = useState(0);
-
+export function Ads({ nameFilter, adsRef }: { nameFilter?: string; adsRef: React.RefObject<HTMLElement | null> }) {
   const [filters, setFilters] = useState<FiltersState>({
     formasPagamento: [],
     atendimento: [],
@@ -276,83 +264,37 @@ export function Ads({
     idadeMax: undefined,
   });
 
-  // 🔄 sempre volta pra página 1 quando filtros ou nome mudarem
+  const [visibleCount, setVisibleCount] = useState(ADS_PER_PAGE);
+  const [shuffledAds, setShuffledAds] = useState<Ad[]>([]);
+
+  // 🔄 Sempre que filtros ou nome mudam, filtramos e embaralhamos
   useEffect(() => {
-    setPage(0);
-  }, [filters, nameFilter]);
+    const filtered = ads.filter(ad => {
+      if (nameFilter && !ad.name.toLowerCase().includes(nameFilter.toLowerCase())) return false;
+      if (filters.locations.length && !filters.locations.includes(ad.locations)) return false;
+      if (filters.etnia.length && !filters.etnia.includes(ad.etnia)) return false;
+      if (filters.atendimento.length && !ad.atendimento.some(a => filters.atendimento.includes(a))) return false;
+      if (filters.lugar.length && !ad.lugar.some(l => filters.lugar.includes(l))) return false;
+      if (filters.formasPagamento.length && !ad.formasPagamento.some(p => filters.formasPagamento.includes(p))) return false;
+      if (filters.idadeMin && ad.age < filters.idadeMin) return false;
+      if (filters.idadeMax && ad.age > filters.idadeMax) return false;
+      return true;
+    });
 
-  // ====================
-  // FILTER
-  // ====================
-  const filteredAds = ads.filter(ad => {
-    if (
-      nameFilter &&
-      !ad.name.toLowerCase().includes(nameFilter.toLowerCase())
-    ) {
-      return false;
-    }
+    // 🔀 Embaralhar
+    const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+    setShuffledAds(shuffled);
 
-    if (
-      filters.locations.length &&
-      !filters.locations.includes(ad.locations)
-    ) {
-      return false;
-    }
+    // Resetar quantidade visível
+    setVisibleCount(ADS_PER_PAGE);
 
-    if (filters.etnia.length && !filters.etnia.includes(ad.etnia)) {
-      return false;
-    }
+  }, [filters, nameFilter, adsRef]);
 
-    if (
-      filters.atendimento.length &&
-      !ad.atendimento.some(a => filters.atendimento.includes(a))
-    ) {
-      return false;
-    }
-
-    if (
-      filters.lugar.length &&
-      !ad.lugar.some(l => filters.lugar.includes(l))
-    ) {
-      return false;
-    }
-
-    if (
-      filters.formasPagamento.length &&
-      !ad.formasPagamento.some(p =>
-        filters.formasPagamento.includes(p)
-      )
-    ) {
-      return false;
-    }
-
-    if (filters.idadeMin && ad.age < filters.idadeMin) return false;
-    if (filters.idadeMax && ad.age > filters.idadeMax) return false;
-
-    return true;
-  });
-
-  // ====================
-  // PAGINATION
-  // ====================
-  const totalPages = Math.ceil(filteredAds.length / ADS_PER_PAGE);
-  const startIndex = page * ADS_PER_PAGE;
-  const visibleAds = filteredAds.slice(
-    startIndex,
-    startIndex + ADS_PER_PAGE
-  );
-
-  const handlePageChange = (index: number) => {
-    setPage(index);
-
-    setTimeout(() => {
-      adsRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+  // Função para carregar mais
+  const loadMore = () => {
+    setVisibleCount(prev => Math.min(prev + ADS_PER_PAGE, shuffledAds.length));
   };
 
-  // ====================
-  // RENDER
-  // ====================
   return (
     <Section id="ads" ref={adsRef}>
       <SectionHeader>
@@ -361,22 +303,14 @@ export function Ads({
       </SectionHeader>
 
       <Grid>
-        {visibleAds.map((ad, index) => (
+        {shuffledAds.slice(0, visibleCount).map((ad, index) => (
           <AdsCard key={`${ad.name}-${index}`} {...ad} />
         ))}
       </Grid>
 
-      <Pagination>
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageChange(index)}
-            className={page === index ? "active" : ""}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </Pagination>
+      {visibleCount < shuffledAds.length && (
+        <ButtonLoadMore onClick={loadMore}>Ver mais</ButtonLoadMore>
+      )}
     </Section>
   );
 }

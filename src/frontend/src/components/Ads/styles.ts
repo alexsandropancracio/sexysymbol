@@ -337,3 +337,53 @@ export const Pagination = styled.div`
     }
   }
 `;
+
+/* ===== BUTTON LOAD MORE ===== */
+export const ButtonLoadMore = styled.button`
+  display: block;
+  margin: 30px auto 30px auto;
+  padding: 8px 0;
+  border: none;
+  background: none;
+  color: #C9A24D;
+  font-weight: 600;
+  font-size: 1.05rem;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+
+  /* Linha dourada fina abaixo do texto */
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 40%;
+    height: 2px;
+    background: #C9A24D;
+    border-radius: 2px;
+    transform: translateX(-50%);
+    transition: width 0.3s ease, background 0.3s ease;
+  }
+
+  &:hover {
+    color: #FFD966; /* Leve brilho no texto ao passar o mouse */
+  }
+
+  &:hover::after {
+    width: 90%; /* Linha se alonga suavemente */
+    background: linear-gradient(90deg, #C9A24D, #FFD966);
+  }
+
+  &:active::after {
+    transform: translateX(-50%) scaleX(0.9); /* efeito de clique sutil */
+  }
+
+  @media (max-width: 640px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 426px) {
+    font-size: 0.95rem;
+  }
+`;

@@ -23,7 +23,7 @@ export const Essence = () => {
             transition={{ duration: 1.5 }}
           >
             “A verdadeira elegância não é sobre ser notada, é sobre ser lembrada.
-            No Sexysymbol, criamos o palco para que sua presença seja
+            Na sexysymbol, criamos o palco para que sua presença seja
             inesquecível.”
           </Quote>
 

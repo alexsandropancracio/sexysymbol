@@ -41,7 +41,7 @@ export const Benefits = () => {
             </Title>
 
             <Description>
-              Investir no Sexysymbol é investir na sua marca pessoal. Oferecemos a
+              Investir na sexysymbol é investir na sua marca pessoal. Oferecemos a
               infraestrutura necessária para que seu perfil se destaque pela
               qualidade, não pelo excesso.
             </Description>

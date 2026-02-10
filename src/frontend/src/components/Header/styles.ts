@@ -2,11 +2,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 /* ===== HEADER ===== */
-
 export const HeaderContainer = styled.header`
-  position: sticky;        /* 🔥 acompanha o scroll */
-  top: 0;                  /* 🔥 fixa no topo */
-  z-index: 1000;           /* 🔥 fica acima do conteúdo */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
   min-height: 80px;
   padding: 0 64px;
@@ -19,6 +18,11 @@ export const HeaderContainer = styled.header`
   background-color: ${({ theme }) => theme.colors.surface};
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
+  @media (max-width: 1200px) {
+    padding: 0 48px;
+    gap: 20px;
+  }
+
   @media (max-width: 1024px) {
     padding: 0 32px;
     gap: 16px;
@@ -29,16 +33,19 @@ export const HeaderContainer = styled.header`
     gap: 12px;
   }
 
-  /* 🔥 MOBILE REAL */
   @media (max-width: 426px) {
     padding: 8px 12px;
     gap: 10px;
     flex-wrap: nowrap;
   }
+
+  @media (max-width: 320px) {
+    padding: 6px 8px;
+    gap: 8px;
+  }
 `;
 
 /* ===== LOGO ===== */
-
 export const Logo = styled(Link)`
   position: relative;
   font-family: "Moglande";
@@ -70,7 +77,6 @@ export const Logo = styled(Link)`
       rgba(255, 235, 170, 0.0) 58%,
       transparent 100%
     );
-
     background-size: 300% 100%;
     background-position: 0% center;
 
@@ -102,13 +108,20 @@ export const Logo = styled(Link)`
     font-size: 22px;
   }
 
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+
   @media (max-width: 426px) {
     font-size: 16px;
+  }
+
+  @media (max-width: 320px) {
+    font-size: 14px;
   }
 `;
 
 /* ===== SEARCH ===== */
-
 export const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -116,7 +129,6 @@ export const SearchWrapper = styled.div`
 
   width: 650px;
   padding: 10px 16px;
-
   background-color: #0f0f0f;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
@@ -147,6 +159,11 @@ export const SearchWrapper = styled.div`
     padding: 6px 10px;
     height: 36px;
   }
+
+  @media (max-width: 320px) {
+    height: 32px;
+    padding: 4px 8px;
+  }
 `;
 
 export const SearchIcon = styled.label`
@@ -169,13 +186,19 @@ export const SearchIcon = styled.label`
       height: 14px;
     }
   }
+
+  @media (max-width: 320px) {
+    img {
+      width: 12px;
+      height: 12px;
+    }
+  }
 `;
 
 export const SearchInput = styled.input`
   flex: 1;
   background: none;
   border: none;
-
   font-size: 14px;
   color: ${({ theme }) => theme.colors.text};
   min-width: 0;
@@ -188,22 +211,40 @@ export const SearchInput = styled.input`
     outline: none;
   }
 
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
+
   @media (max-width: 426px) {
     font-size: 12px;
+  }
+
+  @media (max-width: 320px) {
+    font-size: 11px;
   }
 `;
 
 /* ===== MENU ===== */
-
 export const MenuLinks = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
   white-space: nowrap;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+
+  @media (max-width: 426px) {
+    gap: 8px;
+  }
+
+  @media (max-width: 320px) {
+    gap: 6px;
+  }
 `;
 
 /* ===== BOTÃO ANUNCIE ===== */
-
 export const AnuncieButton = styled(Link)`
   background-color: ${({ theme }) => theme.colors.primary};
   color: #000;
@@ -226,5 +267,10 @@ export const AnuncieButton = styled(Link)`
   @media (max-width: 426px) {
     padding: 0.45rem 0.7rem;
     font-size: 11px;
+  }
+
+  @media (max-width: 320px) {
+    padding: 0.35rem 0.6rem;
+    font-size: 10px;
   }
 `;
