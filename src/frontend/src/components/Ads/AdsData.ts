@@ -93,7 +93,7 @@ export const ads: Ad[] = [
     locations: "Feira de Santana",
     bio: "Jovem, charmosa e simpática.",
     rating: 4.3,
-    images: [allana3, allana1, allana2, allana4],
+    images: [allana3, allana1, allana2, allana4, allana1, allana2, allana3, allana4],
     etnia: "Brancas",
     atendimento: ["Homens", "Casais"],
     lugar: ["Com local"],

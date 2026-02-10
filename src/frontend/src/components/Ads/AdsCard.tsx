@@ -10,11 +10,12 @@ import {
   Location,
   Bio,
   ArrowButton,
-  Button
 } from "./styles";
+import * as S from "./styles";
+import { MessageCircle } from "lucide-react";
 
 import newPageIcon from "@/assets/midia/new-page.png";
-import telefoneIcon from "@/assets/midia/telefone.png";
+
 import { Link } from "react-router-dom";
 
 /* ====================
@@ -69,10 +70,18 @@ export function AdsCard({ ad }: AdsCardProps) {
 
         <Bio>{ad.bio}</Bio>
 
-        <Button>
-          <img src={telefoneIcon} alt="Telefone" />
-          Contato
-        </Button>
+              {/* CTA */}
+              <S.CTAButton
+                onClick={() =>
+                  window.open(
+                    "https://wa.me/5511956197970",
+                    "_blank"
+                  )
+                }
+              >
+                <MessageCircle size={18} />
+                AGENDAR
+              </S.CTAButton>
       </Content>
     </Card>
   );

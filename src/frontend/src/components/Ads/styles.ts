@@ -272,37 +272,58 @@ export const Bio = styled.p`
 `;
 
 /* ===== BUTTON ===== */
-export const Button = styled.button`
-  margin-top: 12px;
-  padding: 12px 20px;
-  border-radius: 12px;
-  justify-content: center;
-  border: none;
-  background: #C9A24D;
-  color: #000;
+export const CTAButton = styled.button`
+  margin-top: 16px;
+  width: 100%;
+  padding: 18px;
+
+  display: flex; /* 🔑 */
+  align-items: center; /* 🔑 */
+  justify-content: center; /* 🔑 */
+  gap: 10px;
+
+  font-size: 14px;
+  letter-spacing: 0.18em;
   font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
+  line-height: 1; /* 🔑 remove desalinhamento */
 
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  background: linear-gradient(
+    135deg,
+    #d6b25e,
+    #c9a24d
+  );
+  color: #000;
 
-  transition: all 0.3s ease;
-  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.5);
+  border-radius: 14px;
+  border: none;
+  position: relative;
+  overflow: hidden;
 
-  img {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
+  transition: 0.35s;
+
+  svg {
+    display: block; /* 🔑 MUITO IMPORTANTE */
+    transform: translateY(1px); /* micro ajuste fino */
   }
 
   &:hover {
-    box-shadow: 0 6px 12px rgba(201,162,77,0.5);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 25px rgba(201, 162, 77, 0.45);
   }
-`;
 
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    max-width: 100%;
+  }
+
+`;
 /* ===== PAGINATION ===== */
 export const Pagination = styled.div`
   display: flex;
@@ -417,5 +438,9 @@ export const ArrowButton = styled.button<{ left?: boolean }>`
 
   &:hover {
     transform: translateY(-50%) scale(1.15);
+  }
+  
+      &:active {
+    transform: translateY(-50%) scale(0.95);
   }
 `;

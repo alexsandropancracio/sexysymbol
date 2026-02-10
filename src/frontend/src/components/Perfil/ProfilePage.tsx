@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
 import {
   MapPin,
   ArrowLeft,
@@ -56,6 +57,18 @@ export function ProfilePage() {
       window.removeEventListener("keydown", onKey);
     };
   }, [id]); // ⚡️ depende do 'id' para resetar o scroll quando muda de perfil
+
+const thumbRef = useRef<HTMLDivElement>(null);
+
+const scrollLeft = () => {
+  thumbRef.current?.scrollBy({ left: -80, behavior: "smooth" });
+};
+
+const scrollRight = () => {
+  thumbRef.current?.scrollBy({ left: 80, behavior: "smooth" });
+};
+
+
 
   return (
     <S.Page
@@ -117,17 +130,23 @@ export function ProfilePage() {
 
   
           </S.CarouselWrapper>
-          <S.ThumbnailsRow>
-            {profileData.images.map((img, index) => (
-              <S.Thumbnail
-                key={index}
-                active={index === selectedImage}
-                onClick={() => setSelectedImage(index)}
-              >
-                <img src={img} alt="" />
-              </S.Thumbnail>
-            ))}
-          </S.ThumbnailsRow>
+            <S.ThumbnailsWrapper>
+              <div style={{ position: "relative" }}>
+                <S.ThumbnailsArrow left onClick={scrollLeft}>‹</S.ThumbnailsArrow>
+                <S.ThumbnailsRow ref={thumbRef}>
+                  {profileData.images.map((img, index) => (
+                    <S.Thumbnail
+                      key={index}
+                      active={index === selectedImage}
+                      onClick={() => setSelectedImage(index)}
+                    >
+                      <img src={img} alt="" />
+                    </S.Thumbnail>
+                  ))}
+                </S.ThumbnailsRow>
+                <S.ThumbnailsArrow onClick={scrollRight}>›</S.ThumbnailsArrow>
+              </div>
+            </S.ThumbnailsWrapper>
 
         </S.LeftColumn>
 

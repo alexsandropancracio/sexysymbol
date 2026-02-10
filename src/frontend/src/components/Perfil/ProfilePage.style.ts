@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 /* ================= PAGE ================= */
 
 export const Page = styled(motion.main)`
-  min-height: 100vh;
+  min-height: 110vh;
   background: radial-gradient(
     circle at top,
     #111 0%,
@@ -259,6 +259,10 @@ export const ArrowButton = styled.button<{ left?: boolean }>`
   &:hover {
     transform: translateY(-50%) scale(1.15);
   }
+
+    &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
 `;
 
 /* ================= RIGHT ================= */
@@ -341,8 +345,6 @@ export const DetailItem = styled.div`
     gap: 20px;
   }
 `;
-
-
 
 /* ================= TEXT ================= */
 
@@ -459,19 +461,22 @@ export const CTAButton = styled.button`
 export const ThumbnailsRow = styled.div`
   display: flex;
   gap: 12px;
-  margin-top: 14px;
-  overflow-x: auto;
+  overflow-x: auto;      /* permite scroll horizontal */
+  scroll-behavior: smooth; /* animação suave no scroll */
   padding-bottom: 4px;
 
+  /* força que sempre apareçam 5 itens visíveis por vez */
+  max-width: calc((68px * 5) + (12px * 4)); /* 5 thumbnails + 4 gaps */
+  
   &::-webkit-scrollbar {
     height: 4px;
   }
-
   &::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 999px;
   }
 `;
+
 
 export const Thumbnail = styled.button<{ active?: boolean }>`
   flex: 0 0 auto;
@@ -511,4 +516,44 @@ export const Thumbnail = styled.button<{ active?: boolean }>`
     filter: none;
   }
 `;
+
+export const ThumbnailsWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+
+// ================= ARROWS THUMBNAILS =================
+export const ThumbnailsArrow = styled.button<{ left?: boolean }>`
+  position: absolute;
+  top: 50%;
+  ${({ left }) => (left ? "left: -8px;" : "right: -8px;")}
+  transform: translateY(-50%);
+  z-index: 5;
+
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 18px;
+
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    transform: translateY(-50%) scale(1.15);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+`;
+
 

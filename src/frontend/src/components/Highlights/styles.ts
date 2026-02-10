@@ -232,20 +232,18 @@ export const Button = styled.button`
 `;
 
 /* ===== ARROWS ===== */
-const ArrowBase = styled.button`
+export const ArrowBase = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 
   width: 48px;
   height: 48px;
-
   border-radius: 50%;
   border: none;
 
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.4);
   color: #fff;
-
   font-size: 32px;
   cursor: pointer;
   z-index: 3;
@@ -254,11 +252,16 @@ const ArrowBase = styled.button`
   align-items: center;
   justify-content: center;
 
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+
+  opacity: 0; /* 🔑 começa invisível */
 
   &:hover {
-    background: rgba(0, 0, 0, 0.8);
     transform: translateY(-50%) scale(1.05);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
   }
 
   @media (max-width: 768px) {
@@ -280,8 +283,15 @@ const ArrowBase = styled.button`
   }
 `;
 
+/* ========== ARROWS ========== */
 export const ArrowLeft = styled(ArrowBase)`
   left: 24px;
+
+  ${({}) => `
+    ${Card}:hover & {
+      opacity: 1; /* 🔑 aparece no hover do container */
+    }
+  `}
 
   @media (max-width: 768px) {
     left: 16px;
@@ -294,6 +304,12 @@ export const ArrowLeft = styled(ArrowBase)`
 
 export const ArrowRight = styled(ArrowBase)`
   right: 24px;
+
+  ${({}) => `
+    ${Card}:hover & {
+      opacity: 1; /* 🔑 aparece no hover do container */
+    }
+  `}
 
   @media (max-width: 768px) {
     right: 16px;
