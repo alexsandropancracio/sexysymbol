@@ -3,6 +3,8 @@ import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
 import { Footer } from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
+import { Anuncie } from "./components/Anuncie";
+
 
 function App() {
   // 🔑 estado global da busca
@@ -25,17 +27,21 @@ function App() {
       />
 
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              nameFilter={selectedName}
-              adsRef={adsRef}
-            />
-          }
+         <Route
+      path="/"
+      element={
+        <Home
+          nameFilter={selectedName}
+          adsRef={adsRef}
         />
-      </Routes>
+      }
+    />
 
+    <Route
+      path="/anuncie"
+      element={<Anuncie />}
+    />
+        </Routes>
       <Footer />
     </>
   );
