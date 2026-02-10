@@ -161,13 +161,11 @@ export const CarouselWrapper = styled.div`
   position: relative;
 
   width: 100%;
-  max-width: 420px; /* 🔑 controla o "retângulo editorial" */
-  
-  aspect-ratio: 4 / 5; /* mobile em pé, elegante */
+  max-width: 420px; /* desktop */
+  aspect-ratio: 4 / 5; /* proporção elegante */
 
   border-radius: 22px;
   overflow: hidden;
-
   background: #0b0b0b;
 
   box-shadow:
@@ -179,8 +177,14 @@ export const CarouselWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
-    max-width: 100%;
-    aspect-ratio: 3 / 5;
+    max-width: 320px;
+    aspect-ratio: 3 / 4.5; /* proporção levemente mais alta */
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100%; /* ocupa toda a tela */
+    aspect-ratio: 3 / 4; 
+    border-radius: 18px;
   }
 `;
 
@@ -468,6 +472,16 @@ export const ThumbnailsRow = styled.div`
   /* força que sempre apareçam 5 itens visíveis por vez */
   max-width: calc((68px * 5) + (12px * 4)); /* 5 thumbnails + 4 gaps */
   
+  @media (max-width: 768px) {
+    max-width: calc((58px * 5) + (10px * 4)); /* reduz tamanho para tablet */
+    gap: 10px;
+  }
+
+  @media (max-width: 480px) {
+    max-width: calc((48px * 5) + (8px * 4)); /* mobile */
+    gap: 8px;
+  }
+  
   &::-webkit-scrollbar {
     height: 4px;
   }
@@ -482,10 +496,8 @@ export const Thumbnail = styled.button<{ active?: boolean }>`
   flex: 0 0 auto;
   width: 68px;
   height: 98px;
-
   border-radius: 12px;
   overflow: hidden;
-
   position: relative;
 
   border: 1px solid
@@ -505,8 +517,7 @@ export const Thumbnail = styled.button<{ active?: boolean }>`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: ${({ active }) =>
-      active ? "none" : "grayscale(20%)"};
+    filter: ${({ active }) => (active ? "none" : "grayscale(20%)")};
     opacity: ${({ active }) => (active ? 1 : 0.75)};
     transition: 0.3s;
   }
@@ -514,6 +525,17 @@ export const Thumbnail = styled.button<{ active?: boolean }>`
   &:hover img {
     opacity: 1;
     filter: none;
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    width: 58px;
+    height: 84px;
+  }
+
+  @media (max-width: 480px) {
+    width: 48px;
+    height: 70px;
   }
 `;
 
