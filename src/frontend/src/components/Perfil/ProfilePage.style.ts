@@ -184,9 +184,6 @@ export const CarouselWrapper = styled.div`
   }
 `;
 
-
-
-/* overlay suave */
 export const ImageOverlay = styled.div`
   position: absolute;
   inset: 0;

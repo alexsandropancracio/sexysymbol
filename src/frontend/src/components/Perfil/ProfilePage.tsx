@@ -115,7 +115,7 @@ export function ProfilePage() {
               />
             </AnimatePresence>
 
-            <S.ImageOverlay />
+  
           </S.CarouselWrapper>
           <S.ThumbnailsRow>
             {profileData.images.map((img, index) => (
