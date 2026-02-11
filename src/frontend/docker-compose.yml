@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: sexysymbol-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sexysymbol
+      POSTGRES_USER: sexysymbol
+      POSTGRES_PASSWORD: sexysymbol_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - sexysymbol-postgres-data:/var/lib/postgresql/data
+      - ./documents/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql:ro
+
+  backend:
+    # Quando o backend em Java for criado, aponte o contexto de build para a pasta correta.
+    # Exemplo de estrutura esperada: ./backend (Spring Boot com Dockerfile próprio).
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sexysymbol-backend
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/sexysymbol
+      SPRING_DATASOURCE_USERNAME: sexysymbol
+      SPRING_DATASOURCE_PASSWORD: sexysymbol_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: sexysymbol
+    ports:
+      - "8080:8080"
+
+  frontend:
+    # Opcional: container para o frontend existente em src/frontend
+    # Caso use apenas `npm run dev` local, este serviço pode ser removido/comentado.
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile
+    container_name: sexysymbol-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+
+volumes:
+  sexysymbol-postgres-data:
+

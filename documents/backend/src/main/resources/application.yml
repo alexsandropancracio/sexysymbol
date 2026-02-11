@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: sexysymbol-backend
+
+  datasource:
+    url: jdbc:postgresql://db:5432/sexysymbol
+    username: sexysymbol
+    password: sexysymbol_pass
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: sexysymbol
+    show-sql: true
+    open-in-view: false
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
