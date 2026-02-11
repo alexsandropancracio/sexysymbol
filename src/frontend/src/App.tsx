@@ -6,6 +6,9 @@ import { Routes, Route } from "react-router-dom";
 import { Anuncie } from "./components/Anuncie";
 import { ProfilePage } from "./components/Perfil/ProfilePage";
 
+// 🔑 Importa o AdsProvider
+import { AdsProvider } from "./components/Ads/AdsContext";
+
 function App() {
   // 🔑 estado global da busca
   const [selectedName, setSelectedName] = useState("");
@@ -19,7 +22,8 @@ function App() {
   };
 
   return (
-    <>
+    // 🔑 Envolvendo tudo com o AdsProvider
+    <AdsProvider>
       <Header
         selected={selectedName}
         setSelected={setSelectedName}
@@ -48,8 +52,9 @@ function App() {
           element={<ProfilePage />}
         />
       </Routes>
+
       <Footer />
-    </>
+    </AdsProvider>
   );
 }
 

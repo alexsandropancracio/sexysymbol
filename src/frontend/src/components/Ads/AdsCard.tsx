@@ -32,17 +32,17 @@ export function AdsCard({ ad }: AdsCardProps) {
   const [currentImage, setCurrentImage] = useState(0);
 
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % ad.images.length);
+    setCurrentImage((prev) => (prev + 1) % Math.min(ad.images.length, 4));
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + ad.images.length) % ad.images.length);
+    setCurrentImage((prev) => (prev - 1 + Math.min(ad.images.length, 4)) % Math.min(ad.images.length, 5));
   };
 
   return (
     <Card>
       <ImageWrapper>
-        <Image src={ad.images[currentImage]} alt={ad.name} />
+        <Image src={ad.images.slice(0, 4)[currentImage]} alt={ad.name} />
 
         {/* Botão esquerdo */}
         <ArrowButton left onClick={prevImage}>
