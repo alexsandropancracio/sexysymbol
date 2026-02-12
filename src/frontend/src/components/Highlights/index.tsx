@@ -12,6 +12,8 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "./styles";
+import { useNavigate } from "react-router-dom";
+
 
 export function Highlights() {
   // 🔄 Índice inicial aleatório
@@ -26,6 +28,8 @@ export function Highlights() {
       prev === 0 ? highlights.length - 1 : prev - 1
     );
   }
+
+  const navigate = useNavigate();
 
   // 🔄 Auto-play
   useEffect(() => {
@@ -64,7 +68,10 @@ export function Highlights() {
               {highlight.age} anos • {highlight.location}
             </Meta>
 
-            <Button>Ver perfil</Button>
+            <Button onClick={() => navigate(`/perfil/${highlight.id}`)}>
+              Ver perfil
+            </Button>
+
           </Info>
         ))}
       </Card>

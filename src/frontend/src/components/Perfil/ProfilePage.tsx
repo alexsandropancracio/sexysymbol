@@ -14,12 +14,14 @@ import * as S from "./ProfilePage.style";
 import { useParams, useNavigate } from "react-router-dom";
 import { ads } from "../Ads/AdsData";
 
-
 export function ProfilePage() {
   const navigate = useNavigate();
-  const { id } = useParams();
 
-  const profileData = ads.find(ad => ad.id === id);
+  const { id } = useParams<{ id: string }>(); // 🔑 FIX AQUI
+
+  const profileData = ads.find(
+    ad => ad.id === id
+  );
 
   if (!profileData) {
     return <S.Page>Perfil não encontrado</S.Page>;

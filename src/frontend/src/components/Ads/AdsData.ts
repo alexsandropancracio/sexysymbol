@@ -184,7 +184,7 @@ export const ads: Ad[] = [
     locations: "Lauro de Freitas - BA",
     bio: "Sofisticada, encantadora e discreta.",
     rating: 4.8,
-    images: [rebeca1, rebeca2, rebeca3 , rebeca4, rebeca5, rebeca6, rebeca7, rebeca8],
+    images: [rebeca2, rebeca1, rebeca3 , rebeca4, rebeca5, rebeca6, rebeca7, rebeca8],
     etnia: "Negras",
     atendimento: ["Homens", "Casais"],
     lugar: ["Com local", "Viagens"],

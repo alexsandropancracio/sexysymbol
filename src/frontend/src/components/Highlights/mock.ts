@@ -6,12 +6,12 @@ import isadoraSampaioDesktop from "../../assets/midia/isadora-sampaio.jpg";
 import isadoraSampaioMobile from "../../assets/midia/isadora-sampaio/img1.jpg";
 import lorenaQuintinoDesktop from "../../assets/midia/lorena-quintino.jpg";
 import lorenaQuintinoMobile from "../../assets/midia/lorena-quintino/img5.jpg";
-import melissaSantanaDesktop from "../../assets/midia/melissa-santana.jpg";
-import melissaSantanaMobile from "../../assets/midia/melissa-santana/img11.jpg";
+import marianaBiazziDesktop from "../../assets/midia/mariana-biazzi.jpg";
+import marianaBiazziMobile from "../../assets/midia/mariana-biazzi/img2.jpg";
 
 export const highlights = [
   {
-    id: 1,
+    id: "rebeca-brito",
     name: "Rebeca Brito",
     age: 25,
     location: "Lauro de Freitas - BA",
@@ -20,7 +20,7 @@ export const highlights = [
     imageMobile: rebecaBritoMobile
   },
   {
-    id: 2,
+    id: "camila-martini",
     name: "Camila Martini",
     age: 26,
     location: "Salvador - BA",
@@ -30,7 +30,7 @@ export const highlights = [
     imageMobile: camilaMartiniMobile
   },
   {
-    id: 3,
+    id: "isadora-sampaio",
     name: "Isadora Sampaio",
     age: 22,
     location: "Feira de Santana - BA",
@@ -40,7 +40,7 @@ export const highlights = [
     imageMobile: isadoraSampaioMobile
   },
   {
-    id: 5,
+    id: "lorena-quintino",
     name: "Lorena Quintino",
     age: 24,
     location: "Salvador - BA",
@@ -50,13 +50,13 @@ export const highlights = [
     imageMobile: lorenaQuintinoMobile
   },
   {
-    id: 6,
-    name: "Melissa Santana",
+    id: "mariana-biazzi",
+    name: "Mariana Biazzi",
     age: 27,
     location: "Salvador - BA",
     rating: 5.0,
     price: 950,
-    imageDesktop: melissaSantanaDesktop,
-    imageMobile: melissaSantanaMobile
+    imageDesktop: marianaBiazziDesktop,
+    imageMobile: marianaBiazziMobile
   },
 ]
