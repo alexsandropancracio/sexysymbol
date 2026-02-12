@@ -8,7 +8,6 @@ import {
   Name,
   Info,
   Location,
-  Bio,
   ArrowButton,
 } from "./styles";
 import * as S from "./styles";
@@ -67,8 +66,6 @@ export function AdsCard({ ad }: AdsCardProps) {
 
         <Info>Idade: {ad.age} anos</Info>
         {ad.locations && <Location>Local: {ad.locations}</Location>}
-
-        <Bio>{ad.bio}</Bio>
 
               {/* CTA */}
               <S.CTAButton
