@@ -158,7 +158,7 @@ const scrollRight = () => {
 
               {profileData.verified && (
               <S.BadgeVerified>
-                <BadgeCheck size={20} strokeWidth={1.8} />
+                <BadgeCheck size={22} strokeWidth={1.8} />
                 Perfil Verificado
               </S.BadgeVerified>
             )}

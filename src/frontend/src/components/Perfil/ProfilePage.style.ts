@@ -161,7 +161,6 @@ export const CarouselWrapper = styled.div`
   position: relative;
 
   width: 100%;
-
   max-width: 420px; /* desktop */
   aspect-ratio: 3.4 / 5; /* proporção elegante */
 
@@ -183,8 +182,8 @@ export const CarouselWrapper = styled.div`
   }
 
   @media (max-width: 480px) {
-    max-width: 100%; /* ocupa toda a tela */
-    aspect-ratio: 3 / 4; 
+    max-width: 95%; /* ocupa toda a tela */
+    aspect-ratio: 2.6 / 4; 
     border-radius: 18px;
   }
 `;
@@ -233,6 +232,11 @@ export const BadgeVerified = styled.div`
   border-radius: 999px;
   border: 1px solid rgba(201, 162, 77, 0.45);
   color: #f5f5f5;
+
+    @media (max-width: 480px) {
+    max-width: 80%;
+    margin-left: 25px;
+  }
 `;
 
 /* ================= ARROWS ================= */
