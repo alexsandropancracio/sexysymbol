@@ -156,14 +156,12 @@ const scrollRight = () => {
                   {profileData.name}
                 </S.NameHeading>
 
-
-
                 <S.Meta>
                   <MapPin size={14} />
                   {profileData.locations} • {profileData.age} anos
                 </S.Meta>
 
-                              {profileData.verified && (
+              {profileData.verified && (
               <S.BadgeVerified>
                 <BadgeCheck size={22} strokeWidth={1.8} />
                 Perfil Verificado

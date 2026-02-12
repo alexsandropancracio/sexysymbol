@@ -27,7 +27,7 @@ export const Nav = styled.nav`
   top: 0;
   z-index: 50;
 
-  background: rgba(5, 5, 5, 0.7);
+  background: rgb(0, 0, 0);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 `;
@@ -205,39 +205,7 @@ export const ImageOverlay = styled.div`
   pointer-events: none;
 `;
 
-/* ================= VERIFIED ================= */
 
-export const BadgeVerified = styled.div`
-  position: inline-flex;
-  bottom: 20px;
-  left: 20px;
-  z-index: 5;
-  max-width: 30%;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 8px 10px;
-  margin-top: 6px;
-  margin-bottom: 15px;
-
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-
-  background: rgba(10, 10, 10, 0.45);
-
-
-  border-radius: 999px;
-  border: 1px solid rgba(201, 162, 77, 0.45);
-  color: #f5f5f5;
-
-    @media (max-width: 480px) {
-    max-width: 80%;
-    margin-left: 25px;
-  }
-`;
 
 /* ================= ARROWS ================= */
 
@@ -298,8 +266,6 @@ export const RightColumn = styled.aside`
   }
 `;
 
-
-
 export const InfoSection = styled.div`
   width: 90%; /* 🔑 ocupa tudo */
   display: flex;
@@ -313,16 +279,22 @@ export const InfoSection = styled.div`
 `;
 
 
+
 /* ================= DETAILS ================= */
 
 export const DetailsList = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 14px;
+
+    @media (max-width: 480px) {
+    width: 100%
+  }
 `;
 
 export const DetailItem = styled.div`
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
 
   display: grid;
@@ -335,6 +307,8 @@ export const DetailItem = styled.div`
 
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
+
+  overflow: hidden; /* 🔑 impede expansão lateral */
 
   span {
     font-size: 11px;
@@ -349,14 +323,18 @@ export const DetailItem = styled.div`
     font-weight: 500;
     color: #eaeaea;
     text-align: right;
-    word-break: break-word; /* 🔑 textos grandes não estouram */
+
+    min-width: 0; /* 🔑 ESSENCIAL para grid */
+    word-break: break-word;
   }
 
   @media (max-width: 480px) {
-    grid-template-columns: 110px 1fr;
-    gap: 20px;
+    grid-template-columns: 100px 1fr;
+    width: 100%;
+    gap: 12px;
   }
 `;
+
 
 /* ================= TEXT ================= */
 
@@ -366,17 +344,6 @@ export const NameHeading = styled.h1`
   font-weight: 500;
   color: #ffffff;
   margin-bottom: 6px;
-`;
-
-
-export const Rating = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  font-size: 18px;
-  font-weight: 600;
-  color: #c9a24d;
 `;
 
 export const Bio = styled.p`
@@ -397,6 +364,43 @@ export const Bio = styled.p`
   }
 `;
 
+/* ================= VERIFIED ================= */
+
+export const BadgeVerified = styled.div`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: fit-content;
+  max-width: 100%;
+
+  padding: 6px 12px;
+  margin-top: 6px;
+  margin-bottom: 14px;
+
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  background: #000000;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 162, 77, 0.45);
+  color: #f5f5f5;
+
+  svg {
+    flex-shrink: 0; /* 🔑 ícone nunca estica */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 9px;
+    padding: 5px 10px;
+    gap: 6px;
+  }
+`;
+
 
 export const Meta = styled.div`
   display: flex;
@@ -408,8 +412,6 @@ export const Meta = styled.div`
   text-transform: uppercase;
   color: #a1a1aa;
 `;
-
-
 
 /* ================= CTA ================= */
 
