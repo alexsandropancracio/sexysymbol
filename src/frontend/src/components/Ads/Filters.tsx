@@ -22,9 +22,9 @@ export interface FiltersState {
 }
 
 const locationsList = [
-  "Salvador",
-  "Feira de Santana",
-  "Lauro de Freitas",
+  "Salvador - BA",
+  "Feira de Santana - BA",
+  "Lauro de Freitas - BA",
 ];
 
 interface FiltersProps {
