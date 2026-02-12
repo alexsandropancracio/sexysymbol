@@ -4,11 +4,18 @@ import type { Ad } from "./AdsData";
 import { ads } from "./AdsData";
 
 // ====================
+// CONFIG
+// ====================
+const ADS_PER_PAGE = 6;
+
+// ====================
 // TYPES
 // ====================
 interface AdsContextType {
   shuffledAds: Ad[];
-  refreshShuffle: () => void; // opcional, caso queira embaralhar manualmente
+  visibleCount: number;
+  loadMore: () => void;
+  resetVisibleCount: () => void;
 }
 
 interface AdsProviderProps {
@@ -25,20 +32,33 @@ const AdsContext = createContext<AdsContextType | undefined>(undefined);
 // ====================
 export function AdsProvider({ children }: AdsProviderProps) {
   const [shuffledAds, setShuffledAds] = useState<Ad[]>([]);
+  const [visibleCount, setVisibleCount] = useState(ADS_PER_PAGE);
 
-  // 🔑 embaralha apenas uma vez, no primeiro render
+  // 🔑 embaralha APENAS uma vez (primeiro render / F5)
   useEffect(() => {
     const shuffled = [...ads].sort(() => Math.random() - 0.5);
     setShuffledAds(shuffled);
   }, []);
 
-  // função para reembaralhar manualmente (opcional)
-  const refreshShuffle = () => {
-    setShuffledAds([...ads].sort(() => Math.random() - 0.5));
+  // 🔽 carregar mais anúncios
+  const loadMore = () => {
+    setVisibleCount(prev => prev + ADS_PER_PAGE);
+  };
+
+  // 🔄 caso queira resetar manualmente (opcional / futuro)
+  const resetVisibleCount = () => {
+    setVisibleCount(ADS_PER_PAGE);
   };
 
   return (
-    <AdsContext.Provider value={{ shuffledAds, refreshShuffle }}>
+    <AdsContext.Provider
+      value={{
+        shuffledAds,
+        visibleCount,
+        loadMore,
+        resetVisibleCount,
+      }}
+    >
       {children}
     </AdsContext.Provider>
   );

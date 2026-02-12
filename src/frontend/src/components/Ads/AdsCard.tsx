@@ -36,7 +36,7 @@ export function AdsCard({ ad }: AdsCardProps) {
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + Math.min(ad.images.length, 4)) % Math.min(ad.images.length, 5));
+    setCurrentImage((prev) => (prev - 1 + Math.min(ad.images.length, 4)) % Math.min(ad.images.length, 4));
   };
 
   return (

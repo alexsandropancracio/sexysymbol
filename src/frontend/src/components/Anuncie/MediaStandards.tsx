@@ -41,7 +41,7 @@ export const MediaStandards: React.FC = () => {
               </IconWrapper>
               <CardTitle>Quantidade</CardTitle>
               <CardText>
-                Mínimo de 10 fotos.<br />
+                Mínimo de 5 fotos.<br />
                 Máximo de 20 fotos.<br />
                 Variedade de ângulos e produções.
               </CardText>

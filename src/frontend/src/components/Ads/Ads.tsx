@@ -5,8 +5,6 @@ import type { FiltersState } from "./Filters";
 import { AdsCard } from "./AdsCard";
 import { useAds } from "./AdsContext";
 
-const ADS_PER_PAGE = 6;
-
 interface AdsProps {
   nameFilter?: string;
   adsRef: React.RefObject<HTMLElement | null>;
@@ -23,9 +21,7 @@ export function Ads({ nameFilter, adsRef }: AdsProps) {
     idadeMax: undefined,
   });
 
-  const [visibleCount, setVisibleCount] = useState(ADS_PER_PAGE);
-
-  const { shuffledAds } = useAds(); // 🔑 lista embaralhada do contexto
+  const { shuffledAds, visibleCount, loadMore } = useAds(); // 🔑 lista embaralhada do contexto
 
   // filtragem baseada na lista embaralhada
   const filteredAds = shuffledAds.filter(ad => {
@@ -39,10 +35,6 @@ export function Ads({ nameFilter, adsRef }: AdsProps) {
     if (filters.idadeMax && ad.age > filters.idadeMax) return false;
     return true;
   });
-
-  const loadMore = () => {
-    setVisibleCount(prev => Math.min(prev + ADS_PER_PAGE, filteredAds.length));
-  };
 
   return (
     <Section id="ads" ref={adsRef}>

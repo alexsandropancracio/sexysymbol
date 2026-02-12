@@ -56,10 +56,10 @@ import monaliza1 from "@/assets/midia/monaliza-diniz/img1.jpg";
 import monaliza2 from "@/assets/midia/monaliza-diniz/img2.jpg";
 import monaliza3 from "@/assets/midia/monaliza-diniz/img3.jpg";
 import monaliza4 from "@/assets/midia/monaliza-diniz/img4.jpg";
-import monaliza5 from "@/assets/midia/monaliza-diniz/img4.jpg";
-import monaliza6 from "@/assets/midia/monaliza-diniz/img4.jpg";
-import monaliza7 from "@/assets/midia/monaliza-diniz/img4.jpg";
-import monaliza8 from "@/assets/midia/monaliza-diniz/img4.jpg";
+import monaliza5 from "@/assets/midia/monaliza-diniz/img5.jpg";
+import monaliza6 from "@/assets/midia/monaliza-diniz/img6.jpg";
+import monaliza7 from "@/assets/midia/monaliza-diniz/img7.jpg";
+import monaliza8 from "@/assets/midia/monaliza-diniz/img8.jpg";
 
 import pietra1 from "@/assets/midia/pietra-rezendes/img1.jpg";
 import pietra2 from "@/assets/midia/pietra-rezendes/img2.jpg";

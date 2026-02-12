@@ -6,13 +6,14 @@ import {
   ArrowLeft,
   MessageCircle,
   Share2,
-  ShieldCheck,
   ChevronLeft,
   ChevronRight,
+  BadgeCheck
 } from "lucide-react";
 import * as S from "./ProfilePage.style";
 import { useParams, useNavigate } from "react-router-dom";
 import { ads } from "../Ads/AdsData";
+
 
 export function ProfilePage() {
   const navigate = useNavigate();
@@ -103,12 +104,7 @@ const scrollRight = () => {
               <ChevronRight size={16} />
             </S.ArrowButton>
 
-            {profileData.verified && (
-              <S.BadgeVerified>
-                <ShieldCheck size={14} />
-                Perfil Verificado
-              </S.BadgeVerified>
-            )}
+
 
             <AnimatePresence initial={false}>
               <motion.img
@@ -159,6 +155,13 @@ const scrollRight = () => {
                 <S.NameHeading>
                   {profileData.name}
                 </S.NameHeading>
+
+              {profileData.verified && (
+              <S.BadgeVerified>
+                <BadgeCheck size={20} strokeWidth={1.8} />
+                Perfil Verificado
+              </S.BadgeVerified>
+            )}
 
                 <S.Meta>
                   <MapPin size={14} />

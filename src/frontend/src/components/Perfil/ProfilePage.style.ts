@@ -161,8 +161,9 @@ export const CarouselWrapper = styled.div`
   position: relative;
 
   width: 100%;
+
   max-width: 420px; /* desktop */
-  aspect-ratio: 4 / 5; /* proporção elegante */
+  aspect-ratio: 3.4 / 5; /* proporção elegante */
 
   border-radius: 22px;
   overflow: hidden;
@@ -208,23 +209,26 @@ export const ImageOverlay = styled.div`
 /* ================= VERIFIED ================= */
 
 export const BadgeVerified = styled.div`
-  position: absolute;
+  position: inline-flex;
   bottom: 20px;
   left: 20px;
   z-index: 5;
+  max-width: 30%;
 
   display: flex;
   align-items: center;
   gap: 8px;
 
-  padding: 8px 14px;
+  padding: 8px 10px;
+  margin-top: 6px;
+  margin-bottom: 15px;
 
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 
-  background: rgba(10, 10, 10, 0.55);
-  backdrop-filter: blur(10px);
+  background: rgba(10, 10, 10, 0.45);
+
 
   border-radius: 999px;
   border: 1px solid rgba(201, 162, 77, 0.45);
