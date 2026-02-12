@@ -16,7 +16,7 @@ export const Section = styled.section`
 /* ===== TITLE ===== */
 export const Title = styled.h2`
   font-family: "Avelire", serif;
-  font-size: 35px;
+  font-size: 45px;
   margin-bottom: 20px;
   text-align: center;
 
@@ -29,7 +29,7 @@ export const Title = styled.h2`
   }
 
   @media (max-width: 426px) {
-    font-size: 22px;
+    font-size: 25px;
     margin-bottom: 14px;
   }
 `;
@@ -59,7 +59,7 @@ export const Card = styled.div`
 
   @media (max-width: 480px) {
     width: 99%;
-    height: 55vh;
+    height: 65vh;
     min-height: 280px;
     max-height: none;
   }

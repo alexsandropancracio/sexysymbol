@@ -1,93 +1,62 @@
-import angelCastelli from "../../assets/midia/angel-castelli.png";
-import angelValentina from "../../assets/midia/angel-valentina.png";
-import juliaTeles from "../../assets/midia/julia-teles.png";
-import lauraBellini from "../../assets/midia/laura-bellini.png";
-import lorena from "../../assets/midia/lorena.png";
-import maya from "../../assets/midia/maya.png";
-import melissaFalcao from "../../assets/midia/melissa-falcao.png";
-import nathyGarcia from "../../assets/midia/nathy-garcia.png";
-import tiffany from "../../assets/midia/tiffany.png";
+import rebecaBritoDesktop from "../../assets/midia/rebeca-brito.jpg";
+import rebecaBritoMobile from "../../assets/midia/rebeca-brito/img7.jpg";
+import camilaMartiniDesktop from "../../assets/midia/camila-martini.jpg";
+import camilaMartiniMobile from "../../assets/midia/camila-martini/img1.jpg";
+import isadoraSampaioDesktop from "../../assets/midia/isadora-sampaio.jpg";
+import isadoraSampaioMobile from "../../assets/midia/isadora-sampaio/img1.jpg";
+import lorenaQuintinoDesktop from "../../assets/midia/lorena-quintino.jpg";
+import lorenaQuintinoMobile from "../../assets/midia/lorena-quintino/img5.jpg";
+import melissaSantanaDesktop from "../../assets/midia/melissa-santana.jpg";
+import melissaSantanaMobile from "../../assets/midia/melissa-santana/img11.jpg";
 
 export const highlights = [
   {
     id: 1,
-    name: "Angel Castelli",
-    age: 24,
-    location: "Lauro de Freitas",
+    name: "Rebeca Brito",
+    age: 25,
+    location: "Lauro de Freitas - BA",
     rating: 4.9,
-    price: 550,
-    image: angelCastelli,
+    imageDesktop: rebecaBritoDesktop,
+    imageMobile: rebecaBritoMobile
   },
   {
     id: 2,
-    name: "Angel Valentina",
+    name: "Camila Martini",
     age: 26,
-    location: "Feira de Santana",
+    location: "Salvador - BA",
     rating: 4.8,
     price: 680,
-    image: angelValentina,
+    imageDesktop: camilaMartiniDesktop,
+    imageMobile: camilaMartiniMobile
   },
   {
     id: 3,
-    name: "Julia Teles",
+    name: "Isadora Sampaio",
     age: 22,
-    location: "Feira de Santana",
+    location: "Feira de Santana - BA",
     rating: 4.7,
     price: 900,
-    image: juliaTeles,
-  },
-  {
-    id: 4,
-    name: "Laura Bellini",
-    age: 25,
-    location: "Lauro de Freitas",
-    rating: 4.9,
-    price: 1220,
-    image: lauraBellini,
+    imageDesktop: isadoraSampaioDesktop,
+    imageMobile: isadoraSampaioMobile
   },
   {
     id: 5,
-    name: "Lorena Ferreira",
-    age: 23,
-    location: "Salvador",
+    name: "Lorena Quintino",
+    age: 24,
+    location: "Salvador - BA",
     rating: 4.6,
     price: 1180,
-    image: lorena,
+    imageDesktop: lorenaQuintinoDesktop,
+    imageMobile: lorenaQuintinoMobile
   },
   {
     id: 6,
-    name: "Maya Buchelli",
+    name: "Melissa Santana",
     age: 27,
-    location: "Salvador",
+    location: "Salvador - BA",
     rating: 5.0,
     price: 950,
-    image: maya,
+    imageDesktop: melissaSantanaDesktop,
+    imageMobile: melissaSantanaMobile
   },
-  {
-    id: 7,
-    name: "Melissa Falcão",
-    age: 24,
-    location: "Salvador",
-    rating: 4.8,
-    price: 560,
-    image: melissaFalcao,
-  },
-  {
-    id: 8,
-    name: "Nathy Garcia",
-    age: 26,
-    location: "Feira de Santana",
-    rating: 4.9,
-    price: 800,
-    image: nathyGarcia,
-  },
-  {
-    id: 9,
-    name: "Larissa Castro",
-    age: 25,
-    location: "Lauro de Freitas",
-    rating: 4.7,
-    price: 630,
-    image: tiffany,
-  },
-];
+]

@@ -40,15 +40,22 @@ export function Highlights() {
       <Card>
         <ArrowLeft onClick={prev}>‹</ArrowLeft>
         <ArrowRight onClick={next}>›</ArrowRight>
-
+        
+        
         {highlights.map((highlight, i) => (
-          <Image
-            key={highlight.image}
-            src={highlight.image}
-            alt={highlight.name}
-            $active={i === index}
-          />
+          <picture key={highlight.imageDesktop}>
+            <source
+              media="(max-width: 768px)"
+              srcSet={highlight.imageMobile}
+            />
+            <Image
+              src={highlight.imageDesktop}
+              alt={highlight.name}
+              $active={i === index}
+            />
+          </picture>
         ))}
+
 
         {highlights.map((highlight, i) => (
           <Info key={highlight.id} $active={i === index}>

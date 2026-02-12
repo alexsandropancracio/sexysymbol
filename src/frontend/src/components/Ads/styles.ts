@@ -8,7 +8,7 @@ export const Section = styled.section`
 
 /* ===== TITLE ===== */
 export const Title = styled.h2`
-  font-size: 1.7rem; /* maior */
+  font-size: 1.5rem; /* maior */
   font-weight: 700;
   margin-top: 10px;
   margin-bottom: 20px;
