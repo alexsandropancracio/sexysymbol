@@ -156,17 +156,19 @@ const scrollRight = () => {
                   {profileData.name}
                 </S.NameHeading>
 
-              {profileData.verified && (
-              <S.BadgeVerified>
-                <BadgeCheck size={22} strokeWidth={1.8} />
-                Perfil Verificado
-              </S.BadgeVerified>
-            )}
+
 
                 <S.Meta>
                   <MapPin size={14} />
                   {profileData.locations} • {profileData.age} anos
                 </S.Meta>
+
+                              {profileData.verified && (
+              <S.BadgeVerified>
+                <BadgeCheck size={22} strokeWidth={1.8} />
+                Perfil Verificado
+              </S.BadgeVerified>
+            )}
               </div>
 
               {/* BIO */}
