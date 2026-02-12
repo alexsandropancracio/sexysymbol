@@ -190,6 +190,10 @@ export const ImageWrapper = styled.div`
   height: 600px;
   overflow: hidden;
   position: relative;
+
+    @media (max-width: 480px) {
+    height: 540px;
+  }
 `;
 
 /* ===== IMAGE ===== */
