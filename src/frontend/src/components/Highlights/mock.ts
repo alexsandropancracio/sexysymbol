@@ -1,5 +1,5 @@
 import rebecaBritoDesktop from "../../assets/midia/rebeca-brito.jpg";
-import rebecaBritoMobile from "../../assets/midia/rebeca-brito/img7.jpg";
+import rebecaBritoMobile from "../../assets/midia/rebeca-brito/img1.jpg";
 import camilaMartiniDesktop from "../../assets/midia/camila-martini.jpg";
 import camilaMartiniMobile from "../../assets/midia/camila-martini/img1.jpg";
 import isadoraSampaioDesktop from "../../assets/midia/isadora-sampaio.jpg";
