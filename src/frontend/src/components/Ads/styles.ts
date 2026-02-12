@@ -187,7 +187,7 @@ export const Card = styled.div`
 /* ===== IMAGE WRAPPER ===== */
 export const ImageWrapper = styled.div`
   width: 100%;
-  height: 550px;
+  height: 600px;
   overflow: hidden;
   position: relative;
 `;

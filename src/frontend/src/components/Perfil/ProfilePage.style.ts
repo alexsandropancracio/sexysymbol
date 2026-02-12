@@ -19,7 +19,6 @@ export const ImageFrame = styled.div`
   justify-content: center;
 `;
 
-
 /* ================= NAV ================= */
 
 export const Nav = styled.nav`
@@ -83,7 +82,6 @@ export const BackButton = styled.button`
   }
 `;
 
-
 export const NavAction = styled.button`
   width: 40px;
   height: 40px;
@@ -120,7 +118,6 @@ export const NavAction = styled.button`
   }
 `;
 
-
 /* ================= GRID ================= */
 
 export const ProfileGrid = styled.section`
@@ -143,8 +140,6 @@ export const ProfileGrid = styled.section`
     gap: 28px;
   }
 `;
-
-
 
 /* ================= LEFT ================= */
 
@@ -204,8 +199,6 @@ export const ImageOverlay = styled.div`
     );
   pointer-events: none;
 `;
-
-
 
 /* ================= ARROWS ================= */
 
@@ -278,8 +271,6 @@ export const InfoSection = styled.div`
   }
 `;
 
-
-
 /* ================= DETAILS ================= */
 
 export const DetailsList = styled.div`
@@ -308,7 +299,7 @@ export const DetailItem = styled.div`
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
 
-  overflow: hidden; /* 🔑 impede expansão lateral */
+  overflow: hidden;
 
   span {
     font-size: 11px;
@@ -316,15 +307,20 @@ export const DetailItem = styled.div`
     text-transform: uppercase;
     color: #a1a1aa;
     white-space: nowrap;
+
+    text-align: left;        /* 🔑 garante START */
+    justify-self: start;     /* 🔑 alinha dentro da coluna */
   }
 
   strong {
     font-size: 14px;
     font-weight: 500;
     color: #eaeaea;
-    text-align: right;
 
-    min-width: 0; /* 🔑 ESSENCIAL para grid */
+    text-align: right;       /* mantém END */
+    justify-self: end;       /* 🔑 alinha no final da coluna */
+
+    min-width: 0;
     word-break: break-word;
   }
 
@@ -334,7 +330,6 @@ export const DetailItem = styled.div`
     gap: 12px;
   }
 `;
-
 
 /* ================= TEXT ================= */
 
@@ -400,7 +395,6 @@ export const BadgeVerified = styled.div`
     gap: 6px;
   }
 `;
-
 
 export const Meta = styled.div`
   display: flex;
@@ -468,8 +462,6 @@ export const CTAButton = styled.button`
 
 `;
 
-
-
 /* ================= THUMBNAILS ================= */
 
 export const ThumbnailsRow = styled.div`
@@ -500,7 +492,6 @@ export const ThumbnailsRow = styled.div`
     border-radius: 999px;
   }
 `;
-
 
 export const Thumbnail = styled.button<{ active?: boolean }>`
   flex: 0 0 auto;
