@@ -28,7 +28,7 @@ export function ProfilePage() {
     return <S.Page>Perfil não encontrado</S.Page>;
   }
 
-  const pageTitle = `${profileData.name} | Perfil Verificado — SexySymbol`;
+  const pageTitle = `${profileData.name} | sexysymbol`;
   const pageDescription = `${profileData.name} é um perfil verificado na SexySymbol. Atendimento com discrição, elegância e segurança. Confira fotos, informações e entre em contato.`;
 
   const pageUrl = typeof window !== "undefined" 
