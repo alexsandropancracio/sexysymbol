@@ -7,6 +7,8 @@ import { Anuncie } from "./components/Anuncie";
 import { ProfilePage } from "./components/Perfil/ProfilePage";
 import { Helmet } from "react-helmet-async";
 import { Toaster } from "react-hot-toast";
+import { Dashboard } from "@/admin/pages/Dashboard";
+
 
 // 🔑 Importa o AdsProvider
 import { AdsProvider } from "./components/Ads/AdsContext";
@@ -63,6 +65,12 @@ function App() {
         <Route
           path="/perfil/:id"
           element={<ProfilePage />}
+        />
+
+          {/* 🔐 ADMIN DASHBOARD */}
+        <Route
+          path="/admin/dashboard"
+          element={<Dashboard />}
         />
       </Routes>
 

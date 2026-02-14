@@ -396,3 +396,132 @@ Code Splitting	Performance	🔥🔥🔥
 Backend real	Estrutura	🔥🔥🔥🔥🔥
 Favoritos	UX	        🔥🔥🔥
 Analytics	Monetização	🔥🔥🔥🔥🔥
+
+1️⃣ Toast em vez de alert
+O que você tem hoje
+
+Quando o navegador não suporta navigator.share, a gente faz isso:
+
+alert("Link copiado para a área de transferência!");
+
+Qual o problema do alert
+
+Trava a tela
+
+Visual feio / antigo
+
+Experiência pobre (parece site amador)
+
+O que é um toast
+
+É aquela mensagem discreta, elegante, que aparece no canto da tela e some sozinha.
+
+Exemplo mental:
+
+✅ Link copiado com sucesso!
+
+Sem bloquear nada.
+
+Benefício
+
+UX profissional
+
+Padrão de apps modernos
+
+Sensação de produto “premium”
+
+👉 Isso não muda lógica, só melhora experiência.
+
+2️⃣ Tooltip “Compartilhar”
+O que é tooltip
+
+É aquele texto pequeno que aparece quando você passa o mouse em cima de um ícone.
+
+Exemplo:
+🖱️ passa o mouse no ícone
+👉 aparece: “Compartilhar perfil”
+
+Por que isso importa
+
+Nem todo mundo entende ícone sozinho
+
+Acessibilidade
+
+Clareza sem poluir a interface
+
+Em desktop faz MUITA diferença
+
+Principalmente porque seu site tem estética sofisticada.
+
+3️⃣ Tracking de compartilhamento (Analytics)
+
+Aqui entra mentalidade de produto e negócio 🧠📊
+
+O que é isso?
+
+Toda vez que alguém clica em Compartilhar, você registra:
+
+Qual perfil foi compartilhado
+
+Quantas vezes
+
+Quando
+
+Exemplo de dado:
+
+Perfil Rebeca Brito foi compartilhado 27 vezes
+
+Por que isso é poderoso?
+
+Você descobre quais perfis geram mais interesse
+
+Pode usar isso no futuro:
+
+Destaque
+
+Rank
+
+Valor de anúncio
+
+Prova social
+
+Importante
+
+👉 Isso não precisa de backend agora
+Pode começar simples (localStorage ou Analytics)
+
+🧩 Resumo rápido
+Item	O que é	Vale a pena agora?
+Toast	Feedback bonito	                ⭐⭐⭐⭐
+Tooltip	Clareza visual	                ⭐⭐⭐
+Tracking share	Dados estratégicos	⭐⭐⭐⭐
+🔥 Minha recomendação honesta
+
+Antes do contador de visualizações, eu faria nessa ordem:
+
+1️⃣ Toast no share (rápido e impactante)
+2️⃣ Tooltip no botão
+3️⃣ Depois sim: contador de visualizações por perfil
+
+
+Analytics:
+
+Analytics não é só “ver número”. No SexySymbol, ele serve pra responder perguntas como:
+
+👁️ Quantas vezes cada perfil foi visualizado?
+
+📈 Quais perfis performam mais?
+
+🔗 De onde o usuário veio?
+
+🕒 Quanto tempo ficam na página?
+
+📱 Mobile ou desktop?
+
+🎯 Quais CTAs são clicados (Ver perfil, Agendar, Share)?
+
+analytics/
+ ├─ analyticsService.ts       ✅ orquestrador
+ ├─ localAnalyticsProvider.ts ✅ implementação local
+ ├─ apiAnalyticsProvider.ts   🔜 futura
+ ├─ types.ts                  ✅ contrato único

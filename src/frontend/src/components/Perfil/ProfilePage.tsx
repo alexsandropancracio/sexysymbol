@@ -15,6 +15,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ads } from "../Ads/AdsData";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
+import { analyticsService } from "../../analytics/analyticsService";
+
 
 
 export function ProfilePage() {
@@ -41,34 +43,54 @@ export function ProfilePage() {
     Math.floor(Math.random() * profileData.images.length)
   );
 
-  const next = () =>
-    setSelectedImage(
-      prev => (prev + 1) % profileData.images.length
-    );
+  const next = () => {
+    setSelectedImage(prev => {
+      const newIndex = (prev + 1) % profileData.images.length;
 
-  const prev = () =>
-    setSelectedImage(
-      prev =>
+      analyticsService.trackImageView(profileData.id, newIndex);
+
+      return newIndex;
+    });
+  };
+
+  const prev = () => {
+    setSelectedImage(prev => {
+      const newIndex =
         (prev - 1 + profileData.images.length) %
-        profileData.images.length
-    );
+        profileData.images.length;
 
-  useEffect(() => {
+      analyticsService.trackImageView(profileData.id, newIndex);
+
+      return newIndex;
+    });
+  };
+
+useEffect(() => {
   // 🔹 Scroll para o topo quando o perfil muda
-    window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
 
-    // 🔹 Função de teclado para navegar no carrossel
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") next();
-      if (e.key === "ArrowLeft") prev();
-    };
+  if (profileData?.id) {
+  const sessionKey = `viewed-profile-${profileData.id}`;
 
-    window.addEventListener("keydown", onKey);
+  if (!sessionStorage.getItem(sessionKey)) {
+    analyticsService.trackProfileViewWithContext(profileData.id);
+    analyticsService.trackProfileView(profileData.id);
+    sessionStorage.setItem(sessionKey, "true");
+  }
+}
 
-    // 🔹 Cleanup: remove o listener ao desmontar ou trocar de perfil
-    return () => {
-      window.removeEventListener("keydown", onKey);
-    };
+  // 🔹 Função de teclado para navegar no carrossel
+  const onKey = (e: KeyboardEvent) => {
+    if (e.key === "ArrowRight") next();
+    if (e.key === "ArrowLeft") prev();
+  };
+
+  window.addEventListener("keydown", onKey);
+
+  // 🔹 Cleanup
+  return () => {
+    window.removeEventListener("keydown", onKey);
+  };
   }, [id]); // ⚡️ depende do 'id' para resetar o scroll quando muda de perfil
 
   const thumbRef = useRef<HTMLDivElement>(null);
@@ -81,23 +103,26 @@ export function ProfilePage() {
     thumbRef.current?.scrollBy({ left: 80, behavior: "smooth" });
   };
 
-const handleShare = async () => {
-  try {
-    if (navigator.share) {
-      await navigator.share({
-        title: pageTitle,
-        text: pageDescription,
-        url: pageUrl,
-      });
-    } else {
-      await navigator.clipboard.writeText(pageUrl);
-      toast.success("Link do perfil copiado!");
-    }
-  } catch (err) {
-    toast.error("Não foi possível compartilhar o perfil");
-  }
-};
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: pageTitle,
+          text: pageDescription,
+          url: pageUrl,
+        });
 
+        analyticsService.trackProfileShare(profileData.id, "native");
+      } else {
+        await navigator.clipboard.writeText(pageUrl);
+
+        analyticsService.trackProfileShare(profileData.id, "copy");
+        toast.success("Link do perfil copiado!");
+      }
+    } catch (err) {
+      toast.error("Não foi possível compartilhar o perfil");
+    }
+  };
 
   return (
     
@@ -220,6 +245,7 @@ const handleShare = async () => {
                 Perfil Verificado
               </S.BadgeVerified>
             )}
+
               </div>
 
               {/* BIO */}
@@ -265,13 +291,16 @@ const handleShare = async () => {
 
               {/* CTA */}
               <S.CTAButton
-                onClick={() =>
+                onClick={() => {
+                  analyticsService.trackWhatsAppClick(profileData.id);
+
                   window.open(
                     "https://wa.me/5511956197970",
                     "_blank"
-                  )
-                }
+                  );
+                }}
               >
+
                 <MessageCircle size={18} />
                 AGENDAR
               </S.CTAButton>
