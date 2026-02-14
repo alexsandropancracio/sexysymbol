@@ -221,15 +221,16 @@ const handleResetAnalytics = async () => {
         <tbody>
           {filteredStats.map((item) => (
             <tr key={item.id}>
-              <td>{item.name}</td>
-              <td>{item.views}</td>
-              <td>{item.whatsappClicks}</td>
-              <td>{item.profileShares}</td>
-              <td>{item.imageViews}</td>
-              <td>{item.topSource}</td>
+              <td data-label="Perfil">{item.name}</td>
+              <td data-label="Views">{item.views}</td>
+              <td data-label="WhatsApp">{item.whatsappClicks}</td>
+              <td data-label="Shares">{item.profileShares}</td>
+              <td data-label="Imagem">{item.imageViews}</td>
+              <td data-label="Origem">{item.topSource}</td>
             </tr>
           ))}
         </tbody>
+
 
       </S.Table>
 

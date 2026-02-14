@@ -1,20 +1,35 @@
-// src/admin/pages/Dashboard/Dashboard.styles.ts
-
 import styled from "styled-components";
 
 export const Page = styled.div`
   padding: 40px;
   color: #fff;
+
+  @media (max-width: 1024px) { // tablets
+    padding: 30px;
+  }
+
+  @media (max-width: 768px) { // mobile
+    padding: 20px;
+  }
 `;
 
 export const Title = styled.h1`
   font-size: 28px;
   margin-bottom: 24px;
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+  font-size: 16px;
 
   th, td {
     padding: 12px;
@@ -28,7 +43,45 @@ export const Table = styled.table`
   }
 
   tr:hover {
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  @media (max-width: 1024px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+    font-size: 12px;
+
+    thead {
+      display: none;
+    }
+
+    tbody {
+      display: block;
+    }
+
+    tr {
+      display: block;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.5rem;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border: none;
+      border-bottom: 1px solid #222;
+
+      &::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #c9a24d;
+      }
+    }
   }
 `;
 
@@ -38,6 +91,15 @@ export const CardsGrid = styled.div`
   margin-bottom: 32px;
   margin-top: 20px;
   flex-wrap: wrap;
+
+  @media (max-width: 1024px) {
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 12px;
+  }
 `;
 
 export const Actions = styled.div`
@@ -57,6 +119,11 @@ export const Actions = styled.div`
 
     &:hover {
       opacity: 0.85;
+    }
+
+    @media (max-width: 768px) {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
     }
   }
 `;
@@ -78,7 +145,15 @@ export const Filters = styled.div`
       outline: none;
       border-color: #c9a24d;
     }
+
+    @media (max-width: 768px) {
+      padding: 0.4rem;
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 `;
-
-
