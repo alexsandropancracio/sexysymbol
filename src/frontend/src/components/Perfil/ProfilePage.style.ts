@@ -371,7 +371,7 @@ export const BadgeVerified = styled.div`
   max-width: 100%;
 
   padding: 6px 12px;
-  margin-top: 6px;
+  margin-top: 10px;
   margin-bottom: 14px;
 
   font-size: 10px;
@@ -382,8 +382,8 @@ export const BadgeVerified = styled.div`
 
   background: #000000;
   border-radius: 999px;
-  border: 1px solid rgba(201, 162, 77, 0.45);
-  color: #f5f5f5;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: ${({ theme }) => theme.colors.primary};;
 
   svg {
     flex-shrink: 0; /* 🔑 ícone nunca estica */
