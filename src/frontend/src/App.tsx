@@ -5,6 +5,8 @@ import { Footer } from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
 import { Anuncie } from "./components/Anuncie";
 import { ProfilePage } from "./components/Perfil/ProfilePage";
+import { Helmet } from "react-helmet-async";
+import { Toaster } from "react-hot-toast";
 
 // 🔑 Importa o AdsProvider
 import { AdsProvider } from "./components/Ads/AdsContext";
@@ -24,6 +26,17 @@ function App() {
   return (
     // 🔑 Envolvendo tudo com o AdsProvider
     <AdsProvider>
+
+      <Toaster position="top-right" />
+
+      <Helmet>
+      <title>sexysymbol</title>
+      <meta
+        name="description"
+        content="SexySymbol — Plataforma de perfis verificados com discrição, segurança e elegância."
+      />
+    </Helmet>
+
       <Header
         selected={selectedName}
         setSelected={setSelectedName}

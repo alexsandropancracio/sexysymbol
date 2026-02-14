@@ -152,3 +152,247 @@ src/components/Clients/
 │   └─ Contact.tsx      # Seção "Como anunciar"
 ├─ styles.ts            # Styled-components ou classes Tailwind customizadas
 └─ index.ts             # Para exportar tudo de Clients mais facilmente
+
+
+RODAPÉ
+
+--MEIO--
+Sobre a sexysymbol
+
+Desde 2026 a sesysymbol conecta acompanhantes e clientes de forma segura e discreta, com tecnologias inovadoras e promovendo sempre melhorias para uma melhor experiência para o cliente e a acompanhante.
+--MEIO
+
+--ESQUERDA--
+Conheça a sexysymbol(link)
+Manual de Uso de Marca(link)
+Sua marca na sexysymbol(link)
+Parcerias(link)
+--ESQUERDA--
+
+--DIREITA--
+Fatal Blog(link)
+Fale Conosco(link)
+Perguntas Frequentes(link)
+Termos de Uso(link)
+Política de Privacidade(link)
+Denunciar Exploração Sexual(link)
+--DIREITA--
+
+--------------------------
+[ESQUERDA] | [MEIO] | [DIREITA]
+--------------------------
+
+1️⃣ Slugs SEO-friendly
+Exemplo:
+/perfil/rebeca-brito
+
+
+Em vez de:
+
+/perfil/123
+
+🔎 O que é isso?
+
+Slug é a versão “amigável” do identificador na URL.
+
+Em vez de usar ID numérico, usamos algo descritivo.
+
+Exemplo real:
+
+❌ /perfil/7
+✅ /perfil/rebeca-brito
+
+🧠 Por que isso é importante?
+
+Melhor para Google
+
+Melhor para compartilhamento
+
+Mais profissional
+
+Aumenta clique orgânico
+
+Hoje seu sistema já está quase pronto pra isso, porque você já usa id como string.
+
+2️⃣ React Helmet (Meta Tags Dinâmicas)
+O que é?
+
+Biblioteca para controlar <title> e meta tags de cada página.
+
+Hoje seu site provavelmente tem:
+
+<title>Meu Site</title>
+
+
+Para todas as páginas.
+
+Com Helmet você faz:
+
+<title>Rebeca Brito - Perfil Verificado</title>
+<meta name="description" content="Acompanhante em Salvador..." />
+
+🧠 Por que isso importa?
+
+Google entende melhor cada perfil
+
+Melhora SEO
+
+Melhora preview ao compartilhar no WhatsApp
+
+Deixa o projeto profissional
+
+3️⃣ Lazy Loading de Imagens
+O que é?
+
+Carregar imagem só quando ela entra na tela.
+
+Hoje seu carrossel provavelmente carrega todas as imagens de todos os perfis de uma vez.
+
+Lazy loading faz:
+
+<img loading="lazy" />
+
+
+Ou com biblioteca mais avançada.
+
+🧠 Por que importa?
+
+Site carrega mais rápido
+
+Melhor performance mobile
+
+Melhor nota no Lighthouse
+
+Menor consumo de dados
+
+4️⃣ Code Splitting por Rota
+O que é?
+
+Carregar apenas o código da página quando ela é acessada.
+
+Hoje seu app provavelmente carrega:
+
+Home
+
+ProfilePage
+
+Anuncie
+
+Footer
+
+Tudo junto
+
+Mesmo se o usuário só abrir a Home.
+
+Com Code Splitting:
+const ProfilePage = lazy(() => import("./ProfilePage"));
+
+
+O JS do perfil só carrega quando alguém entra em /perfil/...
+
+🧠 Por que isso importa?
+
+App mais leve
+
+Carregamento inicial mais rápido
+
+Melhor experiência mobile
+
+Padrão profissional de SPA
+
+5️⃣ Backend real (Node ou Firebase)
+
+Hoje você usa:
+
+mock.ts
+AdsData.ts
+
+
+Ou seja:
+📦 Dados fixos no front-end.
+
+Backend real significa:
+
+Perfis salvos em banco de dados
+
+Login para anunciante
+
+Painel para editar perfil
+
+Upload real de fotos
+
+Controle de verificação
+
+Métricas reais
+
+Opções comuns:
+🔹 Firebase
+
+Mais simples, rápido, menos backend manual.
+
+🔹 Node + Express + Banco (PostgreSQL)
+
+Mais robusto, mais controle.
+
+6️⃣ Persistência de Favoritos
+O que é?
+
+Usuário pode:
+
+⭐ Favoritar um perfil
+E quando voltar, ele continua favoritado.
+
+Como fazer?
+
+LocalStorage (versão simples)
+
+Banco de dados (versão profissional)
+
+Login de usuário
+
+Por que importa?
+
+Aumenta retenção
+
+Melhora UX
+
+Dá sensação de produto completo
+
+7️⃣ Analytics de Visualização
+O que é?
+
+Medir:
+
+Quantas visualizações cada perfil teve
+
+Quantos cliques no WhatsApp
+
+Quais cidades são mais acessadas
+
+Qual perfil é mais visitado
+
+Pode usar:
+
+Google Analytics
+
+Firebase Analytics
+
+Ou sistema próprio
+
+Por que isso é ouro?
+
+Se você monetizar:
+
+“Seu perfil teve 1.423 visualizações essa semana”
+
+Isso vende plano premium.
+
+🎯 Resumo Estratégico
+Recurso	Nível	Impacto
+Slug SEO	Marketing	🔥🔥🔥🔥
+React Helmet	SEO	        🔥🔥🔥🔥
+Lazy Loading	Performance	🔥🔥🔥
+Code Splitting	Performance	🔥🔥🔥
+Backend real	Estrutura	🔥🔥🔥🔥🔥
+Favoritos	UX	        🔥🔥🔥
+Analytics	Monetização	🔥🔥🔥🔥🔥
