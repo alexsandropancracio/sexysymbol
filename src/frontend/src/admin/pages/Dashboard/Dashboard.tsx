@@ -1,200 +1,127 @@
 // src/admin/pages/Dashboard/Dashboard.tsx
 
-import { useEffect, useState } from "react";
-import { analyticsService } from "../../../analytics/analyticsService";
+import { useState } from "react";
 import { ads } from "../../../components/Ads/AdsData";
 import { StatsCard } from "../../components/StatsCard/StatsCards";
+import { useDashboardAnalytics } from "../../hooks/useDashboardAnalytics";
 import * as S from "./Dashboard.styles";
 
-// 🔹 Tipagem para eventos do analytics
-interface AnalyticsEvent {
-  id: string;
-  eventName: "whatsapp_click" | "profile_share" | "profile_image_view" | "profile_view";
-  payload?: {
-    profileId?: string;
-    source?: string;
-    method?: "native" | "copy";
-    imageIndex?: number;
-    device?: "mobile" | "tablet" | "desktop";
-    referrer?: string;
-    [key: string]: any;
-  };
-  timestamp: number;
-}
+import type { DateRange } from "@/analytics/domain/dateRange";
+import type { MetricKey } from "@/analytics/domain/metric";
+import { METRIC_LABELS } from "@/analytics/domain/metric";
+import { AnalyticsChart } from "../../components/AnalyticsCharts/AnalyticsChart";
 
-// 🔹 Tipagem das estatísticas de cada perfil
-interface ProfileStats {
-  id: string;
-  name: string;
-  views: number;
-  whatsappClicks: number;
-  profileShares: number;
-  imageViews: number;
-  topSource: string;
-}
+
+
+type SortField =
+  | "views"
+  | "whatsappClicks"
+  | "profileShares"
+  | "imageViews"
+  | "topSource";
 
 export function Dashboard() {
-  // Filtros do dashboard
-  const [filterProfile, setFilterProfile] = useState<string>("all"); // Todos os perfis por padrão
-  const [filterSource, setFilterSource] = useState<string>("all");    // Todas as fontes
+  // 🔹 Filtros
+  const [filterProfile, setFilterProfile] = useState("all");
+  const [filterSource, setFilterSource] = useState("all");
+
+  // 🔹 Métrica do gráfico
+  const [metric, setMetric] = useState<MetricKey>("views");
+  const [compareMetric, setCompareMetric] = useState<MetricKey | null>(null);
 
 
-  // Função para resetar todo o analytics
-const handleResetAnalytics = async () => {
-  if (!confirm("Tem certeza que deseja resetar todos os dados de analytics? Essa ação não pode ser desfeita.")) {
-    return;
-  }
-
-  // 🔹 Resetar views
-  for (const profile of ads) {
-    await analyticsService.resetProfileViews(profile.id);
-  }
-
-  // 🔹 Resetar eventos genéricos (localStorage)
-  localStorage.removeItem("analytics_events");
-
-  // 🔹 Recarregar dados
-  const allViews: Record<string, number> = {};
-  for (const profile of ads) {
-    allViews[profile.id] = await analyticsService.getProfileViews(profile.id);
-  }
-
-  const raw = localStorage.getItem("analytics_events");
-  const loadedEvents: AnalyticsEvent[] = raw ? JSON.parse(raw) : [];
-
-  const updatedStats: ProfileStats[] = ads.map((profile) => {
-    const views = allViews[profile.id] || 0;
-
-    const whatsappClicks = loadedEvents.filter(
-      (e) => e.eventName === "whatsapp_click" && e.payload?.profileId === profile.id
-    ).length;
-
-    const profileShares = loadedEvents.filter(
-      (e) => e.eventName === "profile_share" && e.payload?.profileId === profile.id
-    ).length;
-
-    const imageViews = loadedEvents.filter(
-      (e) => e.eventName === "profile_image_view" && e.payload?.profileId === profile.id
-    ).length;
-
-    return {
-      id: profile.id,
-      name: profile.name,
-      views,
-      whatsappClicks,
-      profileShares,
-      imageViews,
-      topSource: "direct",
-    };
+  // 🔹 Ordenação da tabela
+  const [sortConfig, setSortConfig] = useState<{
+    field: SortField;
+    order: "asc" | "desc";
+  }>({
+    field: "views",
+    order: "desc",
   });
 
-  setStats(updatedStats);
-  alert("Analytics resetado com sucesso!");
-};
+  // 🔹 Filtro de data
+  const [dateRange, setDateRange] = useState<DateRange>({
+    from: null,
+    to: null,
+  });
 
-  // ⬇️ Estados do dashboard
-  const [stats, setStats] = useState<ProfileStats[]>([]);
+  // 🔹 Dados
+  const { stats, totals, loading, reset } =
+    useDashboardAnalytics(5000, dateRange);
 
-
-  useEffect(() => {
-    const loadData = async () => {
-      // 🔹 Buscar views de cada perfil
-      const allViews: Record<string, number> = {};
-      for (const profile of ads) {
-        allViews[profile.id] = await analyticsService.getProfileViews(profile.id);
-      }
-
-      // 🔹 Buscar eventos do localStorage
-      const raw = typeof window !== "undefined" ? localStorage.getItem("analytics_events") : null;
-
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("analytics_events");
-      }
-
-      const loadedEvents: AnalyticsEvent[] = raw ? JSON.parse(raw) : [];
-
-      // 🔹 Montar stats de cada perfil
-      const data: ProfileStats[] = ads.map((profile) => {
-        const views = allViews[profile.id] || 0;
-
-        const whatsappClicks = loadedEvents.filter(
-          (e) => e.eventName === "whatsapp_click" && e.payload?.profileId === profile.id
-        ).length;
-
-        const profileShares = loadedEvents.filter(
-          (e) => e.eventName === "profile_share" && e.payload?.profileId === profile.id
-        ).length;
-
-        const imageViews = loadedEvents.filter(
-          (e) => e.eventName === "profile_image_view" && e.payload?.profileId === profile.id
-        ).length;
-
-        // 🔹 Contar fontes de tráfego (referrer / source)
-        const sourceCounts: Record<string, number> = loadedEvents
-          .filter((e) => e.payload?.profileId === profile.id && e.payload?.source)
-          .reduce((acc: Record<string, number>, e) => {
-            const src = e.payload!.source!;
-            acc[src] = (acc[src] || 0) + 1;
-            return acc;
-          }, {});
-
-        const topSource = Object.entries(sourceCounts)
-          .sort((a, b) => b[1] - a[1])[0]?.[0] ?? "direct";
-
-        return {
-          id: profile.id,
-          name: profile.name,
-          views,
-          whatsappClicks,
-          profileShares,
-          imageViews,
-          topSource,
-        };
-      });
-
-      setStats(data);
-    };
-
-    loadData();
-      const interval = setInterval(() => {
-    loadData();
-    }, 5000); // Atualiza a cada 5s
-    return () => clearInterval(interval);
-
-
-
-
-  }, []);
-
-      // Filtrar stats com base nos filtros selecionados
+  // 🔹 Filtro por perfil + origem
   const filteredStats = stats.filter((item) => {
-  const matchProfile = filterProfile === "all" || item.id === filterProfile;
-  const matchSource = filterSource === "all" || item.topSource === filterSource;
-  
-  // Se quiser filtrar por tipo de evento, podemos aplicar no loadedEvents se necessário
+    const matchProfile =
+      filterProfile === "all" || item.id === filterProfile;
+
+    const matchSource =
+      filterSource === "all" || item.topSource === filterSource;
+
     return matchProfile && matchSource;
   });
 
+  // 🔹 Ordenação genérica
+  const sortedStats = [...filteredStats].sort((a, b) => {
+    const aValue = a[sortConfig.field];
+    const bValue = b[sortConfig.field];
+
+    if (typeof aValue === "number" && typeof bValue === "number") {
+      const result = aValue - bValue;
+      return sortConfig.order === "asc" ? result : -result;
+    }
+
+    if (typeof aValue === "string" && typeof bValue === "string") {
+      const result = aValue.localeCompare(bValue);
+      return sortConfig.order === "asc" ? result : -result;
+    }
+
+    return 0;
+  });
+
+  // 🔹 Clique no header
+  const handleSort = (field: SortField) => {
+    setSortConfig((prev) => {
+      if (prev.field === field) {
+        return {
+          field,
+          order: prev.order === "asc" ? "desc" : "asc",
+        };
+      }
+
+      return { field, order: "desc" };
+    });
+  };
+
   return (
-    
     <S.Page>
+      {loading && <p>Carregando dados...</p>}
+
       <S.Actions>
-      <button onClick={handleResetAnalytics} className="reset-button">
-      Resetar Analytics
-      </button>
-    </S.Actions>
+        <button onClick={reset} className="reset-button">
+          Resetar Analytics
+        </button>
+      </S.Actions>
 
       <S.Title>Dashboard de Performance</S.Title>
 
+      {/* 🔹 FILTROS */}
       <S.Filters>
-        <select value={filterProfile} onChange={(e) => setFilterProfile(e.target.value)}>
+        <select
+          value={filterProfile}
+          onChange={(e) => setFilterProfile(e.target.value)}
+        >
           <option value="all">Todos os Perfis</option>
           {ads.map((ad) => (
-            <option key={ad.id} value={ad.id}>{ad.name}</option>
+            <option key={ad.id} value={ad.id}>
+              {ad.name}
+            </option>
           ))}
         </select>
 
-        <select value={filterSource} onChange={(e) => setFilterSource(e.target.value)}>
+        <select
+          value={filterSource}
+          onChange={(e) => setFilterSource(e.target.value)}
+        >
           <option value="all">Todas as Fontes</option>
           <option value="direct">Direct</option>
           <option value="instagram">Instagram</option>
@@ -202,24 +129,86 @@ const handleResetAnalytics = async () => {
           <option value="facebook">Facebook</option>
           <option value="other">Other</option>
         </select>
+
+        {/* 🔹 FILTRO DE DATA */}
+        <S.DateFilter>
+          <div>
+            <label>De</label>
+            <input
+              type="date"
+              value={
+                dateRange.from
+                  ? dateRange.from.toISOString().split("T")[0]
+                  : ""
+              }
+              onChange={(e) =>
+                setDateRange((prev) => ({
+                  ...prev,
+                  from: e.target.value ? new Date(e.target.value) : null,
+                }))
+              }
+            />
+          </div>
+
+          <div>
+            <label>Até</label>
+            <input
+              type="date"
+              value={
+                dateRange.to
+                  ? dateRange.to.toISOString().split("T")[0]
+                  : ""
+              }
+              onChange={(e) =>
+                setDateRange((prev) => ({
+                  ...prev,
+                  to: e.target.value ? new Date(e.target.value) : null,
+                }))
+              }
+            />
+          </div>
+
+          {(dateRange.from || dateRange.to) && (
+            <button
+              className="clear-date"
+              onClick={() => setDateRange({ from: null, to: null })}
+            >
+              Limpar período
+            </button>
+          )}
+        </S.DateFilter>
       </S.Filters>
 
-
-      {/* TABELA DE DADOS */}
+      {/* 🔹 TABELA */}
       <S.Table>
         <thead>
           <tr>
             <th>Perfil</th>
-            <th>Views</th>
-            <th>WhatsApp</th>
-            <th>Shares</th>
-            <th>Imagem</th>
-            <th>Origem</th>
+            {[
+              { key: "views", label: "Views" },
+              { key: "whatsappClicks", label: "WhatsApp" },
+              { key: "profileShares", label: "Shares" },
+              { key: "imageViews", label: "Imagem" },
+              { key: "topSource", label: "Origem" },
+            ].map(({ key, label }) => (
+              <th
+                key={key}
+                onClick={() => handleSort(key as SortField)}
+                className={sortConfig.field === key ? "active" : ""}
+              >
+                {label}
+                {sortConfig.field === key && (
+                  <span className="sort-icon">
+                    {sortConfig.order === "asc" ? "▲" : "▼"}
+                  </span>
+                )}
+              </th>
+            ))}
           </tr>
         </thead>
 
         <tbody>
-          {filteredStats.map((item) => (
+          {sortedStats.map((item) => (
             <tr key={item.id}>
               <td data-label="Perfil">{item.name}</td>
               <td data-label="Views">{item.views}</td>
@@ -230,34 +219,63 @@ const handleResetAnalytics = async () => {
             </tr>
           ))}
         </tbody>
-
-
       </S.Table>
 
-      {/* CARDS DE RESUMO */}
+      {/* 🔹 TOGGLE DE MÉTRICA */}
+      <S.MetricToggle>
+        <label>Métrica</label>
+        <select
+          value={metric}
+          onChange={(e) => setMetric(e.target.value as MetricKey)}
+        >
+          {Object.entries(METRIC_LABELS).map(([key, label]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
+        </select>
+        <label>Comparar com</label>
+        <select
+          value={compareMetric ?? ""}
+          onChange={(e) =>
+            setCompareMetric(
+              e.target.value ? (e.target.value as MetricKey) : null
+            )
+          }
+        >
+          <option value="">Nenhuma</option>
+          {Object.entries(METRIC_LABELS)
+            .filter(([key]) => key !== metric)
+            .map(([key, label]) => (
+              <option key={key} value={key}>
+                {label}
+              </option>
+            ))}
+        </select>
+      </S.MetricToggle>
+      
+
+      {/* 🔹 GRÁFICO */}
+      <S.ChartWrapper>
+        <S.ChartScroll>
+          <AnalyticsChart
+            data={sortedStats}
+            metric={metric}
+            compareMetric={compareMetric}
+          />
+        </S.ChartScroll>
+      </S.ChartWrapper>
+
+
+      {/* 🔹 CARDS */}
       <S.CardsGrid>
-
-      <StatsCard 
-      title="Total de Perfis" 
-      value={filteredStats.length} 
-      />
-      <StatsCard
-        title="Total de Views"
-        value={filteredStats.reduce((acc, item) => acc + item.views, 0)}
-      />
-      <StatsCard
-        title="Total de Cliques WhatsApp"
-        value={filteredStats.reduce((acc, item) => acc + item.whatsappClicks, 0)}
-      />
-      <StatsCard
-        title="Total de Shares"
-        value={filteredStats.reduce((acc, item) => acc + item.profileShares, 0)}
-      />
-      <StatsCard
-        title="Total de Image Views"
-        value={filteredStats.reduce((acc, item) => acc + item.imageViews, 0)}
-      />
-
+        <StatsCard title="Total de Views" value={totals.views} />
+        <StatsCard
+          title="Total de Cliques WhatsApp"
+          value={totals.whatsapp}
+        />
+        <StatsCard title="Total de Shares" value={totals.shares} />
+        <StatsCard title="Total de Image Views" value={totals.images} />
       </S.CardsGrid>
     </S.Page>
   );

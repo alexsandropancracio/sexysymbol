@@ -4,7 +4,7 @@
  * EVENTOS GENÉRICOS
  * ------------------------- */
 export interface AnalyticsEvent<T = Record<string, any>> {
-  id?: string;          // 🔥 backend-ready
+  id?: string;
   eventName: string;
   payload?: T;
   timestamp: number;
@@ -14,12 +14,10 @@ export interface AnalyticsEvent<T = Record<string, any>> {
  * PROVIDER
  * ------------------------- */
 export interface AnalyticsProvider {
-  /* PROFILE */
   incrementProfileView(profileId: string): Promise<void>;
   getProfileViews(profileId: string): Promise<number>;
   resetProfileViews?(profileId?: string): Promise<void>;
 
-  /* GENERIC EVENTS */
   trackEvent?(
     eventName: string,
     payload?: Record<string, any>

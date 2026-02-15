@@ -1,0 +1,21 @@
+📦 analytics (domínio + infra)
+
+Eventos
+
+Métricas
+
+Agregação
+
+Reset
+
+Fonte de dados
+
+📦 admin/pages/Dashboard
+
+Filtros
+
+Renderização
+
+UX
+
+Interação
