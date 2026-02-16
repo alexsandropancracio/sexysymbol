@@ -8,7 +8,7 @@ import { ProfilePage } from "./components/Perfil/ProfilePage";
 import { Helmet } from "react-helmet-async";
 import { Toaster } from "react-hot-toast";
 import { Dashboard } from "@/admin/pages/Dashboard";
-
+import { Sobre } from "./components/Sobre";
 
 // 🔑 Importa o AdsProvider
 import { AdsProvider } from "./components/Ads/AdsContext";
@@ -72,8 +72,10 @@ function App() {
           path="/admin/dashboard"
           element={<Dashboard />}
         />
-      </Routes>
 
+              <Route path="/sobre" element={<Sobre />} />
+      </Routes>
+      
       <Footer />
     </AdsProvider>
   );

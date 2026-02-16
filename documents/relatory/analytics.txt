@@ -18,4 +18,21 @@ Renderização
 
 UX
 
-Interação
+
+Agora a estrutura está assim:
+
+Dashboard (UI pura)
+↓
+useDashboardAnalytics (orquestra + agregador)
+↓
+useCases (build + reset)
+↓
+analyticsService (infra)
+↓
+storage
+
+
+✔ UI não sabe como reset funciona
+✔ UI não calcula métricas
+✔ Hook virou camada de aplicação
+✔ Fácil trocar localStorage por API

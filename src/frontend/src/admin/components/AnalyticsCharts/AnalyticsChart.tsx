@@ -9,7 +9,6 @@ import {
   Legend,
   CartesianGrid,
 } from "recharts";
-
 import type { MetricKey } from "@/analytics/domain/metric";
 
 interface Props {

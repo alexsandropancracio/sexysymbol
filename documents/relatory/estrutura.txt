@@ -504,7 +504,7 @@ Antes do contador de visualizações, eu faria nessa ordem:
 3️⃣ Depois sim: contador de visualizações por perfil
 
 
-Analytics:
+Página Analytics:
 
 Analytics não é só “ver número”. No SexySymbol, ele serve pra responder perguntas como:
 
@@ -525,3 +525,16 @@ analytics/
  ├─ localAnalyticsProvider.ts ✅ implementação local
  ├─ apiAnalyticsProvider.ts   🔜 futura
  ├─ types.ts                  ✅ contrato único
+
+
+Página Sobre:
+
+src/components/Sobre/
+  index.tsx
+  styles.ts
+  sections/
+    HeroSection.tsx
+    AboutSection.tsx
+    AudienceSection.tsx
+    DifferentialsSection.tsx
+    VisionSection.tsx
