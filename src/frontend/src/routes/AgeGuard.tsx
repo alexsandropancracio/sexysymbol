@@ -1,13 +1,16 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
+import type { ReactNode } from "react";
 
-interface AgeGuardProps {
-  children: React.ReactNode;
-}
+export function AgeGuard({ children }: { children: ReactNode }) {
+  const location = useLocation();
+  const confirmed = localStorage.getItem("ageConfirmed") === "true";
 
-export function AgeGuard({ children }: AgeGuardProps) {
-  const isVerified = localStorage.getItem("ageVerified");
+  if (!confirmed) {
+    localStorage.setItem(
+      "redirectAfterAge",
+      location.pathname + location.search
+    );
 
-  if (!isVerified) {
     return <Navigate to="/18+" replace />;
   }
 
