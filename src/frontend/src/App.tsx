@@ -19,6 +19,7 @@ import { AgeGate } from "./pages/AgeGate";
 import { AgeGuard } from "./routes/AgeGuard";
 
 import { AdsProvider } from "./components/Ads/AdsContext";
+import { Construcao } from "./components/Construcao/Construcao";
 
 function App() {
   const [selectedName, setSelectedName] = useState("");
@@ -58,6 +59,7 @@ function App() {
                 />
 
                 <Routes>
+
                   <Route
                     path="/"
                     element={
@@ -67,6 +69,8 @@ function App() {
                       />
                     }
                   />
+
+                  <Route path="/em-construcao" element={<Construcao />} />
 
                   <Route path="/anuncie" element={<Anuncie />} />
 

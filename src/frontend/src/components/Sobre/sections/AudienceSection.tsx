@@ -104,7 +104,13 @@ export function AudienceSection() {
             </AudienceText>
           </AudienceItem>
 
-          <AudienceItem variants={itemVariants}>
+          <AudienceItem variants={itemVariants}
+            whileHover={{
+                y: -6,
+                borderColor: "#C9A24D",
+                boxShadow: "0 12px 30px rgba(201, 162, 77, 0.15)",
+            }}
+            transition={{ duration: 0.6, ease: "easeOut" }}>
             <AudienceTitle>Público consciente</AudienceTitle>
             <AudienceText>
               Pensada para conectar perfis a pessoas que valorizam discrição,

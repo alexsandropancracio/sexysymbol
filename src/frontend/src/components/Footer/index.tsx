@@ -16,9 +16,9 @@ export function Footer() {
         {/* ESQUERDA */}
         <Column>
           <FooterLink to="/sobre">Conheça a sexysymbol</FooterLink>
-          <FooterLink to="/">Manual de Uso de Marca</FooterLink>
-          <FooterLink to="/">Sua marca na sexysymbol</FooterLink>
-          <FooterLink to="/">Parcerias</FooterLink>
+          <FooterLink to="/em-construcao">Manual de Uso de Marca</FooterLink>
+          <FooterLink to="/em-construcao">Sua marca na sexysymbol</FooterLink>
+          <FooterLink to="/em-construcao">Parcerias</FooterLink>
         </Column>
 
         <VerticalDivider />
@@ -39,7 +39,7 @@ export function Footer() {
         {/* DIREITA */}
         <Column alignRight>
           <FooterLink to="/contato">Fale Conosco</FooterLink>
-          <FooterLink to="/faq">Perguntas Frequentes</FooterLink>
+          <FooterLink to="/em-construcao">Perguntas Frequentes</FooterLink>
           <FooterLink to="/termos">Termos de Uso</FooterLink>
           <FooterLink to="/privacidade">Política de Privacidade</FooterLink>
         </Column>
