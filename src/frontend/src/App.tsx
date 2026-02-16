@@ -1,82 +1,95 @@
 import { useRef, useState } from "react";
-import { Header } from "./components/Header";
-import { Home } from "./pages/Home";
-import { Footer } from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
-import { Anuncie } from "./components/Anuncie";
-import { ProfilePage } from "./components/Perfil/ProfilePage";
 import { Helmet } from "react-helmet-async";
 import { Toaster } from "react-hot-toast";
+
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+
+import { Home } from "./pages/Home";
+import { Anuncie } from "./components/Anuncie";
+import { ProfilePage } from "./components/Perfil/ProfilePage";
 import { Dashboard } from "@/admin/pages/Dashboard";
 import { Sobre } from "./components/Sobre";
+import { Termos } from "./components/Termos";
+import { Privacidade } from "./components/Privacidade";
+import { Contato } from "./components/Contato";
 
-// 🔑 Importa o AdsProvider
+import { AgeGate } from "./pages/AgeGate";
+import { AgeGuard } from "./routes/AgeGuard";
+
 import { AdsProvider } from "./components/Ads/AdsContext";
 
 function App() {
-  // 🔑 estado global da busca
   const [selectedName, setSelectedName] = useState("");
 
-  // 🔗 referência da seção de anúncios
   const adsRef = useRef<HTMLElement | null>(null);
 
-  // ⬇️ função de scroll compartilhada
   const scrollToAds = () => {
     adsRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    // 🔑 Envolvendo tudo com o AdsProvider
     <AdsProvider>
+      <Helmet>
+        <title>sexysymbol</title>
+        <meta
+          name="description"
+          content="SexySymbol — Plataforma de perfis verificados com discrição, segurança e elegância."
+        />
+      </Helmet>
 
       <Toaster position="top-right" />
 
-      <Helmet>
-      <title>sexysymbol</title>
-      <meta
-        name="description"
-        content="SexySymbol — Plataforma de perfis verificados com discrição, segurança e elegância."
-      />
-    </Helmet>
-
-      <Header
-        selected={selectedName}
-        setSelected={setSelectedName}
-        scrollToAds={scrollToAds}
-      />
-
       <Routes>
+        {/* 🔞 GATE 18+ (rota isolada) */}
+        <Route path="/18+" element={<AgeGate />} />
+
+        {/* 🔐 TODAS AS ROTAS PROTEGIDAS */}
         <Route
-          path="/"
+          path="/*"
           element={
-            <Home
-              nameFilter={selectedName}
-              adsRef={adsRef}
-            />
+            <AgeGuard>
+              <>
+                <Header
+                  selected={selectedName}
+                  setSelected={setSelectedName}
+                  scrollToAds={scrollToAds}
+                />
+
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <Home
+                        nameFilter={selectedName}
+                        adsRef={adsRef}
+                      />
+                    }
+                  />
+
+                  <Route path="/anuncie" element={<Anuncie />} />
+
+                  <Route path="/perfil/:id" element={<ProfilePage />} />
+
+                  {/* 🔐 ADMIN */}
+                  <Route
+                    path="/admin/dashboard"
+                    element={<Dashboard />}
+                  />
+
+                  <Route path="/sobre" element={<Sobre />} />
+                  <Route path="/termos" element={<Termos />} />
+                  <Route path="/privacidade" element={<Privacidade />} />
+                  <Route path="/contato" element={<Contato />} />
+                </Routes>
+
+                <Footer />
+              </>
+            </AgeGuard>
           }
         />
-
-        <Route
-          path="/anuncie"
-          element={<Anuncie />}
-        />
-
-        {/* 🔥 PERFIL INDIVIDUAL */}
-        <Route
-          path="/perfil/:id"
-          element={<ProfilePage />}
-        />
-
-          {/* 🔐 ADMIN DASHBOARD */}
-        <Route
-          path="/admin/dashboard"
-          element={<Dashboard />}
-        />
-
-              <Route path="/sobre" element={<Sobre />} />
       </Routes>
-      
-      <Footer />
     </AdsProvider>
   );
 }

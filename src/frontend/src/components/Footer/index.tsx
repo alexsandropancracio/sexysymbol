@@ -16,9 +16,9 @@ export function Footer() {
         {/* ESQUERDA */}
         <Column>
           <FooterLink to="/sobre">Conheça a sexysymbol</FooterLink>
-          <FooterLink to="/manual-marca">Manual de Uso de Marca</FooterLink>
-          <FooterLink to="/anuncie">Sua marca na sexysymbol</FooterLink>
-          <FooterLink to="/parcerias">Parcerias</FooterLink>
+          <FooterLink to="/">Manual de Uso de Marca</FooterLink>
+          <FooterLink to="/">Sua marca na sexysymbol</FooterLink>
+          <FooterLink to="/">Parcerias</FooterLink>
         </Column>
 
         <VerticalDivider />

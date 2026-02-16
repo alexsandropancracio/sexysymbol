@@ -538,3 +538,127 @@ src/components/Sobre/
     AudienceSection.tsx
     DifferentialsSection.tsx
     VisionSection.tsx
+
+🧠 Primeiro: o que é a Sexysymbol? (conceito claro)
+
+Antes de pensar em texto ou layout, precisamos alinhar o conceito:
+
+Sexysymbol é um marketplace de anúncios adultos de alto padrão, focado em:
+
+Profissionais independentes
+
+Autonomia e controle do próprio perfil
+
+Segurança, discrição e respeito
+
+Valorização da imagem e da marca pessoal
+
+Ela não é:
+❌ um site genérico de anúncios
+❌ algo apelativo ou vulgar
+❌ uma rede social aberta
+
+Ela é:
+✅ uma plataforma premium
+✅ com curadoria e posicionamento
+✅ focada em crescimento profissional
+
+Esse conceito precisa transparecer na página inteira.
+
+🎯 Objetivo da página “Sobre”
+
+A página deve responder 4 perguntas sem esforço mental do usuário:
+
+O que é a Sexysymbol?
+
+Para quem ela foi criada?
+
+Qual o diferencial dela?
+
+Por que confiar na plataforma?
+
+Se isso ficar claro → a página cumpriu seu papel.
+
+🧩 Estrutura ideal da página (simples, elegante e profissional)
+
+Nada longo demais. Algo assim:
+
+1️⃣ Hero Section (impacto inicial)
+
+Título forte e direto
+
+Uma nova forma de anunciar com elegância, autonomia e respeito.
+
+Subtítulo
+
+A Sexysymbol é uma plataforma criada para profissionais independentes que buscam visibilidade, segurança e valorização da própria imagem.
+
+Visual:
+
+Fundo escuro (seu tema atual)
+
+Tipografia elegante
+
+Pouco texto
+
+Muito respiro
+
+2️⃣ O que é a Sexysymbol (explicação curta)
+
+Texto enxuto, institucional, sem marketing exagerado:
+
+A Sexysymbol nasceu para oferecer um ambiente profissional, discreto e bem estruturado para anúncios adultos de alto padrão.
+
+Aqui, cada perfil é tratado como uma marca pessoal, com foco em autonomia, clareza e liberdade para crescer de forma segura.
+
+Essa parte é sobre identidade, não venda agressiva.
+
+3️⃣ Para quem a plataforma foi criada
+
+Em vez de parágrafos longos, use blocos claros:
+
+Profissionais independentes que desejam controle total do próprio perfil
+
+Pessoas que valorizam discrição, respeito e organização
+
+Quem busca um ambiente sério, sem exposição desnecessária
+
+Quem quer transformar visibilidade em oportunidade real
+
+Isso cria identificação imediata.
+
+4️⃣ Diferenciais da Sexysymbol
+
+Aqui você se posiciona acima do “site comum”:
+
+Exemplos de pontos (podem virar cards):
+
+🔒 Ambiente focado em segurança e privacidade
+
+🎯 Perfil como vitrine profissional, não rede social
+
+📊 Métricas e analytics para acompanhar desempenho
+
+🖤 Design elegante e experiência premium
+
+⚙️ Estrutura preparada para evolução e novas funcionalidades
+
+Mesmo que algumas coisas ainda estejam em desenvolvimento, a arquitetura já suporta isso — e isso é verdade.
+
+5️⃣ Visão e compromisso
+
+Uma seção mais institucional:
+
+Nosso compromisso é oferecer uma plataforma sólida, organizada e transparente, onde cada profissional tenha liberdade para se apresentar com autenticidade e profissionalismo, sem ruído ou exposição desnecessária.
+
+Isso passa credibilidade.
+
+6️⃣ Encerramento simples
+
+Nada de CTA agressivo.
+
+Algo como:
+
+Sexysymbol não é sobre quantidade. É sobre qualidade, posicionamento e respeito.
+
+Fim. Elegante. Forte.

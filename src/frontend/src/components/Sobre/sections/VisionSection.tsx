@@ -40,8 +40,8 @@ export function VisionSection() {
         </VisionText>
 
         <ClosingStatement>
-          Não é sobre quantidade. É sobre <S.Highlight>qualidade,
-          posicionamento e respeito.</S.Highlight>
+          "Não é sobre quantidade. É sobre <S.Highlight>qualidade,
+          posicionamento e respeito."</S.Highlight>
         </ClosingStatement>
       </S.Content>
     </VisionWrapper>
