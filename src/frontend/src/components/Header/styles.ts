@@ -48,10 +48,12 @@ export const HeaderContainer = styled.header`
 export const Logo = styled(Link)<{ $logo: string }>`
   display: inline-block;
   cursor: pointer;
+  max-width: 100%;
 
   .logo-wrapper {
     position: relative;
     display: inline-block;
+    max-width: 100%;
 
     -webkit-mask-image: url(${props => props.$logo});
     -webkit-mask-repeat: no-repeat;
@@ -63,16 +65,15 @@ export const Logo = styled(Link)<{ $logo: string }>`
     mask-size: contain;
     mask-position: center;
 
-    /* 👇 ESSAS LINHAS RESOLVEM O ESCURECIMENTO */
     background-color: transparent;
     will-change: transform;
     transform: translateZ(0);
   }
 
-
   img {
-    height: 35px;
+    height: 16px;          /* 🔥 mobile menor agora */
     width: auto;
+    max-width: 100%;       /* nunca estoura o container */
     display: block;
   }
 
@@ -102,6 +103,34 @@ export const Logo = styled(Link)<{ $logo: string }>`
     to {
       transform: translateX(100%) skewX(-25deg);
       opacity: 0;
+    }
+  }
+
+  /* 📱 Small devices */
+  @media (min-width: 426px) {
+    img {
+      height: 18px;
+    }
+  }
+
+  /* 📱 Tablets */
+  @media (min-width: 768px) {
+    img {
+      height: 24px;
+    }
+  }
+
+  /* 💻 Laptops */
+  @media (min-width: 1024px) {
+    img {
+      height: 32px;   /* ↓ reduzi um pouco pra não ficar exagerado */
+    }
+  }
+
+  /* 🖥 Large screens */
+  @media (min-width: 1440px) {
+    img {
+      height: 38px;   /* ↓ mais equilibrado */
     }
   }
 `;
