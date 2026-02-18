@@ -67,7 +67,7 @@ export const Card = styled.div`
 
   @media (max-width: 480px) {
     padding: 1.5rem;
-    width: calc(100% - 2rem);
+    width: calc(110% - 2rem);
     margin: 2rem auto 0;
   }
 `;
