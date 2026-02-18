@@ -1,5 +1,5 @@
 import { Container } from "./ui/Container";
-import { CheckCircle2 } from "lucide-react";
+
 
 import {
   Section,
@@ -10,17 +10,16 @@ import {
   Description,
   BenefitsList,
   BenefitItem,
-  IconWrapper,
   BenefitText,
 } from "./Benefits.styles";
 
 const benefits = [
-  "Alcance digital extremamente qualificado",
-  "Visibilidade estratégica em nichos de alto padrão",
-  "Critérios claros de publicação",
-  "Atendimento personalizado via WhatsApp",
-  "Aprovação prévia e curadoria de material",
-  "Layout limpo que valoriza o conteúdo",
+  "- Alcance digital extremamente qualificado",
+  "- Visibilidade estratégica em nichos de alto padrão",
+  "- Critérios claros de publicação",
+  "- Atendimento personalizado via WhatsApp",
+  "- Aprovação prévia e curadoria de material",
+  "- Layout limpo que valoriza o conteúdo",
 ];
 
 export const Benefits = () => {
@@ -57,9 +56,6 @@ export const Benefits = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <IconWrapper>
-                  <CheckCircle2 size={22} />
-                </IconWrapper>
 
                 <BenefitText>{benefit}</BenefitText>
               </BenefitItem>
