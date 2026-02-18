@@ -38,20 +38,17 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-<Title>
-  <TitleLogo $logo={logo}>
-    <div className="logo-wrapper">
-      <img src={logo} alt="SexySymbol" />
-      <span className="shine" />
-    </div>
-  </TitleLogo>
+        <Title>
+          <TitleLogo $logo={logo}>
+            <div className="logo-wrapper">
+              <img src={logo} alt="SexySymbol" />
+              <span className="shine" />
+            </div>
+          </TitleLogo>
 
-  SEJA <br />
-  <Brand>SEXYSYMBOL</Brand>
-</Title>
-
-
-
+          SEJA <br />
+          <Brand>SEXYSYMBOL</Brand>
+        </Title>
 
           <Subtitle>
             Autonomia, clareza e evolução profissional. A plataforma exclusiva

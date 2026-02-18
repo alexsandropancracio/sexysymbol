@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
+/* =========================
+   FOOTER PRINCIPAL
+========================= */
 export const FooterWrapper = styled.footer`
   background: ${({ theme }) => theme.colors.background};
   padding: 6rem 0 3rem;
   border-top: 1px solid #1a1a1a;
+  width: 100%;
+  box-sizing: border-box;
 
   @media (max-width: 1024px) {
     padding: 5rem 0 2.75rem;
@@ -19,6 +24,9 @@ export const FooterWrapper = styled.footer`
   }
 `;
 
+/* =========================
+   CONTEÚDO CENTRAL
+========================= */
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,6 +37,7 @@ export const Content = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
     padding: 0 1.5rem;
@@ -39,12 +48,17 @@ export const Content = styled.div`
   }
 `;
 
+/* =========================
+   TÍTULO
+========================= */
 export const Title = styled.h2`
   font-family: ${({ theme }) => theme.fonts.heading};
   font-size: clamp(2rem, 6vw, 3.2rem);
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1.25rem;
   line-height: 1.2;
+  width: 100%;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
     font-size: clamp(1.8rem, 5vw, 2.8rem);
@@ -55,15 +69,18 @@ export const Title = styled.h2`
   }
 `;
 
+/* =========================
+   DESCRIÇÃO
+========================= */
 export const Description = styled.p`
   max-width: 520px;
   width: 100%;
-
   font-family: ${({ theme }) => theme.fonts.primary};
   font-size: 1.05rem;
   line-height: 1.7;
   color: ${({ theme }) => theme.colors.muted};
   margin-bottom: 3rem;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
     font-size: 1rem;
@@ -76,6 +93,9 @@ export const Description = styled.p`
   }
 `;
 
+/* =========================
+   BOTÃO CTA
+========================= */
 export const CtaButton = styled(motion.a)`
   position: relative;
   display: inline-flex;
@@ -85,7 +105,6 @@ export const CtaButton = styled(motion.a)`
 
   padding: 1rem 2.25rem;
   border-radius: 4px;
-
   background: ${({ theme }) => theme.colors.primary};
   color: #000;
 
@@ -98,7 +117,6 @@ export const CtaButton = styled(motion.a)`
 
   box-shadow: 0 0 20px rgba(201, 162, 77, 0.3);
   transition: all 0.3s ease;
-
   max-width: 100%;
   text-align: center;
   box-sizing: border-box;
@@ -129,13 +147,16 @@ export const CtaButton = styled(motion.a)`
   }
 `;
 
+/* =========================
+   BOTTOM / RODAPÉ INFERIOR
+========================= */
 export const Bottom = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 4rem auto 0;
   padding: 2rem 2rem 0;
-
   border-top: 1px solid #1a1a1a;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
     padding: 1.75rem 1.5rem 0;

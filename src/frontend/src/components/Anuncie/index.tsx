@@ -13,17 +13,17 @@ import { SubscriptionBenefits } from "./SubscriptionBenefits";
 export function Anuncie() {
   return (
     <>
-      <Hero />
-      <About />
-      <Benefits />
-      <SubscriptionBenefits />
-      <Essence />
-      <TargetAudience />
-      <Verification />
-      <Guidelines />
-      <MediaStandards />
-      <Safety />
-      <Footer />
+      <Hero/>
+      <About/>
+      <Benefits/>
+      <SubscriptionBenefits/>
+      <Essence/>
+      <TargetAudience/>
+      <Verification/>
+      <Guidelines/>
+      <MediaStandards/>
+      <Safety/>
+      <Footer/>
     </>
   );
 }

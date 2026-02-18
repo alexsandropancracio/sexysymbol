@@ -8,8 +8,7 @@ export const HeaderContainer = styled.header`
   z-index: 1000;
 
   min-height: 80px;
-  padding: 0 64px;
-
+  padding: 0 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,13 +17,18 @@ export const HeaderContainer = styled.header`
   background-color: ${({ theme }) => theme.colors.surface};
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
-  @media (max-width: 1200px) {
-    padding: 0 48px;
+  @media (max-width: 1440px) {
+    padding: 0 36px;
     gap: 20px;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
     padding: 0 32px;
+    gap: 18px;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 0 28px;
     gap: 16px;
   }
 
@@ -45,6 +49,7 @@ export const HeaderContainer = styled.header`
   }
 `;
 
+/* ===== LOGO ===== */
 export const Logo = styled(Link)<{ $logo: string }>`
   display: inline-block;
   cursor: pointer;
@@ -71,9 +76,9 @@ export const Logo = styled(Link)<{ $logo: string }>`
   }
 
   img {
-    height: 16px;          /* 🔥 mobile menor agora */
+    height: 16px;
     width: auto;
-    max-width: 100%;       /* nunca estoura o container */
+    max-width: 100%;
     display: block;
   }
 
@@ -106,36 +111,30 @@ export const Logo = styled(Link)<{ $logo: string }>`
     }
   }
 
-  /* 📱 Small devices */
   @media (min-width: 426px) {
     img {
       height: 18px;
     }
   }
 
-  /* 📱 Tablets */
   @media (min-width: 768px) {
     img {
       height: 24px;
     }
   }
 
-  /* 💻 Laptops */
   @media (min-width: 1024px) {
     img {
-      height: 32px;   /* ↓ reduzi um pouco pra não ficar exagerado */
+      height: 25px;
     }
   }
 
-  /* 🖥 Large screens */
   @media (min-width: 1440px) {
     img {
-      height: 38px;   /* ↓ mais equilibrado */
+      height: 25px;
     }
   }
 `;
-
-
 
 /* ===== SEARCH ===== */
 export const SearchWrapper = styled.div`
@@ -148,7 +147,6 @@ export const SearchWrapper = styled.div`
   background-color: #0f0f0f;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
-
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
   &:focus-within {
