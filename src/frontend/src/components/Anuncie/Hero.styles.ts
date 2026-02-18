@@ -194,9 +194,9 @@ export const CtaButton = styled(motion.button)`
 
 export const ScrollIndicator = styled(motion.div)`
   position: absolute;
-  bottom: 2.5rem;
+  bottom: 0rem;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-40%);
   cursor: pointer;
   color: ${({ theme }) => theme.colors.muted};
   transition: color 0.3s ease;
