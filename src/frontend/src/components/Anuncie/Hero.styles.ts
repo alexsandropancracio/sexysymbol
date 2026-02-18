@@ -168,7 +168,7 @@ export const CtaButton = styled(motion.button)`
   }
 
   @media (max-width: 768px) { padding: 0.9rem 2rem; font-size: 0.8rem; }
-  @media (max-width: 480px) { padding: 0.75rem 1.5rem; font-size: 0.75rem; width: 100%; }
+  @media (max-width: 480px) { padding: 0.75rem 1.5rem; font-size: 0.75rem; width: 50%; }
 `;
 
 /* =========================
