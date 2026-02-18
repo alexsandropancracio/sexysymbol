@@ -8,6 +8,7 @@ import { Safety } from "./Safety";
 import { TargetAudience } from "./TargetAudience";
 import { Verification } from "./Verification";
 import { Footer } from "./Footer";
+import { SubscriptionBenefits } from "./SubscriptionBenefits";
 
 export function Anuncie() {
   return (
@@ -15,6 +16,7 @@ export function Anuncie() {
       <Hero />
       <About />
       <Benefits />
+      <SubscriptionBenefits />
       <Essence />
       <TargetAudience />
       <Verification />

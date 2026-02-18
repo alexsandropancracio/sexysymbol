@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   UserCheck,
   Briefcase,
+  Camera
 } from "lucide-react";
 
 const cards = [
@@ -44,6 +45,11 @@ const cards = [
     icon: <ShieldCheck size={32} />,
     title: "Ambiente Seguro",
     desc: "Uma plataforma organizada que prioriza a segurança de dados.",
+  },
+  {
+    icon: <Camera size={32} />,
+    title: "Produção Fotográfica Profissional",
+    desc: "Assinaturas ativas contam com sessão de fotos mensal e possibilidade de voucher para locação de espaços premium.",
   },
 ];
 

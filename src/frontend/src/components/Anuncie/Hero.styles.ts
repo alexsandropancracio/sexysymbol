@@ -52,12 +52,69 @@ export const Content = styled.div`
   }
 `;
 
+export const TitleLogo = styled.div<{ $logo: string }>`
+  display: inline-block;
+  margin-bottom: 12px;
+
+  .logo-wrapper {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    height: fit-content;
+    overflow: hidden; /* 🔥 impede qualquer vazamento */
+
+    -webkit-mask-image: url(${props => props.$logo});
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-position: center;
+
+    mask-image: url(${props => props.$logo});
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    mask-position: center;
+  }
+
+  img {
+    height: 80px;
+    width: auto;
+    display: block;
+  }
+
+  @keyframes shine {
+    from {
+      transform: translateX(-100%) skewX(-25deg);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%) skewX(-25deg);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    img {
+      height: 65px;
+    }
+  }
+
+  @media (max-width: 426px) {
+    img {
+      height: 52px; /* 🔥 ajuste coerente para mobile */
+    }
+  }
+`;
+
+
 export const Title = styled.h1`
   font-family: ${({ theme }) => theme.fonts.heading};
   font-size: clamp(3rem, 7vw, 5.5rem);
   line-height: 1.1;
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 
   @media (max-width: 768px) {
     font-size: clamp(2.5rem, 8vw, 4.5rem);

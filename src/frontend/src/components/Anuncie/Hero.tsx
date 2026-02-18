@@ -12,7 +12,9 @@ import {
   Subtitle,
   CtaButton,
   ScrollIndicator,
+  TitleLogo
 } from "./Hero.styles";
+import logo from "../../assets/logo/sexysymbol - logo(ico).png";
 
 export const Hero = () => {
   // Reseta o scroll para o topo ao montar a página
@@ -36,10 +38,20 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <Title>
-            SEJA <br />
-            <Brand>SEXYSYMBOL</Brand>
-          </Title>
+<Title>
+  <TitleLogo $logo={logo}>
+    <div className="logo-wrapper">
+      <img src={logo} alt="SexySymbol" />
+      <span className="shine" />
+    </div>
+  </TitleLogo>
+
+  SEJA <br />
+  <Brand>SEXYSYMBOL</Brand>
+</Title>
+
+
+
 
           <Subtitle>
             Autonomia, clareza e evolução profissional. A plataforma exclusiva
