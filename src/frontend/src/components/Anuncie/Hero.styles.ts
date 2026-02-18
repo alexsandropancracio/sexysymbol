@@ -11,10 +11,11 @@ export const Section = styled.section`
   align-items: center;
   justify-content: center;
   background: ${({ theme }) => theme.colors.background};
-  width: 100%;
-  box-sizing: border-box; /* garante que padding/margem não quebrem layout */
+  width: 100%; /* largura total da viewport */
+  max-width: 100%; /* garante limite */
+  box-sizing: border-box;
   padding: 0 1rem;
-  overflow-x: hidden;
+  overflow: hidden; /* remove qualquer scroll horizontal ou vertical */
 
   @media (max-width: 1024px) { padding: 0 1.25rem; }
   @media (max-width: 768px) { padding: 0 1.2rem; }
@@ -27,10 +28,12 @@ export const Section = styled.section`
 export const BackgroundRadial = styled.div`
   position: absolute;
   inset: 0;
-  background: #000000;
+  background: #000;
   opacity: 0.85;
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   box-sizing: border-box;
 `;
 
@@ -42,6 +45,8 @@ export const BackgroundTexture = styled.div`
   mix-blend-mode: overlay;
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   box-sizing: border-box;
 `;
 
@@ -55,6 +60,7 @@ export const Content = styled.div`
   width: 100%;
   text-align: center;
   box-sizing: border-box;
+  overflow: hidden; /* previne scroll horizontal */
 `;
 
 /* =========================
@@ -64,6 +70,7 @@ export const TitleLogo = styled.div<{ $logo: string }>`
   display: inline-block;
   margin-bottom: 12px;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
 
   .logo-wrapper {
@@ -109,6 +116,7 @@ export const Title = styled.h1`
   align-items: center;
   text-align: center;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
 
   @media (max-width: 1024px) { font-size: clamp(2.8rem, 7.5vw, 5rem); }
@@ -165,23 +173,5 @@ export const CtaButton = styled(motion.button)`
   }
 
   @media (max-width: 768px) { padding: 0.9rem 2rem; font-size: 0.8rem; }
-  @media (max-width: 480px) { padding: 0.75rem 1.5rem; font-size: 0.75rem; width: 50%; }
-`;
-
-/* =========================
-   SCROLL INDICATOR
-========================= */
-export const ScrollIndicator = styled(motion.div)`
-  position: absolute;
-  bottom: 0rem;
-  left: 50%;
-  transform: translateX(-50%);
-  cursor: pointer;
-  color: ${({ theme }) => theme.colors.muted};
-  transition: color 0.3s ease;
-  box-sizing: border-box;
-
-  &:hover { color: ${({ theme }) => theme.colors.primary}; }
-
-  @media (max-width: 480px) { bottom: 1.5rem; }
+  @media (max-width: 480px) { padding: 0.75rem 1.5rem; font-size: 0.75rem; width: 100%; }
 `;
