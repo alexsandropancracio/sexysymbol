@@ -104,7 +104,7 @@ export const CtaButton = styled(motion.a)`
   box-sizing: border-box;
 
   &:hover {
-    background: #d6b15c;
+    background: #FCD862;
     box-shadow: 0 0 30px rgba(201, 162, 77, 0.5);
   }
 

@@ -12,7 +12,7 @@ export const Title = styled.h2`
   font-weight: 700;
   margin-top: 10px;
   margin-bottom: 20px;
-  color: #C9A24D;
+  color: #FCD862;
   text-align: center;
 `;
 
@@ -27,7 +27,7 @@ export const SectionHeader = styled.div`
 
 /* ===== FILTRO BOTÃO ===== */
 export const FilterToggle = styled.div`
-  color: #C9A24D;
+  color: #FCD862;
   text-decoration: underline;
   font-weight: 600;
   cursor: pointer;
@@ -42,7 +42,7 @@ export const FilterDropdown = styled.div<{ open: boolean }>`
   top: 100%;
   right: 0;
   background: #111;
-  border: 1px solid #C9A24D;
+  border: 1px solid #FCD862;
   border-radius: 8px;
   padding: 20px;
   width: 390px;
@@ -72,7 +72,7 @@ export const FilterCategory = styled.div`
 
   & > h4 {
     font-size: 0.95rem;
-    color: #C9A24D;
+    color: #FCD862;
     margin-bottom: 8px;
     font-weight: 600;
   }
@@ -87,7 +87,7 @@ export const FilterCategory = styled.div`
 /* ===== INPUTS ===== */
 export const FilterInput = styled.input`
   padding: 6px 8px;
-  border: 1px solid #C9A24D;
+  border: 1px solid #FCD862;
   border-radius: 4px;
   background: #111;
   color: #fff;
@@ -102,7 +102,7 @@ export const FilterInput = styled.input`
 /* ===== SELECT ===== */
 export const FilterSelect = styled.select`
   padding: 6px 8px;
-  border: 1px solid #C9A24D;
+  border: 1px solid #FCD862;
   border-radius: 4px;
   background: #111;
   color: #fff;
@@ -133,7 +133,7 @@ export const RangeContainer = styled.div`
       -webkit-appearance: none;
       width: 16px;
       height: 16px;
-      background: #C9A24D;
+      background: #FCD862;
       border-radius: 50%;
       cursor: pointer;
     }
@@ -141,7 +141,7 @@ export const RangeContainer = styled.div`
     &::-moz-range-thumb {
       width: 16px;
       height: 16px;
-      background: #C9A24D;
+      background: #FCD862;
       border-radius: 50%;
       cursor: pointer;
     }
@@ -246,7 +246,7 @@ export const Name = styled.h3`
     bottom: -4px;
     width: 0;
     height: 1px;
-    background: #c9a24d;
+    background: #FCD862;
     transition: width 0.3s ease;
     transform: translateX(-50%);
   }
@@ -263,7 +263,7 @@ export const Info = styled.span`
 
 export const Location = styled.span`
   font-size: 0.9rem;
-  color: #C9A24D;
+  color: #FCD862;
   font-weight: 600;
 `;
 
@@ -293,8 +293,8 @@ export const CTAButton = styled.button`
 
   background: linear-gradient(
     135deg,
-    #d6b25e,
-    #c9a24d
+    #f3d05e,
+    #FCD862
   );
   color: #000;
 
@@ -340,22 +340,22 @@ export const Pagination = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid #C9A24D;
+    border: 1px solid #FCD862;
     background: transparent;
-    color: #C9A24D;
+    color: #FCD862;
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.25s ease;
 
     &:hover {
-      background: #C9A24D;
+      background: #FCD862;
       color: #000;
       transform: translateY(-2px);
     }
 
     &.active {
-      background: #C9A24D;
+      background: #FCD862;
       color: #000;
       box-shadow: 0 0px 15px rgba(201, 162, 77, 0.6);
       transform: translateY(-2px);
@@ -370,7 +370,7 @@ export const ButtonLoadMore = styled.button`
   padding: 8px 0;
   border: none;
   background: none;
-  color: #C9A24D;
+  color: #FCD862;
   font-weight: 600;
   font-size: 1.05rem;
   cursor: pointer;
@@ -385,7 +385,7 @@ export const ButtonLoadMore = styled.button`
     bottom: 0;
     width: 40%;
     height: 2px;
-    background: #C9A24D;
+    background: #FCD862;
     border-radius: 2px;
     transform: translateX(-50%);
     transition: width 0.3s ease, background 0.3s ease;
@@ -397,7 +397,7 @@ export const ButtonLoadMore = styled.button`
 
   &:hover::after {
     width: 90%; /* Linha se alonga suavemente */
-    background: linear-gradient(90deg, #C9A24D, #FFD966);
+    background: linear-gradient(90deg, #FCD862, #FFD966);
   }
 
   &:active::after {

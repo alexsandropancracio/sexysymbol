@@ -68,7 +68,7 @@ export const BackButton = styled.button`
   }
 
   &:hover {
-    color: #c9a24d;
+    color: #FCD862;
     border-color: rgba(201, 162, 77, 0.4);
     background: rgba(201, 162, 77, 0.08);
   }
@@ -104,7 +104,7 @@ export const NavAction = styled.button`
   }
 
   &:hover {
-    color: #c9a24d;
+    color: #FCD862;
     border-color: rgba(201, 162, 77, 0.4);
     background: rgba(201, 162, 77, 0.08);
   }
@@ -426,8 +426,8 @@ export const CTAButton = styled.button`
 
   background: linear-gradient(
     135deg,
-    #d6b25e,
-    #c9a24d
+    #f3d05e,
+    #FCD862
   );
   color: #000;
 

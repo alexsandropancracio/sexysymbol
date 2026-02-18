@@ -39,7 +39,7 @@ export const Actions = styled.div`
 `;
 
 export const YesButton = styled.button`
-  background: #c9a24d;
+  background: #FCD862;
   color: #000;
   border: none;
   padding: 14px;

@@ -59,7 +59,7 @@ export const Title = styled.h2`
   line-height: 1.25;
 
   span {
-    color: #d4af37;
+    color: #FCD862;
   }
 
   @media (max-width: 480px) {
@@ -99,7 +99,7 @@ export const Card = styled(motion.div)<{
   background-color: #111111;
   padding: 2rem;
   border-top: 2px solid
-    ${({ highlight }) => (highlight ? '#d4af37' : '#262626')};
+    ${({ highlight }) => (highlight ? '#FCD862' : '#262626')};
   grid-column: ${({ full }) => (full ? 'span 2' : 'auto')};
 
   @media (max-width: 768px) {
@@ -118,7 +118,7 @@ export const IconWrapper = styled.div<{ highlight?: boolean }>`
   svg {
     width: 2rem;
     height: 2rem;
-    color: ${({ highlight }) => (highlight ? '#d4af37' : '#d4d4d4')};
+    color: ${({ highlight }) => (highlight ? '#FCD862' : '#d4d4d4')};
 
     @media (max-width: 480px) {
       width: 1.75rem;

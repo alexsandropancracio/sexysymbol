@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const Title = styled.h1`
   font-size: 36px;
-  color: #c9a24d; // dourado
+  color: #FCD862; // dourado
   margin-bottom: 16px;
 `;
 
@@ -31,7 +31,7 @@ const BackLink = styled(Link)`
   color: #fff;
   text-decoration: underline;
   &:hover {
-    color: #c9a24d;
+    color: #FCD862;
   }
 `;
 

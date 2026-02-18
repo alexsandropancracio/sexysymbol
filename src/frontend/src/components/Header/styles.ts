@@ -45,81 +45,68 @@ export const HeaderContainer = styled.header`
   }
 `;
 
-/* ===== LOGO ===== */
-export const Logo = styled(Link)`
-  position: relative;
-  font-family: "Moglande";
-  font-size: 28px;
-  letter-spacing: 2px;
-  text-decoration: none;
-  cursor: pointer;
+export const Logo = styled(Link)<{ $logo: string }>`
   display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
+  cursor: pointer;
 
-  .base {
-    color: #c9a24d;
+  .logo-wrapper {
     position: relative;
-    z-index: 1;
+    display: inline-block;
+
+    -webkit-mask-image: url(${props => props.$logo});
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+
+    mask-image: url(${props => props.$logo});
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+
+    /* 👇 ESSAS LINHAS RESOLVEM O ESCURECIMENTO */
+    background-color: transparent;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+
+  img {
+    height: 35px;
+    width: auto;
+    display: block;
   }
 
   .shine {
     position: absolute;
     inset: 0;
-    z-index: 2;
-
     background: linear-gradient(
       110deg,
       transparent 0%,
-      rgba(255, 235, 170, 0.0) 42%,
-      rgba(255, 235, 170, 0.9) 48%,
-      rgba(255, 235, 170, 0.9) 52%,
-      rgba(255, 235, 170, 0.0) 58%,
+      rgba(255, 235, 170, 0.9) 50%,
       transparent 100%
     );
-    background-size: 300% 100%;
-    background-position: 0% center;
-
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    pointer-events: none;
+    transform: translateX(-100%) skewX(-25deg);
     opacity: 0;
+    pointer-events: none;
   }
 
   &:hover .shine {
-    opacity: 1;
-    animation: shine-pass 1s ease-out forwards;
+    animation: shine 0.9s ease-out forwards;
   }
 
-  @keyframes shine-pass {
+  @keyframes shine {
     from {
-      background-position: 0% center;
+      transform: translateX(-100%) skewX(-25deg);
       opacity: 1;
     }
     to {
-      background-position: 100% center;
+      transform: translateX(100%) skewX(-25deg);
       opacity: 0;
     }
   }
-
-  @media (max-width: 1024px) {
-    font-size: 22px;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
-
-  @media (max-width: 426px) {
-    font-size: 16px;
-  }
-
-  @media (max-width: 320px) {
-    font-size: 14px;
-  }
 `;
+
+
 
 /* ===== SEARCH ===== */
 export const SearchWrapper = styled.div`

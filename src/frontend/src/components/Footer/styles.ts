@@ -65,7 +65,7 @@ export const FooterTitle = styled.h4`
   font-weight: 700;
   font-family: "Moglande";
   letter-spacing: 2px;
-  color: #c9a24d;
+  color: #FCD862;
   margin-bottom: 12px;
   
 `;
@@ -89,7 +89,7 @@ export const FooterLink = styled(Link)`
   transition: color 0.3s ease;
 
   &:hover {
-    color: #c9a24d;
+    color: #FCD862;
     transition: width 0.3s ease;
   }
 

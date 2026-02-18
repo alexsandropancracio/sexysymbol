@@ -37,7 +37,7 @@ export const Hero = () => {
           transition={{ duration: 1, ease: "easeOut" }}
         >
           <Title>
-            ANUNCIE NA <br />
+            SEJA <br />
             <Brand>SEXYSYMBOL</Brand>
           </Title>
 

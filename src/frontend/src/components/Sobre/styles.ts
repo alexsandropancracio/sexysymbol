@@ -42,5 +42,5 @@ export const SectionText = styled.p`
 `;
 
 export const Highlight = styled.span`
-  color: #d4af37; /* dourado elegante */
+  color: #FCD862; /* dourado elegante */
 `;

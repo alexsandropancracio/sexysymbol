@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import lupaIcon from "../../assets/midia/lupa.png";
 import { ads } from "../Ads/AdsData";
+import logo from "../../assets/logo/sexysymbol - logotipo.png";
 
 interface HeaderProps {
   selected: string;
@@ -83,13 +84,12 @@ export function Header({
   return (
     <HeaderContainer>
       {/* LOGO */}
-      <Logo
-        to="/"
-        onClick={navigateToHome}
-      >
-        <span className="base">sexysymbol</span>
-        <span className="shine">sexysymbol</span>
-      </Logo>
+    <Logo to="/" onClick={navigateToHome} $logo={logo}>
+      <div className="logo-wrapper">
+        <img src={logo} alt="SexySymbol Logo" />
+        <span className="shine"></span>
+      </div>
+    </Logo>
 
       {/* BUSCA */}
       <SearchWrapper ref={wrapperRef} style={{ position: "relative" }}>
