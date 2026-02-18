@@ -156,11 +156,13 @@ export const Item = styled(motion.div)`
   @media (max-width: 480px) {
     font-size: 0.85rem;
     padding-left: 0.75rem;
-    flex-direction: column;
-    align-items: flex-start;
+    /* ⚡ Mantém o ícone ao lado do texto no mobile */
+    flex-direction: row;   // <-- muda de column para row
+    align-items: center;   // alinha verticalmente o ícone com o texto
     gap: 0.5rem;
   }
 `;
+
 
 /* =========================
    FOOTER / NOTA FINAL
