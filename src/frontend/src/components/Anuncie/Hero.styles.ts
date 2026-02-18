@@ -11,11 +11,10 @@ export const Section = styled.section`
   align-items: center;
   justify-content: center;
   background: ${({ theme }) => theme.colors.background};
-  width: 100%; /* largura total da viewport */
-  max-width: 100%; /* garante limite */
-  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
   padding: 0 1rem;
-  overflow: hidden; /* remove qualquer scroll horizontal ou vertical */
+  overflow-x: hidden; /* ⚡ bloqueia scroll horizontal */
 
   @media (max-width: 1024px) { padding: 0 1.25rem; }
   @media (max-width: 768px) { padding: 0 1.2rem; }
@@ -28,26 +27,23 @@ export const Section = styled.section`
 export const BackgroundRadial = styled.div`
   position: absolute;
   inset: 0;
-  background: #000;
-  opacity: 0.85;
   width: 100%;
   height: 100%;
   max-width: 100%;
-  max-height: 100%;
+  overflow: hidden; /* ⚡ previne overflow interno */
   box-sizing: border-box;
 `;
 
 export const BackgroundTexture = styled.div`
   position: absolute;
   inset: 0;
-  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
-  opacity: 0.05;
-  mix-blend-mode: overlay;
   width: 100%;
   height: 100%;
   max-width: 100%;
-  max-height: 100%;
-  box-sizing: border-box;
+  overflow: hidden; /* ⚡ previne overflow interno */
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  opacity: 0.05;
+  mix-blend-mode: overlay;
 `;
 
 /* =========================
@@ -60,7 +56,6 @@ export const Content = styled.div`
   width: 100%;
   text-align: center;
   box-sizing: border-box;
-  overflow: hidden; /* previne scroll horizontal */
 `;
 
 /* =========================
@@ -103,7 +98,7 @@ export const TitleLogo = styled.div<{ $logo: string }>`
 `;
 
 /* =========================
-   TITULO / BRAND / SUBTITLE
+   TITLE / BRAND / SUBTITLE
 ========================= */
 export const Title = styled.h1`
   font-family: ${({ theme }) => theme.fonts.heading};
@@ -150,7 +145,7 @@ export const Subtitle = styled.p`
 `;
 
 /* =========================
-   BOTÃO CTA
+   CTA BUTTON
 ========================= */
 export const CtaButton = styled(motion.button)`
   padding: 1rem 2.5rem;
@@ -174,4 +169,31 @@ export const CtaButton = styled(motion.button)`
 
   @media (max-width: 768px) { padding: 0.9rem 2rem; font-size: 0.8rem; }
   @media (max-width: 480px) { padding: 0.75rem 1.5rem; font-size: 0.75rem; width: 100%; }
+`;
+
+/* =========================
+   SCROLL INDICATOR
+========================= */
+export const ScrollIndicator = styled(motion.div)`
+  position: absolute;
+  bottom: 0rem;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.muted};
+  transition: color 0.3s ease;
+  overflow: hidden; /* ⚡ bloqueia qualquer movimento fora do container */
+  width: 32px; /* ⚡ largura fixa do chevron */
+  height: 32px; /* ⚡ altura fixa do chevron */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  @media (max-width: 480px) {
+    bottom: 1.5rem;
+  }
 `;

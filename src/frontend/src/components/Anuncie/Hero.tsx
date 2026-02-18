@@ -76,10 +76,12 @@ export const Hero = () => {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
+          style={{ display: "flex", justifyContent: "center" }}
         >
           <ChevronDown size={32} strokeWidth={1} />
         </motion.div>
       </ScrollIndicator>
+
     </Section>
   );
 };
