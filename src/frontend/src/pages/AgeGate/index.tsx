@@ -46,7 +46,7 @@ export function AgeGate() {
           style={{
             fontSize: 28,
             marginBottom: 16,
-            color: "#C9A24D",
+            color: "#FCD862",
           }}
         >
           Você é maior de 18 anos?
@@ -76,7 +76,7 @@ export function AgeGate() {
             onClick={handleConfirm}
             style={{
               padding: "12px 24px",
-              background: "#C9A24D",
+              background: "#FCD862",
               color: "#000",
               border: "none",
               borderRadius: 6,

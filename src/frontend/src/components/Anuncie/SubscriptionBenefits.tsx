@@ -96,7 +96,7 @@ export const SubscriptionBenefits = () => {
                 <br />
                 O voucher pode ser utilizado para:
                 <br />• Quartos de hotel
-                <br />• Casas ou apartamentos no Airbnb
+                <br />• Casas ou apartamentos nos sites de locação.
                 <br />• Espaços privados adequados para produção de conteúdo
                 <br />
                 <br />
