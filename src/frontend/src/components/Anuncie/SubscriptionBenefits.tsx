@@ -15,6 +15,7 @@ import {
   VoucherCard,
   VoucherTitle,
   VoucherText,
+  VoucherHeader,
   RulesList,
   RuleItem,
   IconWrapper,
@@ -75,35 +76,40 @@ export const SubscriptionBenefits = () => {
                   <br />
                   <br />
                   Clientes com assinatura mensal ativa (1 mês) também garantem
-                  1 sessão de fotos profissional.
+                  1 sessão de fotos profissional + voucher.
                 </BlockText>
               </div>
             </Block>
 
             {/* VOUCHER DESTACADO */}
-            <VoucherCard
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <Gem size={24} />
-              <VoucherTitle>Voucher de até R$ 500</VoucherTitle>
-              <VoucherText>
-                Clientes com assinatura mensal ativa recebem um voucher de até
-                R$ 500 para custear a locação do espaço da sessão.
-                <br />
-                <br />
-                O voucher pode ser utilizado para:
-                <br />• Quartos de hotel
-                <br />• Casas ou apartamentos nos sites de locação.
-                <br />• Espaços privados adequados para produção de conteúdo
-                <br />
-                <br />
-                A cliente escolhe o local desejado e aplicamos o voucher conforme
-                as regras abaixo.
-              </VoucherText>
-            </VoucherCard>
+<VoucherCard
+  initial={{ opacity: 0, x: 30 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6 }}
+>
+        {/* Aqui o header com ícone + título lado a lado */}
+        <VoucherHeader>
+          <Gem size={24} />
+          <VoucherTitle>Voucher de até R$ 500</VoucherTitle>
+        </VoucherHeader>
+
+        <VoucherText>
+          Clientes com assinatura mensal ativa recebem um voucher de até
+          R$ 500 para custear a locação do espaço da sessão.
+          <br />
+          <br />
+          O voucher pode ser utilizado para:
+          <br />• Quartos de hotel
+          <br />• Casas ou apartamentos nos sites de locação.
+          <br />• Espaços privados adequados para produção de conteúdo
+          <br />
+          <br />
+          A cliente escolhe o local desejado e aplicamos o voucher conforme
+          as regras abaixo.
+        </VoucherText>
+      </VoucherCard>
+
 
             {/* REGRAS */}
             <RulesList>

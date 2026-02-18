@@ -86,7 +86,7 @@ export const Grid = styled.div`
 
 export const Item = styled(motion.div)`
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* ← muda aqui */
   gap: 0.75rem;
 
   padding: 0.75rem 0 0.75rem 1rem;
@@ -96,11 +96,22 @@ export const Item = styled(motion.div)`
   font-size: 0.95rem;
   color: ${({ theme }) => theme.colors.text};
 
+  /* trava o tamanho do ícone */
+  svg {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px; /* micro ajuste visual */
+  }
+
   @media (max-width: 480px) {
     font-size: 0.9rem;
     padding-left: 0.75rem;
   }
 `;
+
 
 export const FooterNote = styled.div`
   margin-top: 3rem;

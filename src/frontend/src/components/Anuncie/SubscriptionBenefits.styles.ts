@@ -143,10 +143,19 @@ export const VoucherCard = styled(motion.div)`
   }
 `;
 
+export const VoucherHeader = styled.div`
+  display: flex;          /* ícone e título lado a lado */
+  align-items: center;    /* alinha verticalmente */
+  gap: 0.5rem;            /* espaço entre ícone e título */
+
+  svg {
+    flex-shrink: 0;       /* impede que o ícone encolha */
+  }
+`;
+
 export const VoucherTitle = styled.h3`
   font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.25rem;
   color: ${({ theme }) => theme.colors.primary};
 `;
 
@@ -156,6 +165,7 @@ export const VoucherText = styled.p`
   color: ${({ theme }) => theme.colors.text};
   line-height: 1.6;
 `;
+
 
 /* =========================
    RULES
