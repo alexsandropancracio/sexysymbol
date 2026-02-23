@@ -65,7 +65,6 @@ function App() {
                     element={
                       <Home
                         nameFilter={selectedName}
-                        adsRef={adsRef}
                       />
                     }
                   />
