@@ -24,7 +24,7 @@ export const Footer = () => {
           </Description>
 
           <CtaButton
-            href="https://wa.me/5511956197970"
+            href="https://wa.me/5571982593112"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
