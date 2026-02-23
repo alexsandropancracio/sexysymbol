@@ -52,11 +52,13 @@ export function AdsCard({ ad }: AdsCardProps) {
         <ArrowButton onClick={nextImage}>
           ›
         </ArrowButton>
-</ImageWrapper>
+      </ImageWrapper>
       <Content>
         <Link
-          to={`/perfil/${ad.name.toLowerCase().replace(/\s+/g, "-")}`}
-          style={{ textDecoration: "none" }}
+          to={`/perfil/${ad.id}`}
+          onClick={() => {
+            sessionStorage.setItem("homeScrollY", String(window.scrollY));
+          }}
         >
           <Name>
             {ad.name}

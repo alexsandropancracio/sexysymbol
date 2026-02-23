@@ -2,15 +2,21 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 export function ScrollToTop() {
-  const { pathname } = useLocation();
+  const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant", // pode trocar para "smooth" se quiser
-    });
-  }, [pathname]);
+    const scrollY = location.state?.scrollY;
+
+    if (scrollY !== undefined) {
+      // Restaurar scroll ao voltar
+      setTimeout(() => {
+        window.scrollTo(0, scrollY);
+      }, 0);
+    } else {
+      // Navegação normal
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
 
   return null;
 }

@@ -12,7 +12,8 @@ import {
   Play
 } from "lucide-react";
 import * as S from "./ProfilePage.style";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 
