@@ -14,6 +14,7 @@ import { Sobre } from "./components/Sobre";
 import { Termos } from "./components/Termos";
 import { Privacidade } from "./components/Privacidade";
 import { Contato } from "./components/Contato";
+import { SeoPage } from "./pages/SeoPage";
 
 import { AgeGate } from "./pages/AgeGate";
 import { AgeGuard } from "./routes/AgeGuard";
@@ -85,6 +86,7 @@ function App() {
                   <Route path="/termos" element={<Termos />} />
                   <Route path="/privacidade" element={<Privacidade />} />
                   <Route path="/contato" element={<Contato />} />
+                  <Route path=":slug" element={<SeoPage />} />
                 </Routes>
 
                 <Footer />
