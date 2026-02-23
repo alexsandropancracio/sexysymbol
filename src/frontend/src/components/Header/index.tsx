@@ -10,8 +10,8 @@ import {
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import lupaIcon from "../../assets/midia/lupa.png";
-import { ads } from "../Ads/AdsData";
 import logo from "../../assets/logo/sexysymbol - logotipo.png";
+import { supabase } from "@/lib/supabase"; // client Supabase
 
 interface HeaderProps {
   selected: string;
@@ -19,21 +19,40 @@ interface HeaderProps {
   scrollToAds: () => void;
 }
 
-export function Header({
-  selected,
-  setSelected,
-  scrollToAds,
-}: HeaderProps) {
-  const navigate = useNavigate();
+interface AdType {
+  id: string;
+  name: string;
+}
 
+export function Header({ selected, setSelected, scrollToAds }: HeaderProps) {
+  const navigate = useNavigate();
+  const [ads, setAds] = useState<AdType[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Ref para clique fora
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  // 🔥 BUSCAR ADS DO SUPABASE
+  useEffect(() => {
+    async function fetchAds() {
+      const { data, error } = await supabase
+        .from("ads")
+        .select("id, name");
+
+      if (error) {
+        console.error("Erro ao buscar anúncios:", error);
+        setAds([]);
+        return;
+      }
+
+      setAds(data as AdType[]);
+    }
+
+    fetchAds();
+  }, []);
+
   // Sugestões baseadas nos anúncios
-  const suggestions = ads
+  const suggestions: string[] = ads
     .map(ad => ad.name)
     .filter(
       name =>
@@ -61,35 +80,30 @@ export function Header({
   // Fecha autocomplete ao clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target as Node)
-      ) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
         setShowSuggestions(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Função para navegar e resetar scroll para o topo
   const navigateToHome = () => {
-    navigate("/");        // vai para página principal
-    window.scrollTo(0, 0); // reseta scroll para o topo
-    handleClear();        // limpa busca
+    navigate("/");
+    window.scrollTo(0, 0);
+    handleClear();
   };
 
   return (
     <HeaderContainer>
       {/* LOGO */}
-    <Logo to="/" onClick={navigateToHome} $logo={logo}>
-      <div className="logo-wrapper">
-        <img src={logo} alt="SexySymbol Logo" />
-        <span className="shine"></span>
-      </div>
-    </Logo>
+      <Logo to="/" onClick={navigateToHome} $logo={logo}>
+        <div className="logo-wrapper">
+          <img src={logo} alt="SexySymbol Logo" />
+          <span className="shine"></span>
+        </div>
+      </Logo>
 
       {/* BUSCA */}
       <SearchWrapper ref={wrapperRef} style={{ position: "relative" }}>
@@ -104,25 +118,20 @@ export function Header({
             const value = e.target.value;
             setSearchQuery(value);
             setSelected("");
-
             setShowSuggestions(value.length > 0);
           }}
           onKeyDown={e => {
             if (e.key === "Enter" && searchQuery.trim()) {
               setSelected(searchQuery);
               setShowSuggestions(false);
-
               navigate("/");
               setTimeout(scrollToAds, 100);
             }
           }}
           placeholder="Pesquisar acompanhante..."
-          style={{
-            paddingRight: searchQuery ? "30px" : "12px",
-          }}
+          style={{ paddingRight: searchQuery ? "30px" : "12px" }}
         />
 
-        {/* Botão limpar */}
         {searchQuery && (
           <span
             onClick={handleClear}
@@ -159,7 +168,7 @@ export function Header({
               marginTop: "4px",
             }}
           >
-            {suggestions.map(option => (
+            {suggestions.map((option: string) => (
               <div
                 key={option}
                 onClick={() => handleSelect(option)}
@@ -169,8 +178,7 @@ export function Header({
                   color: "#fff",
                 }}
                 onMouseEnter={e =>
-                  (e.currentTarget.style.background =
-                    "rgba(201,162,77,0.25)")
+                  (e.currentTarget.style.background = "rgba(201,162,77,0.25)")
                 }
                 onMouseLeave={e =>
                   (e.currentTarget.style.background = "transparent")

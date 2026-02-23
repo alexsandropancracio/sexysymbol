@@ -65,7 +65,7 @@ export function AdsCard({ ad }: AdsCardProps) {
         </Link>
 
         <Info>Idade: {ad.age} anos</Info>
-        {ad.locations && <Location>Local: {ad.locations}</Location>}
+        {ad.location && <Location>Local: {ad.location}</Location>}
 
               {/* CTA */}
               <S.CTAButton

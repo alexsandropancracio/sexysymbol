@@ -1,18 +1,27 @@
-// src/analytics/useCases/buildProfileStats.ts
-
 import type { AnalyticsEvent } from "../types";
 import type { ProfileStats } from "../domainStats";
 import type { DateRange } from "../domain/dateRange";
 
-import { ads } from "@/components/Ads/AdsData";
 import { analyticsService } from "../analyticsService";
+import { supabase } from "@/lib/supabase"; // client Supabase
 
 export async function buildProfileStats(
   dateRange?: DateRange
 ): Promise<ProfileStats[]> {
-  const allViews: Record<string, number> = {};
+  // 🔹 Buscar todos os anúncios do Supabase
+  const { data: adsData, error: adsError } = await supabase
+    .from("ads")
+    .select("id, name");
+
+  if (adsError) {
+    console.error("Erro ao buscar anúncios do Supabase:", adsError);
+    return [];
+  }
+
+  const ads = adsData || [];
 
   // 🔹 Views continuam vindo do provider (backend-ready)
+  const allViews: Record<string, number> = {};
   for (const profile of ads) {
     allViews[profile.id] = await analyticsService.getProfileViews(profile.id);
   }

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 /* ===== SECTION ===== */
 export const Section = styled.section`
-  padding: 20px;
+  padding: 10px;
 
   @media (max-width: 768px) {
     padding: 16px;
@@ -15,9 +15,10 @@ export const Section = styled.section`
 
 /* ===== TITLE ===== */
 export const Title = styled.h2`
-  font-family: "Avelire", serif;
-  font-size: 45px;
-  margin-bottom: 20px;
+  font-family: ${({ theme }) => theme.fonts.heading};
+  font-size: 35px;
+  font-weight: 100;
+  margin-bottom: 10px;
   text-align: center;
 
   @media (max-width: 980px) {
@@ -37,7 +38,7 @@ export const Title = styled.h2`
 /* ===== CARD / CARROSSEL ===== */
 export const Card = styled.div`
   position: relative;
-  width: 96vw;
+  width: 97.5vw;
   height: 80vh;
   min-height: 520px;
   max-height: 820px;

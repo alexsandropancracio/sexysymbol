@@ -62,8 +62,8 @@ export const Column = styled.div<{
 
 export const FooterTitle = styled.h4`
   font-size: 1.8rem;
-  font-weight: 700;
-  font-family: "Moglande";
+  font-weight: 100;
+  font-family: ${({ theme }) => theme.fonts.heading};
   letter-spacing: 2px;
   color: #FCD862;
   margin-bottom: 12px;

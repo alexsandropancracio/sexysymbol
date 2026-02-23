@@ -579,4 +579,58 @@ export const ThumbnailsArrow = styled.button<{ left?: boolean }>`
   }
 `;
 
+export const LoaderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+  color: #555;
+  font-size: 1.2rem;
+`;
 
+export const LoaderDots = styled.div`
+  display: flex;
+  gap: 8px;
+
+  div {
+    width: 10px;
+    height: 10px;
+    background-color: #FCD862; /* cor do ponto, você pode trocar */
+    border-radius: 50%;
+    animation: bounce 0.6s infinite alternate;
+  }
+
+  div:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  div:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce {
+    from {
+      transform: translateY(0);
+      opacity: 0.7;
+    }
+    to {
+      transform: translateY(-12px);
+      opacity: 1;
+    }
+  }
+`;
+
+export const VideoIcon = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 20px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 50%;
+  padding: 4px 6px;
+  pointer-events: none;
+`;

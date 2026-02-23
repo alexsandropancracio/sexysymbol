@@ -14,11 +14,24 @@ export const Section = styled.section`
   width: 100%;
   max-width: 100%;
   padding: 0 1rem;
-  overflow-x: hidden; /* ⚡ bloqueia scroll horizontal */
+  overflow-x: hidden;
 
-  @media (max-width: 1024px) { padding: 0 1.25rem; }
-  @media (max-width: 768px) { padding: 0 1.2rem; }
-  @media (max-width: 480px) { padding: 0 1rem; }
+  /* 📱 Tablet */
+  @media (max-width: 1024px) {
+    align-items: flex-start;
+    padding-top: 15vh; /* sobe aproximadamente 40% */
+  }
+
+  /* 📱 Mobile */
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    padding-top: 18vh;
+  }
+
+  @media (max-width: 480px) {
+    padding-top: 20vh;
+    min-height: 87vh;
+  }
 `;
 
 /* =========================
@@ -60,7 +73,7 @@ export const Content = styled.div`
 
 /* =========================
    LOGO
-========================= */
+==========================*/
 export const TitleLogo = styled.div<{ $logo: string }>`
   display: inline-block;
   margin-bottom: 12px;
@@ -116,7 +129,10 @@ export const Title = styled.h1`
 
   @media (max-width: 1024px) { font-size: clamp(2.8rem, 7.5vw, 5rem); }
   @media (max-width: 768px) { font-size: clamp(2.5rem, 8vw, 4.5rem); }
-  @media (max-width: 480px) { font-size: clamp(2rem, 9vw, 3.5rem); margin-bottom: 1.5rem; }
+  @media (max-width: 480px) { 
+  font-size: clamp(2rem, 9vw, 3.5rem); 
+  margin-bottom: 0.2rem; 
+  }
 `;
 
 export const Brand = styled.span`

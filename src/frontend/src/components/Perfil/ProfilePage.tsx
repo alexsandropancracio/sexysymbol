@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { supabase } from "../../lib/supabase";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRef } from "react";
 import {
   MapPin,
   ArrowLeft,
@@ -8,92 +8,114 @@ import {
   Share2,
   ChevronLeft,
   ChevronRight,
-  BadgeCheck
+  BadgeCheck,
+  Play
 } from "lucide-react";
 import * as S from "./ProfilePage.style";
 import { useParams, useNavigate } from "react-router-dom";
-import { ads } from "../Ads/AdsData";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
-import { analyticsService } from "../../analytics/analyticsService";
-
-
 
 export function ProfilePage() {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
-  const { id } = useParams<{ id: string }>(); // 🔑 FIX AQUI
+  const [profileData, setProfileData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const thumbRef = useRef<HTMLDivElement>(null);
 
-  const profileData = ads.find((item) => item.id === id);
+  // 🔥 BUSCAR DADOS DO SUPABASE
+  useEffect(() => {
+    async function fetchProfile() {
+      if (!id) return;
+
+      setLoading(true);
+
+      const { data: ad, error: adError } = await supabase
+        .from("ads")
+        .select("*")
+        .eq("id", id)
+        .maybeSingle();
+
+      if (adError) {
+        console.error("Erro ao buscar anúncio:", adError);
+        setLoading(false);
+        return;
+      }
+
+      if (!ad) {
+        setProfileData(null);
+        setLoading(false);
+        return;
+      }
+
+      // Buscar mídias (imagens e vídeos)
+      const { data: media, error: mediaError } = await supabase
+        .from("ad_media")
+        .select("url,type,order_index")
+        .eq("ad_id", id)
+        .order("order_index");
+
+      if (mediaError) {
+        console.error("Erro ao buscar mídias:", mediaError);
+        setLoading(false);
+        return;
+      }
+
+      // Separar imagens e vídeos
+      const images = media?.filter((m: any) => m.type === "image").map((m: any) => m.url) || [];
+      const videos = media?.filter((m: any) => m.type === "video").map((m: any) => m.url) || [];
+
+      setProfileData({
+        ...ad,
+        images,
+        videos,
+        media, // Todos os arquivos, pra usar nos thumbnails
+      });
+
+      setSelectedImage(0);
+      setLoading(false);
+    }
+
+    fetchProfile();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <S.LoaderWrapper>
+        Carregando...
+        <S.LoaderDots>
+          <div />
+          <div />
+          <div />
+        </S.LoaderDots>
+      </S.LoaderWrapper>
+    );
+  }
 
   if (!profileData) {
     return <S.Page>Perfil não encontrado</S.Page>;
   }
 
   const pageTitle = `${profileData.name} | sexysymbol`;
-  const pageDescription = `${profileData.name} é um perfil verificado na SexySymbol. Atendimento com discrição, elegância e segurança. Confira fotos, informações e entre em contato.`;
+  const pageDescription = `${profileData.name} é um perfil verificado na SexySymbol. Atendimento com discrição, elegância e segurança.`;
+  const pageUrl = typeof window !== "undefined" ? window.location.href : "";
+  const imageUrl = profileData.images?.[0] || "";
 
-  const pageUrl = typeof window !== "undefined" 
-    ? window.location.href 
-    : "";
-
-  const imageUrl = profileData.images[0];// ajuste conforme seu campo
-
-  const [selectedImage, setSelectedImage] = useState(
-    Math.floor(Math.random() * profileData.images.length)
-  );
-
+  // Carousel principal (apenas imagens)
   const next = () => {
-    setSelectedImage(prev => {
-      const newIndex = (prev + 1) % profileData.images.length;
-
-      analyticsService.trackImageView(profileData.id, newIndex);
-
-      return newIndex;
-    });
+    setSelectedImage(prev =>
+      (prev + 1) % profileData.images.length
+    );
   };
 
   const prev = () => {
-    setSelectedImage(prev => {
-      const newIndex =
-        (prev - 1 + profileData.images.length) %
-        profileData.images.length;
-
-      analyticsService.trackImageView(profileData.id, newIndex);
-
-      return newIndex;
-    });
+    setSelectedImage(prev =>
+      (prev - 1 + profileData.images.length) %
+      profileData.images.length
+    );
   };
-
-useEffect(() => {
-  // 🔹 Scroll para o topo quando o perfil muda
-  window.scrollTo(0, 0);
-
-  if (profileData?.id) {
-  const sessionKey = `viewed-profile-${profileData.id}`;
-
-  if (!sessionStorage.getItem(sessionKey)) {
-    analyticsService.trackProfileViewWithContext(profileData.id);
-    analyticsService.trackProfileView(profileData.id);
-    sessionStorage.setItem(sessionKey, "true");
-  }
-}
-
-  // 🔹 Função de teclado para navegar no carrossel
-  const onKey = (e: KeyboardEvent) => {
-    if (e.key === "ArrowRight") next();
-    if (e.key === "ArrowLeft") prev();
-  };
-
-  window.addEventListener("keydown", onKey);
-
-  // 🔹 Cleanup
-  return () => {
-    window.removeEventListener("keydown", onKey);
-  };
-  }, [id]); // ⚡️ depende do 'id' para resetar o scroll quando muda de perfil
-
-  const thumbRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
     thumbRef.current?.scrollBy({ left: -80, behavior: "smooth" });
@@ -111,52 +133,38 @@ useEffect(() => {
           text: pageDescription,
           url: pageUrl,
         });
-
-        analyticsService.trackProfileShare(profileData.id, "native");
       } else {
         await navigator.clipboard.writeText(pageUrl);
-
-        analyticsService.trackProfileShare(profileData.id, "copy");
         toast.success("Link do perfil copiado!");
       }
-    } catch (err) {
+    } catch {
       toast.error("Não foi possível compartilhar o perfil");
     }
   };
 
   return (
-    
     <S.Page
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-
       <Helmet>
-        {/* Título */}
         <title>{pageTitle}</title>
-
-        {/* SEO básico */}
         <meta name="description" content={pageDescription} />
-
-        {/* Canonical */}
         <link rel="canonical" href={pageUrl} />
 
-        {/* Open Graph (Facebook, WhatsApp, etc.) */}
         <meta property="og:type" content="profile" />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:image" content={imageUrl} />
         <meta property="og:url" content={pageUrl} />
 
-        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
         <meta name="twitter:image" content={imageUrl} />
       </Helmet>
 
-      {/* NAV */}
       <S.Nav>
         <S.NavContent>
           <S.BackButton onClick={() => navigate(-1)}>
@@ -167,16 +175,13 @@ useEffect(() => {
           <S.NavAction onClick={handleShare}>
             <Share2 size={18} />
           </S.NavAction>
-
         </S.NavContent>
       </S.Nav>
 
-      {/* GRID */}
       <S.ProfileGrid>
         {/* LEFT */}
         <S.LeftColumn>
           <S.CarouselWrapper>
-            
             <S.ArrowButton left onClick={prev}>
               <ChevronLeft size={16} />
             </S.ArrowButton>
@@ -188,7 +193,7 @@ useEffect(() => {
             <AnimatePresence initial={false}>
               <motion.img
                 key={selectedImage}
-                src={profileData.images[selectedImage]}
+                src={profileData.images?.[selectedImage]}
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
@@ -202,111 +207,112 @@ useEffect(() => {
                 }}
               />
             </AnimatePresence>
-
           </S.CarouselWrapper>
-            <S.ThumbnailsWrapper>
-              <div style={{ position: "relative" }}>
-                <S.ThumbnailsArrow left onClick={scrollLeft}>‹</S.ThumbnailsArrow>
-                <S.ThumbnailsRow ref={thumbRef}>
-                  {profileData.images.map((img, index) => (
-                    <S.Thumbnail
-                      key={index}
-                      active={index === selectedImage}
-                      onClick={() => setSelectedImage(index)}
-                    >
-                      <img src={img} alt="" />
-                    </S.Thumbnail>
-                  ))}
-                </S.ThumbnailsRow>
-                <S.ThumbnailsArrow onClick={scrollRight}>›</S.ThumbnailsArrow>
-              </div>
-            </S.ThumbnailsWrapper>
 
+          <S.ThumbnailsWrapper>
+            <div style={{ position: "relative" }}>
+              <S.ThumbnailsArrow left onClick={scrollLeft}>‹</S.ThumbnailsArrow>
+
+              <S.ThumbnailsRow ref={thumbRef}>
+                {profileData.media?.map((m: any, index: number) => (
+                  <S.Thumbnail
+                    key={index}
+                    active={index === selectedImage}
+                    onClick={() => {
+                      if (m.type === "image") {
+                        const imgIndex = profileData.images.indexOf(m.url);
+                        if (imgIndex >= 0) setSelectedImage(imgIndex);
+                      } else {
+                        // opcional: abrir modal de vídeo
+                        window.open(m.url, "_blank");
+                      }
+                    }}
+                  >
+                    <img src={m.url} alt="" />
+                    {m.type === "video" && (
+                      <S.VideoIcon>
+                        <Play size={14} />
+                      </S.VideoIcon>
+                    )}
+                  </S.Thumbnail>
+                ))}
+              </S.ThumbnailsRow>
+
+              <S.ThumbnailsArrow onClick={scrollRight}>›</S.ThumbnailsArrow>
+            </div>
+          </S.ThumbnailsWrapper>
         </S.LeftColumn>
 
-          {/* RIGHT */}
-          <S.RightColumn>
-            <S.InfoSection>
+        {/* RIGHT */}
+        <S.RightColumn>
+          <S.InfoSection>
+            <div>
+              <S.NameHeading>
+                {profileData.name}
+              </S.NameHeading>
 
-              {/* HEADER */}
-              <div>
-                <S.NameHeading>
-                  {profileData.name}
-                </S.NameHeading>
-
-                <S.Meta>
-                  <MapPin size={14} />
-                  {profileData.locations} • {profileData.age} anos
-                </S.Meta>
+              <S.Meta>
+                <MapPin size={14} />
+                {profileData.location} • {profileData.age} anos
+              </S.Meta>
 
               {profileData.verified && (
-              <S.BadgeVerified>
-                <BadgeCheck size={22} strokeWidth={1.8} />
-                Perfil Verificado
-              </S.BadgeVerified>
-            )}
+                <S.BadgeVerified>
+                  <BadgeCheck size={22} strokeWidth={1.8} />
+                  Perfil Verificado
+                </S.BadgeVerified>
+              )}
+            </div>
 
-              </div>
+            <S.Bio>
+              “{profileData.bio}”
+            </S.Bio>
 
-              {/* BIO */}
-              <S.Bio>
-                “{profileData.bio}”
-              </S.Bio>
+            <S.DetailsList>
+              <S.DetailItem>
+                <span>Etnia:</span>
+                <strong>{profileData.etnia}</strong>
+              </S.DetailItem>
 
-              {/* DETAILS */}
-              <S.DetailsList>
+              <S.DetailItem>
+                <span>Atendimento:</span>
+                <strong>{profileData.atendimento?.join(", ")}</strong>
+              </S.DetailItem>
 
-                <S.DetailItem>
-                  <span>Etnia:</span>
-                  <strong>{profileData.etnia}</strong>
-                </S.DetailItem>
+              <S.DetailItem>
+                <span>Local:</span>
+                <strong>{profileData.lugar?.join(", ")}</strong>
+              </S.DetailItem>
 
-                <S.DetailItem>
-                  <span>Atendimento:</span>
-                  <strong>{profileData.atendimento.join(", ")}</strong>
-                </S.DetailItem>
+              <S.DetailItem>
+                <span>Altura:</span>
+                <strong>{profileData.altura} cm</strong>
+              </S.DetailItem>
 
-                <S.DetailItem>
-                  <span>Local:</span>
-                  <strong>{profileData.lugar.join(", ")}</strong>
-                </S.DetailItem>
+              <S.DetailItem>
+                <span>Peso:</span>
+                <strong>{profileData.peso} kg</strong>
+              </S.DetailItem>
 
-                {/* NOVOS DETALHES */}
-                <S.DetailItem>
-                  <span>Altura:</span>
-                  <strong>{profileData.altura} cm</strong>
-                </S.DetailItem>
+              <S.DetailItem>
+                <span>Pagamento:</span>
+                <strong>{profileData.formasPagamento?.join(", ")}</strong>
+              </S.DetailItem>
+            </S.DetailsList>
 
-                <S.DetailItem>
-                  <span>Peso:</span>
-                  <strong>{profileData.peso} kg</strong>
-                </S.DetailItem>
-
-                <S.DetailItem>
-                  <span>Pagamento:</span>
-                  <strong>{profileData.formasPagamento.join(", ")}</strong>
-                </S.DetailItem>
-
-              </S.DetailsList>
-
-              {/* CTA */}
-              <S.CTAButton
-                onClick={() => {
-                  analyticsService.trackWhatsAppClick(profileData.id);
-
-                  window.open(
-                    "https://wa.me/5511956197970",
-                    "_blank"
-                  );
-                }}
-              >
-
-                <MessageCircle size={18} />
-                AGENDAR
-              </S.CTAButton>
-
-            </S.InfoSection>
-          </S.RightColumn>
+            <S.CTAButton
+              onClick={() => {
+                window.open(
+                  "https://wa.me/5511956197970",
+                  "_blank"
+                );
+              }}
+            >
+              <MessageCircle size={18} />
+              AGENDAR
+            </S.CTAButton>
+          </S.InfoSection>
+        </S.RightColumn>
       </S.ProfileGrid>
     </S.Page>
   );
