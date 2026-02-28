@@ -201,7 +201,6 @@ export const ImageOverlay = styled.div`
 `;
 
 /* ================= ARROWS ================= */
-
 export const ArrowButton = styled.button<{ left?: boolean }>`
   position: absolute;
   top: 50%;
@@ -216,25 +215,64 @@ export const ArrowButton = styled.button<{ left?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
 
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(17, 17, 17, 0.65);
+  backdrop-filter: blur(6px);
 
-  color: #fff;
+  border: 1px solid rgba(252, 216, 98, 0.25);
+
+  color: ${({ theme }) => theme.colors.primary};
+
+  font-size: 18px;
+  cursor: pointer;
+
   opacity: 0;
-  transition: 0.35s;
 
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    border 0.35s ease,
+    opacity 0.25s ease;
+
+  will-change: transform;
+
+  /* aparece no hover do carousel */
   ${CarouselWrapper}:hover & {
-    opacity: 1;
+    opacity: 0.85;
   }
-  
+
+  /* glow base suave */
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 rgba(252, 216, 98, 0);
+
   &:hover {
     transform: translateY(-50%) scale(1.15);
+
+    background: rgba(252, 216, 98, 0.08);
+
+    border: 1px solid rgba(252, 216, 98, 0.65);
+
+    color: #FCD862;
+
+    opacity: 1;
   }
 
-    &:active {
-    transform: translateY(-50%) scale(0.95);
+  &:active {
+    transform: translateY(-50%) scale(0.92);
+
+    box-shadow:
+      0 3px 10px rgba(0, 0, 0, 0.6),
+      inset 0 0 6px rgba(252, 216, 98, 0.35);
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    box-shadow:
+      0 0 0 3px rgba(252, 216, 98, 0.45),
+      0 0 24px rgba(252, 216, 98, 0.45);
   }
 `;
 
@@ -463,33 +501,101 @@ export const CTAButton = styled.button`
 `;
 
 /* ================= THUMBNAILS ================= */
-
 export const ThumbnailsRow = styled.div`
   display: flex;
   gap: 12px;
-  overflow-x: auto;      /* permite scroll horizontal */
-  scroll-behavior: smooth; /* animação suave no scroll */
-  padding-bottom: 4px;
+
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  padding-bottom: 6px;
 
   /* força que sempre apareçam 5 itens visíveis por vez */
-  max-width: calc((68px * 5) + (12px * 4)); /* 5 thumbnails + 4 gaps */
-  
+  max-width: calc((68px * 5) + (12px * 4));
+
+  /* glass effect base */
+  background: linear-gradient(
+    to right,
+    rgba(17, 17, 17, 0.25),
+    rgba(17, 17, 17, 0.45),
+    rgba(17, 17, 17, 0.25)
+  );
+
+  border-radius: 12px;
+
+  /* glow sutil premium */
+  box-shadow:
+    inset 0 0 12px rgba(252, 216, 98, 0.05),
+    0 4px 18px rgba(0, 0, 0, 0.45);
+
+  backdrop-filter: blur(6px);
+
+  transition:
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+
+  &:hover {
+    background: linear-gradient(
+      to right,
+      rgba(17, 17, 17, 0.35),
+      rgba(17, 17, 17, 0.6),
+      rgba(17, 17, 17, 0.35)
+    );
+
+    box-shadow:
+      inset 0 0 16px rgba(255, 196, 0, 0.12),
+      0 6px 24px rgba(0, 0, 0, 0.65);
+  }
+
+  /* SCROLLBAR PREMIUM */
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      90deg,
+      rgba(252, 216, 98, 0.35),
+      rgba(252, 216, 98, 0.75),
+      rgba(252, 216, 98, 0.35)
+    );
+
+    border-radius: 999px;
+
+    box-shadow:
+      0 0 8px rgba(252, 216, 98, 0.35);
+
+    transition: all 0.25s ease;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      90deg,
+      rgba(252, 216, 98, 0.55),
+      rgba(252, 216, 98, 1),
+      rgba(252, 216, 98, 0.55)
+    );
+
+    box-shadow:
+      0 0 12px rgba(252, 216, 98, 0.65);
+  }
+
+  /* tablet */
   @media (max-width: 768px) {
-    max-width: calc((58px * 5) + (10px * 4)); /* reduz tamanho para tablet */
+    max-width: calc((58px * 5) + (10px * 4));
     gap: 10px;
   }
 
+  /* mobile */
   @media (max-width: 480px) {
-    max-width: calc((48px * 5) + (8px * 4)); /* mobile */
+    max-width: calc((48px * 5) + (8px * 4));
     gap: 8px;
-  }
-  
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 999px;
   }
 `;
 
@@ -550,32 +656,71 @@ export const ThumbnailsWrapper = styled.div`
 export const ThumbnailsArrow = styled.button<{ left?: boolean }>`
   position: absolute;
   top: 50%;
-  ${({ left }) => (left ? "left: -8px;" : "right: -8px;")}
+  ${({ left }) => (left ? "left: -30px;" : "right: -30px;")}
   transform: translateY(-50%);
   z-index: 5;
 
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #fff;
-  font-size: 18px;
+  background: rgba(17, 17, 17, 0.65);
+  backdrop-filter: blur(6px);
 
+  border: 1px solid rgba(252, 216, 98, 0.25);
+
+  color: ${({ theme }) => theme.colors.primary};
+
+  font-size: 18px;
   cursor: pointer;
-  transition: 0.3s;
+
+  opacity: 0.85;
+
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    border 0.35s ease,
+    opacity 0.25s ease;
+
+  will-change: transform;
+
+  /* glow base suave */
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 rgba(252, 216, 98, 0);
 
   &:hover {
     transform: translateY(-50%) scale(1.15);
+
+    background: rgba(252, 216, 98, 0.08);
+
+    border: 1px solid rgba(252, 216, 98, 0.65);
+
+    color: #FCD862;
+
+    opacity: 1;
+
   }
 
   &:active {
-    transform: translateY(-50%) scale(0.95);
+    transform: translateY(-50%) scale(0.92);
+
+    box-shadow:
+      0 3px 10px rgba(0, 0, 0, 0.6),
+      inset 0 0 6px rgba(252, 216, 98, 0.35);
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    box-shadow:
+      0 0 0 3px rgba(252, 216, 98, 0.45),
+      0 0 24px rgba(252, 216, 98, 0.45);
   }
 `;
 

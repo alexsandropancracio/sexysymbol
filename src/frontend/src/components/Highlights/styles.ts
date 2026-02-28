@@ -241,40 +241,74 @@ export const ArrowBase = styled.button`
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: none;
-
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  font-size: 32px;
-  cursor: pointer;
-  z-index: 3;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  transition: background 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+  border: 1px solid rgba(252, 216, 98, 0.25);
 
-  opacity: 0; /* 🔑 começa invisível */
+  background: rgba(17, 17, 17, 0.65);
+  backdrop-filter: blur(6px);
+
+  color: ${({ theme }) => theme.colors.primary};
+
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 3;
+
+  opacity: 0;
+
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    border 0.35s ease,
+    opacity 0.25s ease;
+
+  will-change: transform;
+
+  /* glow base suave */
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 rgba(252, 216, 98, 0);
 
   &:hover {
-    transform: translateY(-50%) scale(1.05);
+    transform: translateY(-50%) scale(1.12);
+
+    background: rgba(252, 216, 98, 0.08);
+
+    border: 1px solid rgba(252, 216, 98, 0.65);
+
+    color: #FCD862;
   }
 
   &:active {
-    transform: translateY(-50%) scale(0.95);
+    transform: translateY(-50%) scale(0.92);
+
+    box-shadow:
+      0 3px 10px rgba(0, 0, 0, 0.6),
+      inset 0 0 6px rgba(252, 216, 98, 0.35);
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    box-shadow:
+      0 0 0 3px rgba(252, 216, 98, 0.45),
+      0 0 24px rgba(252, 216, 98, 0.45);
   }
 
   @media (max-width: 768px) {
     width: 42px;
     height: 42px;
-    font-size: 28px;
+    font-size: 24px;
   }
 
   @media (max-width: 426px) {
     width: 36px;
     height: 36px;
-    font-size: 22px;
+    font-size: 20px;
   }
 
   @media (max-width: 320px) {
@@ -290,7 +324,7 @@ export const ArrowLeft = styled(ArrowBase)`
 
   ${({}) => `
     ${Card}:hover & {
-      opacity: 1; /* 🔑 aparece no hover do container */
+      opacity: 0.85;
     }
   `}
 
@@ -308,7 +342,7 @@ export const ArrowRight = styled(ArrowBase)`
 
   ${({}) => `
     ${Card}:hover & {
-      opacity: 1; /* 🔑 aparece no hover do container */
+      opacity: 0.85;
     }
   `}
 

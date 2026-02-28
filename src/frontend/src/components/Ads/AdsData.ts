@@ -6,17 +6,23 @@ export interface Ad {
   name: string;
   age: number;
   location?: string;
-  whatsapp?: string;
+  contato?: string;
   verified?: boolean;
+  cover?: string;
   bio?: string;
   etnia?: string;
   atendimento?: string[];
   lugar?: string[];
   locations?: string[];
   formasPagamento?: string[];
+  services?: string[];
   images: string[];
   videos: string[];
-  media: { url: string; type: string; order_index?: number }[];
+    media: {
+    url: string;
+    type?: string;
+    is_cover?: boolean;
+  }[];
 }
 
 export interface AdMedia {

@@ -427,24 +427,63 @@ export const ArrowButton = styled.button<{ left?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
 
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(17, 17, 17, 0.65);
+  backdrop-filter: blur(6px);
 
-  color: #fff;
+  border: 1px solid rgba(252, 216, 98, 0.25);
+
+  color: ${({ theme }) => theme.colors.primary};
+
+  font-size: 18px;
+  cursor: pointer;
+
   opacity: 0;
-  transition: 0.35s;
 
-  ${ImageWrapper}:hover & {  /* 🔑 aqui ajustamos para o card */
-    opacity: 1;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    border 0.35s ease,
+    opacity 0.25s ease;
+
+  will-change: transform;
+
+  /* aparece no hover do carousel */
+  ${ImageWrapper}:hover & {
+    opacity: 0.85;
   }
+
+  /* glow base suave */
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 rgba(252, 216, 98, 0);
 
   &:hover {
     transform: translateY(-50%) scale(1.15);
+
+    background: rgba(252, 216, 98, 0.08);
+
+    border: 1px solid rgba(252, 216, 98, 0.65);
+
+    color: #FCD862;
+
+    opacity: 1;
   }
-  
-      &:active {
-    transform: translateY(-50%) scale(0.95);
+
+  &:active {
+    transform: translateY(-50%) scale(0.92);
+
+    box-shadow:
+      0 3px 10px rgba(0, 0, 0, 0.6),
+      inset 0 0 6px rgba(252, 216, 98, 0.35);
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    box-shadow:
+      0 0 0 3px rgba(252, 216, 98, 0.45),
+      0 0 24px rgba(252, 216, 98, 0.45);
   }
 `;

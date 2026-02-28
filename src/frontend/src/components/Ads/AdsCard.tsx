@@ -30,28 +30,53 @@ interface AdsCardProps {
 export function AdsCard({ ad }: AdsCardProps) {
   const [currentImage, setCurrentImage] = useState(0);
 
+  // ✅ DECLARE PRIMEIRO
+  const galleryImages =
+    ad.media
+      ?.filter((m) => !m.is_cover)
+      .map((m) => m.url) || [];
+
+  // ✅ DEPOIS use
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % Math.min(ad.images.length, 4));
+    if (galleryImages.length === 0) return;
+
+    setCurrentImage(
+      (prev) =>
+        (prev + 1) %
+        Math.min(galleryImages.length, 4)
+    );
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + Math.min(ad.images.length, 4)) % Math.min(ad.images.length, 4));
+    if (galleryImages.length === 0) return;
+
+    setCurrentImage(
+      (prev) =>
+        (prev - 1 + Math.min(galleryImages.length, 4)) %
+        Math.min(galleryImages.length, 4)
+    );
   };
+  console.log("MEDIA:", ad.media);
 
   return (
     <Card>
       <ImageWrapper>
-        <Image src={ad.images.slice(0, 4)[currentImage]} alt={ad.name} />
 
-        {/* Botão esquerdo */}
+        {galleryImages.length > 0 && (
+          <Image
+            src={galleryImages.slice(0, 4)[currentImage]}
+            alt={ad.name}
+          />
+        )}
+
         <ArrowButton left onClick={prevImage}>
           ‹
         </ArrowButton>
 
-        {/* Botão direito */}
         <ArrowButton onClick={nextImage}>
           ›
         </ArrowButton>
+
       </ImageWrapper>
       <Content>
         <Link
@@ -71,12 +96,14 @@ export function AdsCard({ ad }: AdsCardProps) {
 
               {/* CTA */}
               <S.CTAButton
-                onClick={() =>
+                onClick={() => {
+                  if (!ad.contato) return;
+                  
                   window.open(
-                    "https://wa.me/5511956197970",
+                    `https://wa.me/${ad.contato}`,
                     "_blank"
-                  )
-                }
+                  );
+                }}
               >
                 <MessageCircle size={18} />
                 AGENDAR

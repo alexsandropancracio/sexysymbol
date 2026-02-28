@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react"; // adicionei useRef e useEffect
 import type { Dispatch, SetStateAction } from "react";
+import { supabase } from "@/lib/supabase";
 
 import {
   FilterToggle,
@@ -16,6 +17,7 @@ export interface FiltersState {
   atendimento: string[];
   lugar: string[];
   etnia: string[];
+  services: string[];
   locations: string[]; // ✅ array real
   idadeMin?: number;
   idadeMax?: number;
@@ -32,6 +34,8 @@ interface FiltersProps {
   setFilters: Dispatch<SetStateAction<FiltersState>>;
 }
 
+
+
 /* =======================
    COMPONENTE
 ======================= */
@@ -41,6 +45,8 @@ export function Filters({ filters, setFilters }: FiltersProps) {
   const [showSuggestions, setShowSuggestions] = useState(false); // controle de autocomplete
 
   const wrapperRef = useRef<HTMLDivElement>(null); // referência para fechar ao clicar fora
+  
+
 
   /* ======================= FUNÇÕES ======================= */
   const toggleOption = (category: keyof FiltersState, option: string) => {
@@ -65,16 +71,35 @@ export function Filters({ filters, setFilters }: FiltersProps) {
     });
   };
 
-  // Fechar autocomplete ao clicar fora
+// ================== USEEFFECT SUPABASE ==================
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setShowSuggestions(false);
+    console.log("Filtros de serviços atualizados:", filters.services);
+    async function fetchAds() {
+      let query = supabase.from("ads").select("*");
+      
+      if (filters.services.length > 0) {
+        query = query.overlaps("services", filters.services);
       }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+      if (filters.lugar.length > 0) {
+        query = query.in("lugar", filters.lugar);
+      }
+      if (filters.formasPagamento.length > 0) {
+        query = query.overlaps("formasPagamento", filters.formasPagamento);
+      }
+
+      const { data: ads, error } = await query;
+
+      if (error) {
+        console.error("Erro ao buscar anúncios:", error);
+      } else {
+        console.log("Anúncios encontrados:", ads);
+        // Aqui você pode atualizar um estado externo ou enviar para o parent
+        // setAds(ads);
+      }
+    }
+
+    fetchAds();
+  }, [filters]); // 🔹 Sempre que os filtros mudarem
 
   const filteredLocations = locationsList.filter(
     (loc) =>
@@ -93,6 +118,8 @@ export function Filters({ filters, setFilters }: FiltersProps) {
     setShowSuggestions(false);
   };
 
+  
+
   /* =======================
      DADOS
   ======================= */
@@ -100,6 +127,20 @@ export function Filters({ filters, setFilters }: FiltersProps) {
   const lugares = ["Com local", "Sem local", "Festas", "Jantar Romântico", "Viagens"];
   const etnias = ["Brancas", "Latinas", "Mulatas", "Negras", "Orientais"];
   const formasPagamento = ["Cartão de Crédito", "Cartão de Débito", "Pix", "Dinheiro"];
+  const servicesList = [
+    "Sexo Oral",
+    "Sexo Vaginal",
+    "Sexo Anal",
+    "Squirt",
+    "Dominação",
+    "Fantasias",
+    "Acessórios Eróticos",
+    "Podologia",
+    "Beijo Grego",
+    "Massagem Tradicional",
+    "Massagem Tântrica",
+    "Beijo na Boca"
+  ];
 
   /* =======================
      JSX
@@ -375,6 +416,33 @@ export function Filters({ filters, setFilters }: FiltersProps) {
           </div>
         </FilterCategory>
 
+        {/* ===== SERVIÇOS ===== */}
+        <FilterCategory>
+            <h4>Serviços:</h4>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "8px" }}>
+              {servicesList.map((s) => {
+                const isSelected = filters.services.includes(s);
+                return (
+                  <button
+                    key={s}
+                    onClick={() => toggleOption("services", s)}
+                    style={{
+                      padding: "10px 12px",
+                      borderRadius: "8px",
+                      border: isSelected ? "1px solid #C9A24D" : "none",
+                      background: isSelected ? "rgba(201,162,77,0.4)" : "rgba(0,0,0,0.4)",
+                      color: isSelected ? "#000" : "#fff",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {s}
+                  </button>
+                );
+              })}
+            </div>
+        </FilterCategory>
+
         {/* ===== AÇÕES ===== */}
         <FilterCategory style={{ marginTop: "16px", display: "flex", justifyContent: "center" }}>
           <button
@@ -384,6 +452,7 @@ export function Filters({ filters, setFilters }: FiltersProps) {
                 atendimento: [],
                 lugar: [],
                 etnia: [],
+                services: [],
                 locations: [],
                 idadeMin: undefined,
                 idadeMax: undefined,

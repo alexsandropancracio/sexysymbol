@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { highlights } from "./mock";
 import {
   Section,
   Title,
@@ -13,68 +12,125 @@ import {
   ArrowRight,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
-
+import { getHighlights } from "./AdsService";
+import type { Ad } from "@/components/Ads/AdsData";
 
 export function Highlights() {
-  // 🔄 Índice inicial aleatório
-  const [index, setIndex] = useState(() => Math.floor(Math.random() * highlights.length));
 
-  function next() {
-    setIndex((prev) => (prev + 1) % highlights.length);
-  }
-
-  function prev() {
-    setIndex((prev) =>
-      prev === 0 ? highlights.length - 1 : prev - 1
-    );
-  }
+  // ✅ State com dados reais do Supabase
+  const [ads, setAds] = useState<Ad[]>([]);
+  const [index, setIndex] = useState(0);
 
   const navigate = useNavigate();
 
-  // 🔄 Auto-play
+  // ✅ Carregar highlights do Supabase
   useEffect(() => {
-    const interval = setInterval(next, 5000);
-    return () => clearInterval(interval);
+
+    async function loadHighlights() {
+
+      const data = await getHighlights();
+
+      if (!data || data.length === 0) return;
+
+      setAds(data);
+
+      // índice inicial aleatório
+      const randomIndex = Math.floor(Math.random() * data.length);
+      setIndex(randomIndex);
+
+    }
+
+    loadHighlights();
+
   }, []);
 
+  // ✅ Next com proteção
+  function next() {
+
+    if (ads.length === 0) return;
+
+    setIndex((prev) => (prev + 1) % ads.length);
+
+  }
+
+  // ✅ Prev com proteção
+  function prev() {
+
+    if (ads.length === 0) return;
+
+    setIndex((prev) =>
+      prev === 0 ? ads.length - 1 : prev - 1
+    );
+
+  }
+
+  // ✅ Auto-play seguro
+  useEffect(() => {
+
+    if (ads.length === 0) return;
+
+    const interval = setInterval(next, 5000);
+
+    return () => clearInterval(interval);
+
+  }, [ads]);
+
+  // ✅ Evita renderizar vazio
+  if (ads.length === 0) return null;
+
   return (
+
     <Section>
+
       <Title>DESTAQUES</Title>
 
       <Card>
+
         <ArrowLeft onClick={prev}>‹</ArrowLeft>
         <ArrowRight onClick={next}>›</ArrowRight>
-        
-        
-        {highlights.map((highlight, i) => (
-          <picture key={highlight.imageDesktop}>
+
+        {/* IMAGENS */}
+        {ads.map((ad, i) => (
+          <picture key={ad.id}>
+            {/* Mobile - podemos usar a mesma cover ou ajustar conforme necessário */}
             <source
               media="(max-width: 768px)"
-              srcSet={highlight.imageMobile}
+              srcSet={ad.cover}
             />
+
+            {/* Desktop */}
             <Image
-              src={highlight.imageDesktop}
-              alt={highlight.name}
-              $active={i === index}
+              src={ad.cover} // 🔹 sempre usar a capa garantida
+              alt={ad.name}
+              $active={i === index} // controla a visibilidade do slide
             />
           </picture>
         ))}
 
+        {/* INFO */}
+        {ads.map((ad, i) => (
 
-        {highlights.map((highlight, i) => (
-          <Info key={highlight.id} $active={i === index}>
-            <Name>{highlight.name}</Name>
+          <Info key={ad.id} $active={i === index}>
+
+            <Name>{ad.name}</Name>
+
             <Meta>
-              {highlight.age} anos • {highlight.location}
+              {ad.age} anos • {ad.location}
             </Meta>
 
-            <Button onClick={() => navigate(`/perfil/${highlight.id}`)}>
+            <Button onClick={() => navigate(`/perfil/${ad.id}`)}>
               Ver perfil
             </Button>
 
           </Info>
+
         ))}
+
       </Card>
+
     </Section>
+
   );
+
 }
+

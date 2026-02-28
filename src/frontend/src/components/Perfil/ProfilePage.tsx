@@ -51,12 +51,12 @@ export function ProfilePage() {
         return;
       }
 
-      // Buscar mídias (imagens e vídeos)
+      // 🔥 AJUSTE AQUI: trazer is_cover e ordenar corretamente
       const { data: media, error: mediaError } = await supabase
         .from("ad_media")
-        .select("url,type,order_index")
+        .select("url,type,order_index,is_cover")
         .eq("ad_id", id)
-        .order("order_index");
+        .order("order_index", { ascending: true });
 
       if (mediaError) {
         console.error("Erro ao buscar mídias:", mediaError);
@@ -64,15 +64,45 @@ export function ProfilePage() {
         return;
       }
 
-      // Separar imagens e vídeos
-      const images = media?.filter((m: any) => m.type === "image").map((m: any) => m.url) || [];
-      const videos = media?.filter((m: any) => m.type === "video").map((m: any) => m.url) || [];
+      // 🔥 ordenar com fallback seguro
+      const sortedMedia =
+        media?.sort(
+          (a: any, b: any) =>
+            (a.order_index || 0) - (b.order_index || 0)
+        ) || [];
+
+      // 🔥 excluir capa das imagens
+      const images =
+        sortedMedia
+          .filter(
+            (m: any) =>
+              m.type === "image" &&
+              m.is_cover !== true
+          )
+          .map(
+            (m: any) => m.url
+          );
+
+      const videos =
+        sortedMedia
+          .filter(
+            (m: any) =>
+              m.type === "video"
+          )
+          .map(
+            (m: any) => m.url
+          );
+
+      const visibleMedia =
+        sortedMedia.filter(
+          (m: any) => m.is_cover !== true
+        );
 
       setProfileData({
         ...ad,
         images,
         videos,
-        media, // Todos os arquivos, pra usar nos thumbnails
+        media: visibleMedia,
       });
 
       setSelectedImage(0);
@@ -104,7 +134,6 @@ export function ProfilePage() {
   const pageUrl = typeof window !== "undefined" ? window.location.href : "";
   const imageUrl = profileData.images?.[0] || "";
 
-  // Carousel principal (apenas imagens)
   const next = () => {
     setSelectedImage(prev =>
       (prev + 1) % profileData.images.length
@@ -198,7 +227,7 @@ export function ProfilePage() {
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.0 }}
                 style={{
                   width: "100%",
                   height: "100%",
@@ -299,16 +328,23 @@ export function ProfilePage() {
                 <span>Pagamento:</span>
                 <strong>{profileData.formasPagamento?.join(", ")}</strong>
               </S.DetailItem>
+
+              <S.DetailItem>
+                <span>Serviços:</span>
+                <strong>{profileData.services?.join(", ")}</strong>
+              </S.DetailItem>
             </S.DetailsList>
 
             <S.CTAButton
               onClick={() => {
+                if (!profileData?.contato) return;
+
                 window.open(
-                  "https://wa.me/5511956197970",
+                  `https://wa.me/${profileData.contato}`,
                   "_blank"
                 );
               }}
-            >
+              >
               <MessageCircle size={18} />
               AGENDAR
             </S.CTAButton>
