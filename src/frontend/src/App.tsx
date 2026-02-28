@@ -21,6 +21,8 @@ import { AgeGuard } from "./routes/AgeGuard";
 
 import { AdsProvider } from "./components/Ads/AdsContext";
 import { Construcao } from "./components/Construcao/Construcao";
+import { ProtectedRoute } from "@/admin/components/ProtectedRoute";
+import LoginPage from "@/admin/pages/Login/LoginPage"
 
 function App() {
   const [selectedName, setSelectedName] = useState("");
@@ -76,10 +78,16 @@ function App() {
 
                   <Route path="/perfil/:id" element={<ProfilePage />} />
 
+                  <Route path="/admin/login" element={<LoginPage />} />
+
                   {/* 🔐 ADMIN */}
-                  <Route
+                <Route
                     path="/admin/dashboard"
-                    element={<Dashboard />}
+                    element={
+                      <ProtectedRoute>
+                        <Dashboard />
+                      </ProtectedRoute>
+                    }
                   />
 
                   <Route path="/sobre" element={<Sobre />} />
