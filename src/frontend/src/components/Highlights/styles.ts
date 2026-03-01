@@ -259,13 +259,6 @@ export const ArrowBase = styled.button`
 
   opacity: 0;
 
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease,
-    background 0.35s ease,
-    border 0.35s ease,
-    opacity 0.25s ease;
-
   will-change: transform;
 
   /* glow base suave */

@@ -440,13 +440,6 @@ export const ArrowButton = styled.button<{ left?: boolean }>`
 
   opacity: 0;
 
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease,
-    background 0.35s ease,
-    border 0.35s ease,
-    opacity 0.25s ease;
-
   will-change: transform;
 
   /* aparece no hover do carousel */
