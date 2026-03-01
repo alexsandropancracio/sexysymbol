@@ -267,7 +267,6 @@ export const ArrowBase = styled.button`
     inset 0 0 0 rgba(252, 216, 98, 0);
 
   &:hover {
-    transform: translateY(-50%) scale(1.12);
 
     background: rgba(252, 216, 98, 0.08);
 

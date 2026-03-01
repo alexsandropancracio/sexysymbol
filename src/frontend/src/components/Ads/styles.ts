@@ -453,7 +453,7 @@ export const ArrowButton = styled.button<{ left?: boolean }>`
     inset 0 0 0 rgba(252, 216, 98, 0);
 
   &:hover {
-    transform: translateY(-50%) scale(1.15);
+
 
     background: rgba(252, 216, 98, 0.08);
 

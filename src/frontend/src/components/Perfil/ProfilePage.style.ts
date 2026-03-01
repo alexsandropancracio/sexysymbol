@@ -241,7 +241,6 @@ export const ArrowButton = styled.button<{ left?: boolean }>`
     inset 0 0 0 rgba(252, 216, 98, 0);
 
   &:hover {
-    transform: translateY(-50%) scale(1.15);
 
     background: rgba(252, 216, 98, 0.08);
 
@@ -673,12 +672,6 @@ export const ThumbnailsArrow = styled.button<{ left?: boolean }>`
 
   opacity: 0.85;
 
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease,
-    background 0.35s ease,
-    border 0.35s ease,
-    opacity 0.25s ease;
 
   will-change: transform;
 
@@ -688,7 +681,6 @@ export const ThumbnailsArrow = styled.button<{ left?: boolean }>`
     inset 0 0 0 rgba(252, 216, 98, 0);
 
   &:hover {
-    transform: translateY(-50%) scale(1.15);
 
     background: rgba(252, 216, 98, 0.08);
 
