@@ -319,10 +319,7 @@ export function ProfilePage() {
                 <strong>{profileData.altura} cm</strong>
               </S.DetailItem>
 
-              <S.DetailItem>
-                <span>Peso:</span>
-                <strong>{profileData.peso} kg</strong>
-              </S.DetailItem>
+
 
               <S.DetailItem>
                 <span>Pagamento:</span>
