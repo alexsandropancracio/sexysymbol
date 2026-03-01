@@ -27,6 +27,7 @@ const locationsList = [
   "Salvador - BA",
   "Feira de Santana - BA",
   "Lauro de Freitas - BA",
+  "Goiânia - GO",
 ];
 
 interface FiltersProps {
@@ -126,7 +127,7 @@ export function Filters({ filters, setFilters }: FiltersProps) {
   const atendimentos = ["Homens", "Mulheres", "Casais", "PCD"];
   const lugares = ["Com local", "Sem local", "Festas", "Jantar Romântico", "Viagens"];
   const etnias = ["Brancas", "Latinas", "Mulatas", "Negras", "Orientais"];
-  const formasPagamento = ["Cartão de Crédito", "Cartão de Débito", "Pix", "Dinheiro"];
+  const formasPagamento = ["Cartão de Crédito", "Cartão de Débito", "Pix", "Dinheiro", "À consultar"];
   const servicesList = [
     "Sexo Oral",
     "Sexo Vaginal",
