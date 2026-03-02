@@ -157,7 +157,7 @@ export const CarouselWrapper = styled.div`
 
   width: 100%;
   max-width: 420px; /* desktop */
-  aspect-ratio: 3.4 / 5; /* proporção elegante */
+  aspect-ratio: 2.3 / 4; /* proporção elegante */
 
   border-radius: 22px;
   overflow: hidden;
