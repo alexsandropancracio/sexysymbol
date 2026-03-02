@@ -176,7 +176,7 @@ export function Termos() {
         <S.Section>
           <S.SectionTitle>7. Contato</S.SectionTitle>
           <S.Text>
-            <p>atendimento@sexysymbol.com.br</p>
+            <p>sexysymbolofficial@gmail.com</p>
           </S.Text>
         </S.Section>
       </S.Content>

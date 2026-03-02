@@ -29,7 +29,7 @@ export function Contato() {
 
           <S.ContactBlock>
             <S.Label>E-mail oficial</S.Label>
-            <S.Contact>contato@sexysymbol.com.br</S.Contact>
+            <S.Contact>sexysymbolofficial@gmail.com</S.Contact>
           </S.ContactBlock>
 
           <S.ContactBlock>

@@ -174,7 +174,7 @@ export function Privacidade() {
             para:
           </S.Text>
           <S.Text>
-            <strong>atendimento@sexysymbol.com.br</strong>
+            <strong>sexysymbolofficial@gmail.com</strong>
             <br />
 
           </S.Text>
