@@ -71,7 +71,7 @@ A plataforma pode solicitar comprovação de identidade e titularidade das image
 
 4.3 Suspensão ou remoção
 
-A Sexysymbol poderá suspender ou remover perfis que:
+A sexysymbol poderá suspender ou remover perfis que:
 
 Descumpram os Termos
 
@@ -109,7 +109,9 @@ Tentativa de golpe ou fraude
 
 A Sexysymbol:
 
-Não garante a veracidade absoluta dos perfis
+Qualquer pessoa que alegue atuar como representante, recrutador ou intermediário da sesysymbol não possui autorização e deve ser considerada fraude.
+
+Garante a veracidade absoluta dos perfis das anunciantes
 
 Não participa de encontros presenciais
 

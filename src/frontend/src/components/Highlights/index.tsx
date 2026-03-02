@@ -95,7 +95,7 @@ export function Highlights() {
             {/* Mobile - podemos usar a mesma cover ou ajustar conforme necessário */}
             <source
               media="(max-width: 768px)"
-              srcSet={ad.cover}
+              srcSet={ad.images[2]}
             />
 
             {/* Desktop */}
