@@ -60,7 +60,7 @@ export const Card = styled.div`
 
   @media (max-width: 480px) {
     width: 99.8%;
-    height: 77vh;
+    height: 75vh;
     min-height: 280px;
     max-height: none;
   }
