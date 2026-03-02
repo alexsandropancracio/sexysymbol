@@ -178,7 +178,7 @@ export const CarouselWrapper = styled.div`
 
   @media (max-width: 480px) {
     max-width: 95%; /* ocupa toda a tela */
-    aspect-ratio: 2.6 / 4; 
+    aspect-ratio: 2.41 / 4; 
     border-radius: 18px;
   }
 `;
