@@ -59,8 +59,8 @@ export const Card = styled.div`
   }
 
   @media (max-width: 480px) {
-    width: 99%;
-    height: 65vh;
+    width: 99.8%;
+    height: 77vh;
     min-height: 280px;
     max-height: none;
   }
@@ -93,7 +93,7 @@ export const Image = styled.img<{ $active: boolean }>`
   }
 
   @media (max-width: 426px) {
-    object-position: center;
+    object-position: center 15%;
   }
 `;
 
