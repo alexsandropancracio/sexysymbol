@@ -8,16 +8,16 @@ const seoConfig: Record<
   string,
   { title: string; description: string }
 > = {
-  "acompanhantes-luxo-salvador": {
-    title: "Acompanhantes de Luxo em Salvador | SexySymbol",
+  "acompanhantes-luxo-goiania": {
+    title: "Acompanhantes de Luxo em Goiânia | SexySymbol",
     description:
-      "Encontre acompanhantes de luxo em Salvador com discrição e alto padrão."
+      "Encontre acompanhantes de luxo em Goiânia com discrição e alto padrão."
   },
 
-  "acompanhantes-luxo-pituba": {
-    title: "Acompanhantes de Luxo na Pituba | SexySymbol",
+  "acompanhantes-luxo-goias": {
+    title: "Acompanhantes de Luxo em Goiás | SexySymbol",
     description:
-      "Perfis verificados na Pituba com atendimento exclusivo."
+      "Perfis verificados em Goías com atendimento exclusivo."
   }
 };
 
@@ -38,7 +38,7 @@ export function SeoPage() {
       <Helmet>
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />
-        <link rel="canonical" href={`https://sexysymbol.com.br/${slug}`} />
+        <link rel="canonical" href={`https://www.sexysymbol.com.br/${slug}`} />
       </Helmet>
 
       <Highlights />
