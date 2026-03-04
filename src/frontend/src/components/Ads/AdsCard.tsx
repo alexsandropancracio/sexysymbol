@@ -59,7 +59,7 @@ export function AdsCard({ ad }: AdsCardProps) {
   console.log("MEDIA:", ad.media);
 
   return (
-    <Card>
+    <Card $highlight={Boolean(ad.is_highlight)}>
       <ImageWrapper>
 
         {galleryImages.length > 0 && (
@@ -94,20 +94,21 @@ export function AdsCard({ ad }: AdsCardProps) {
         <Info>Idade: {ad.age} anos</Info>
         {ad.location && <Location>Estado: {ad.location}</Location>}
 
-              {/* CTA */}
-              <S.CTAButton
-                onClick={() => {
-                  if (!ad.contato) return;
-                  
-                  window.open(
-                    `https://wa.me/${ad.contato}`,
-                    "_blank"
-                  );
-                }}
-              >
-                <MessageCircle size={18} />
-                AGENDAR
-              </S.CTAButton>
+          {/* CTA */}
+          <S.CTAButton
+            onClick={() => {
+              if (!ad.contato) return;
+
+              const mensagem = `Olá ${ad.name}, tudo bem? Vi seu perfil na sexysymbol e gostaria de agendar um horário.`;
+
+              const url = `https://wa.me/${ad.contato}?text=${encodeURIComponent(mensagem)}`;
+
+              window.open(url, "_blank");
+            }}
+          >
+            <MessageCircle size={18} />
+            AGENDAR
+          </S.CTAButton>
       </Content>
     </Card>
   );

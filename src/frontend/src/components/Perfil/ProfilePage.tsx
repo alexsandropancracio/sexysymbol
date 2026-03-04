@@ -336,12 +336,13 @@ export function ProfilePage() {
               onClick={() => {
                 if (!profileData?.contato) return;
 
-                window.open(
-                  `https://wa.me/${profileData.contato}`,
-                  "_blank"
-                );
+                const mensagem = `Olá ${profileData.name}, tudo bem? Vi seu perfil na sexysymbol e gostaria de agendar um horário.`;
+
+                const url = `https://wa.me/${profileData.contato}?text=${encodeURIComponent(mensagem)}`;
+
+                window.open(url, "_blank");
               }}
-              >
+            >
               <MessageCircle size={18} />
               AGENDAR
             </S.CTAButton>

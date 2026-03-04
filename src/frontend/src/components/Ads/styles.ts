@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 
 /* ===== SECTION ===== */
@@ -171,8 +171,11 @@ export const Grid = styled.div`
   }
 `;
 
-/* ===== CARD ===== */
+interface CardProps {
+  $highlight?: boolean;
+}
 
+/* ===== CARD ===== */
 const borderAnimation = keyframes`
   from {
     background-position: 0% 0%, 0% 50%;
@@ -182,22 +185,33 @@ const borderAnimation = keyframes`
   }
 `;
 
-export const Card = styled.div`
-  background:
-    linear-gradient(#111, #111) padding-box,
-    linear-gradient(90deg, #fcd862, #554922, #fcd862) border-box;
+interface CardProps {
+  $highlight?: boolean;
+}
 
-  border: 2px solid transparent;
+export const Card = styled.div<CardProps>`
   border-radius: 16px;
-
-  background-size: 100% 100%, 200% 200%;
-  animation: ${borderAnimation} 5s linear infinite;
-
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
-  box-shadow: 0 0 30px rgba(201, 162, 77, 0.4);
+
+  ${({ $highlight }) =>
+    $highlight
+      ? css`
+          background:
+            linear-gradient(#111, #111) padding-box,
+            linear-gradient(90deg, #fcd862, #554922, #fcd862) border-box;
+
+          border: 2px solid transparent;
+          background-size: 100% 100%, 200% 200%;
+          animation: ${borderAnimation} 5s linear infinite;
+          box-shadow: 0 0 30px rgba(201, 162, 77, 0.4);
+        `
+      : css`
+          background: #111;
+          border: 1px solid #222;
+        `}
 
   &:hover {
     transform: translateY(-4px);

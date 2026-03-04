@@ -16,6 +16,7 @@ export interface Ad {
   locations?: string[];
   formasPagamento?: string[];
   services?: string[];
+  is_highlight?: boolean;
   images: string[];
   videos: string[];
     media: {
