@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
 
 /* ===== SECTION ===== */
 export const Section = styled.section`
@@ -171,13 +172,32 @@ export const Grid = styled.div`
 `;
 
 /* ===== CARD ===== */
+
+const borderAnimation = keyframes`
+  from {
+    background-position: 0% 0%, 0% 50%;
+  }
+  to {
+    background-position: 0% 0%, 200% 50%;
+  }
+`;
+
 export const Card = styled.div`
-  background: #111;
+  background:
+    linear-gradient(#111, #111) padding-box,
+    linear-gradient(90deg, #fcd862, #554922, #fcd862) border-box;
+
+  border: 2px solid transparent;
   border-radius: 16px;
+
+  background-size: 100% 100%, 200% 200%;
+  animation: ${borderAnimation} 5s linear infinite;
+
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
+  box-shadow: 0 0 30px rgba(201, 162, 77, 0.4);
 
   &:hover {
     transform: translateY(-4px);
@@ -192,7 +212,7 @@ export const ImageWrapper = styled.div`
   position: relative;
 
     @media (max-width: 480px) {
-    height: 540px;
+    height: 610px;
   }
 `;
 
