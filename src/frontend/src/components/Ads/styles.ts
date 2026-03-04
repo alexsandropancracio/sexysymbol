@@ -225,8 +225,24 @@ export const ImageWrapper = styled.div`
   overflow: hidden;
   position: relative;
 
-    @media (max-width: 480px) {
+  /* 📱 Mobile */
+  @media (max-width: 480px) {
     height: 545px;
+  }
+
+  /* 🖥 Desktop grande */
+  @media (min-width: 1600px) {
+    height: 900px;
+  }
+
+  /* 📺 TV / 4K */
+  @media (min-width: 1920px) {
+    height: 800px;
+  }
+
+  /* 🧱 Ultra wide */
+  @media (min-width: 2560px) {
+    height: 900px;
   }
 `;
 
